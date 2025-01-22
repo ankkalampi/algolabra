@@ -1,0 +1,1 @@
+/usr/bin/g++ -std=c++17 CMakeFiles/neuralanimals.dir/src/main.cpp.o -o neuralanimals  -L/usr/lib/x86_64-linux-gnu  -lSDL2 

@@ -1,0 +1,3 @@
+/home/paul/dev/algolabra/build/CMakeFiles/neuralanimals.dir
+/home/paul/dev/algolabra/build/CMakeFiles/edit_cache.dir
+/home/paul/dev/algolabra/build/CMakeFiles/rebuild_cache.dir
