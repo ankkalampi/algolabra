@@ -1,6 +1,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_error.h>
+#include <SDL2/SDL_events.h>
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_rwops.h>
+#include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_video.h>
 #include <iostream>
 
@@ -41,4 +44,35 @@ int main(){
         SDL_Quit();
         return 1;
     } 
+
+    // main loop
+
+    bool running  = true;
+    SDL_Event event;
+
+    while(running){
+
+        // check events, quit if window closed
+        while(SDL_PollEvent(&event)){
+            if (event.type == SDL_QUIT){
+                running = false;
+            }
+        }
+
+        // draw content
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderClear(renderer);
+
+        // set fps
+        SDL_Delay(16);
+    }
+
+
+    // cleanup
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+
+    return 0;
+
 }

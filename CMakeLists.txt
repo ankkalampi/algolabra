@@ -13,9 +13,6 @@ include_directories(${SDL2_INCLUDE_DIRS})
 ## add source files
 set(SOURCES src/main.cpp)
 
-message("SDL2_INCLUDE_DIRS = ${SDL2_INCLUDE_DIRS}")
-message("SDL2_LIBRARIES = ${SDL2_LIBRARIES}")
-
 ## create executable
 add_executable(neuralanimals ${SOURCES})
 
