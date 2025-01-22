@@ -1,0 +1,44 @@
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_error.h>
+#include <SDL2/SDL_render.h>
+#include <SDL2/SDL_video.h>
+#include <iostream>
+
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 640;
+
+int main(){
+    // init SDL
+    if (SDL_Init(SDL_INIT_VIDEO) < 0){
+        std::cerr << "SDL initialization failed: " << SDL_GetError() << std::endl;
+        return 1;
+    }
+
+    // create SDL Window
+    SDL_Window* window = SDL_CreateWindow(
+                                            "neural animals",
+                                            SDL_WINDOWPOS_CENTERED,
+                                            SDL_WINDOWPOS_CENTERED,
+                                            SCREEN_WIDTH, 
+                                            SCREEN_HEIGHT, 
+                                            SDL_WINDOW_SHOWN); 
+
+    if (!window){
+        std::cerr << "SDL Window creation failed: " << SDL_GetError() << std::endl;
+        SDL_Quit();
+        return 1;
+    }
+
+    // create SDL renderer
+    SDL_Renderer* renderer = SDL_CreateRenderer(
+                                                window, 
+                                                -1,
+                                                SDL_RENDERER_ACCELERATED);
+
+    if (!window){
+        std::cerr << "SDL Renderer creation failed: " << SDL_GetError() << std::endl;
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 1;
+    } 
+}
