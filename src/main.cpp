@@ -6,9 +6,76 @@
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_video.h>
 #include <iostream>
+#include <vector>
+#include <unordered_map>
 
+// const variables for screen size and world grid dimensions based on cell size
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 640;
+const int CELL_SIZE = 4;
+const int CELLS_HORIZONTAL = SCREEN_WIDTH / CELL_SIZE;
+const int CELLS_VERTICAL = SCREEN_HEIGHT / CELL_SIZE;
+
+namespace world{
+
+    // forward declarations
+    struct Animal;
+    struct Plant;
+    ////////////////////////
+
+    enum Terrain {
+        Grass,
+        Sand,
+        Water,
+        Rock
+    };
+
+    struct Cell{
+        Terrain terrain;
+        enum Inhabitant {Empty, Herbivore, Predator} inhabitant;
+        int tenantID; 
+    };
+
+    struct World{
+        std::vector<std::vector<Cell>> grid;
+
+        std::unordered_map<int, Animal*> animals;
+        std::unordered_map<int, Plant*> plants;
+
+    };
+    
+};
+
+namespace entity{
+
+    
+
+    struct Animal{
+        int id;
+        int foodEaten;
+        int satiation;
+        enum AnimalType {Herbivore, Carnivore} type;
+    };
+
+
+    struct Plant{
+        enum PlantSize {
+                        Small,
+                        Medium,
+                        Big,
+                        Huge
+                        } size;
+
+        enum PlantSafety {
+                            Safe,
+                            SlightlyPoisonous,
+                            GreatlyPoisonous,
+                            Deadly
+                            } safety;
+    };
+};
+
+
 
 int main(){
     // init SDL
