@@ -21,28 +21,114 @@ namespace world{
     // forward declarations
     struct Animal;
     struct Plant;
+    struct World;
+
+    void generateTerrain(
+                            World& world,
+                            int amountWater,
+                            int amountRock,
+                            int amountSand,
+                            int amountGrass);
+    void populateWorld(
+                        World& world,
+                        int numberHerbivores,
+                        int numberCarnivores,
+                        int numberPlants);
     ////////////////////////
 
     enum Terrain {
         Grass,
         Sand,
         Water,
-        Rock
+        Rock,
+        NotSet
     };
 
     struct Cell{
         Terrain terrain;
-        enum Inhabitant {Empty, Herbivore, Predator} inhabitant;
-        int tenantID; 
+        enum Tenant {Empty, Herbivore, Predator} tenant;
+        int tenantID;
+        int x, y; 
+
+        Cell(int x, int y) : x(x), y(y){
+            this->tenantID = 0;
+            this->tenant = Tenant::Empty;
+        }
     };
 
     struct World{
-        std::vector<std::vector<Cell>> grid;
-
+        std::vector<Cell> cells;
         std::unordered_map<int, Animal*> animals;
         std::unordered_map<int, Plant*> plants;
 
+        int plantSpawnRate;
+        int plantSpawnDistance;
+        int plantMaturityAge;
+
+        int herbivoreMaturityAge;
+        int herbivoreBirthSatiation;
+
+        int carnivoreMaturityAge;
+        int carnivoreBirthSatiation;
+
+
+        World(
+                
+                int numberHerbivores,
+                int numberCarnivores,
+                int numberPlants,
+                int amountGrass,
+                int amountRock,
+                int amountSand,
+                int amountWater,
+                int plantSpawnRate,
+                int herbivoreMaturityAge,
+                int herbivoreBirthSatiation,
+                int carnivoreMaturityAge,
+                int carnivoreBirthSatiation)
+                :
+                plantSpawnRate(plantSpawnRate),
+                herbivoreMaturityAge(herbivoreMaturityAge),
+                herbivoreBirthSatiation(herbivoreBirthSatiation),
+                carnivoreMaturityAge(carnivoreMaturityAge),
+                carnivoreBirthSatiation(carnivoreBirthSatiation){
+
+            // create Cells
+            for(int i = 0; i < CELLS_HORIZONTAL; i++){
+                for(int j = 0; j < CELLS_VERTICAL; j++){
+                    this->cells.emplace_back(i, j);
+                }
+            }
+
+            // generate terrain and starting populations
+            generateTerrain(*this, amountWater, amountRock, amountSand, amountGrass);
+            populateWorld(*this, numberHerbivores, numberCarnivores, numberPlants);
+
+
+
+        }
+
+
     };
+
+
+
+    void generateTerrain(
+                            World& world,
+                            int amountWater,
+                            int amountRock,
+                            int amountSand,
+                            int amountGrass){
+
+    }
+
+    void populateWorld(
+                        World& world,
+                        int numberHerbivores,
+                        int numberCarnivores,
+                        int numberPlants){
+
+    }
     
 };
 
@@ -54,11 +140,14 @@ namespace entity{
         int id;
         int foodEaten;
         int satiation;
+        int age;
         enum AnimalType {Herbivore, Carnivore} type;
     };
 
 
     struct Plant{
+        int id;
+        int age;
         enum PlantSize {
                         Small,
                         Medium,
@@ -74,6 +163,8 @@ namespace entity{
                             } safety;
     };
 };
+
+
 
 
 
