@@ -261,6 +261,35 @@ void renderWorld(SDL_Renderer* renderer, const std::vector<world::Cell>& cells){
     }
 }
 
+// generate texture for world terrain. Using texture for terrain speeds up rendering significantly
+SDL_Texture* createTerrainTexture(SDL_Renderer* renderer, const std::vector<world::Cell>& cells, int cellSize){
+     // create SDL_Texture for rendering
+     SDL_Texture* terrainTexture = SDL_CreateTexture(
+                                                        renderer,
+                                                        SDL_PIXELFORMAT_ABGR8888,
+                                                        SDL_TEXTUREACCESS_TARGET,
+                                                        SCREEN_WIDTH,
+                                                        SCREEN_HEIGHT); 
+
+    if (!terrainTexture){
+        std::cerr << "texture creation failed: " << SDL_GetError() << std::endl;
+        return nullptr;
+    }
+
+    // setting the texture as render target
+    SDL_SetRenderTarget(renderer,terrainTexture);
+
+    // render all cells of the world to the texture
+    renderWorld(renderer, cells);
+
+    // return render target to default window
+    SDL_SetRenderTarget(renderer, nullptr);
+
+    return terrainTexture;
+
+
+}
+
 
 
 
@@ -306,8 +335,11 @@ int main(){
     SDL_Event event;
 
 
-
+    // generate world for simulation
     world::World world = world::World(1,1,1,1,1,1,1,1,1,1,1,1);
+
+    // generate terrain texture for faster rendering
+    SDL_Texture* terrainTexture = createTerrainTexture(renderer, world.cells, CELL_SIZE);
 
 
     
@@ -325,7 +357,8 @@ int main(){
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
-        renderWorld(renderer, world.cells);
+        // use terrin texture for rendering
+        SDL_RenderCopy(renderer,terrainTexture, nullptr, nullptr);
 
         SDL_RenderPresent(renderer);
 
@@ -335,6 +368,7 @@ int main(){
 
 
     // cleanup
+    SDL_DestroyTexture(terrainTexture);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
