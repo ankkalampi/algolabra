@@ -17,7 +17,7 @@
 
 
 // const variables for screen size and world grid dimensions based on cell size
-const int SCREEN_WIDTH = 1200;
+const int SCREEN_WIDTH = 1800;
 const int SCREEN_HEIGHT = 1200;
 const int CELL_SIZE = 4;
 const int CELLS_HORIZONTAL = SCREEN_WIDTH / CELL_SIZE;
@@ -170,8 +170,8 @@ namespace world{
 
 
         // create Cells
-        for(int y = 0; y < CELLS_HORIZONTAL; ++y){
-            for(int x = 0; x < CELLS_VERTICAL; ++x){
+        for(int y = 0; y < CELLS_VERTICAL; ++y){
+            for(int x = 0; x < CELLS_HORIZONTAL; ++x){
                 world.cells.emplace_back(x, y);
 
                 // scale coordinates for perlin
@@ -185,6 +185,7 @@ namespace world{
                 noiseValue = (noiseValue + 1.0f) / 2.0f;
 
                 // assign terrain to cell based on noise value
+                std::cout << "accessing cell num: " << (y * CELLS_HORIZONTAL +x) << " cells total: " << world.cells.size() << " width: " << CELLS_HORIZONTAL << " height: " << CELLS_VERTICAL << " determining type for cell: " << x << ", " << y << std::endl;
                 world.cells[y * CELLS_HORIZONTAL + x].terrain = determineTerrainType(noiseValue);
                 
             }
@@ -245,8 +246,8 @@ void renderWorld(SDL_Renderer* renderer, const std::vector<world::Cell>& cells){
         {world::Terrain::Rock, {128, 128, 128, 255}} // Harmaa
     };
 
-    for (int y = 0; y < CELLS_HORIZONTAL; ++y ){
-        for (int x = 0; x < CELLS_VERTICAL; ++x){
+    for (int y = 0; y < CELLS_VERTICAL; ++y ){
+        for (int x = 0; x < CELLS_HORIZONTAL; ++x){
             const world::Cell& cell = cells[y * CELLS_HORIZONTAL + x];
 
             // set color of cell

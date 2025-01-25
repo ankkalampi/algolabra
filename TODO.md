@@ -9,7 +9,8 @@
 - pääloopin pyörittäminen (simulaatio ja inputin kuuntelu)
 
 ### Renderöinti:
-- Terrainin renderöinti
+- ~~Terrainin renderöinti~~
+- Terrainin renderöinti tekstuuriin (nopeuttaa huomattavasti)
 - Eläinten renderöinti
 - Eläinten iän ja sukukypsyyden näkyminen
 - Kasvien renderöinti
