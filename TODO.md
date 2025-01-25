@@ -1,7 +1,7 @@
 ## Seuraavaksi tehtävää:
 
 ### World:
-- Worldin terrainin generointi siten, että muodostuu parametrien perusteella yhtenäisiä alueita, eikä pelkkää noisea
+- ~~Worldin terrainin generointi siten, että muodostuu parametrien perusteella yhtenäisiä alueita, eikä pelkkää noisea~~
 - Worldin asuttaminen eläimillä ja kasveilla
 
 ### App:
