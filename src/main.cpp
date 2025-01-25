@@ -6,8 +6,13 @@
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_video.h>
 #include <iostream>
+#include <libnoise/module/perlin.h>
 #include <vector>
 #include <unordered_map>
+
+#include <glm/glm.hpp>
+#include <libnoise/noise.h>
+
 
 // const variables for screen size and world grid dimensions based on cell size
 const int SCREEN_WIDTH = 800;
@@ -15,6 +20,18 @@ const int SCREEN_HEIGHT = 640;
 const int CELL_SIZE = 4;
 const int CELLS_HORIZONTAL = SCREEN_WIDTH / CELL_SIZE;
 const int CELLS_VERTICAL = SCREEN_HEIGHT / CELL_SIZE;
+
+// const variables for perlin noise generation
+const double PERLIN_FREQUENCY = noise::module::DEFAULT_PERLIN_FREQUENCY;
+const double PERLIN_PERSISTENCE = noise::module::DEFAULT_PERLIN_PERSISTENCE;
+const double PERLIN_LACUNARITY = noise::module::DEFAULT_PERLIN_LACUNARITY;
+const double PERLIN_OCTAVE_COUNT = noise::module::DEFAULT_PERLIN_OCTAVE_COUNT;
+const float PERLIN_SCALE = 0.1f;
+
+// treshold values for perlin terrain generation
+const float GRASS_TRESHOLD = 0.3f;
+const float WATER_TRESHOLD = 0.5f;
+const float SAND_TRESHOLD = 0.7f;
 
 namespace world{
 
@@ -93,12 +110,7 @@ namespace world{
                 carnivoreMaturityAge(carnivoreMaturityAge),
                 carnivoreBirthSatiation(carnivoreBirthSatiation){
 
-            // create Cells
-            for(int i = 0; i < CELLS_HORIZONTAL; i++){
-                for(int j = 0; j < CELLS_VERTICAL; j++){
-                    this->cells.emplace_back(i, j);
-                }
-            }
+            
 
             // generate terrain and starting populations
             generateTerrain(*this, amountWater, amountRock, amountSand, amountGrass);
@@ -111,14 +123,71 @@ namespace world{
 
     };
 
+    // creates perlin generator to use with terrain generation
+    noise::module::Perlin generatePerlinGnerator(double freq, double pers, double lacun, double octave){
+        noise::module::Perlin perlin;
+
+        perlin.SetFrequency(freq);
+        perlin.SetPersistence(pers);
+        perlin.SetLacunarity(lacun);
+        perlin.SetOctaveCount(octave);
+
+        return perlin;
+    }
+
+    // determine terrain type baswd on treshold values in perlin terrain generation
+    Terrain determineTerrainType(float value){
+        if (value < GRASS_TRESHOLD){
+            return Terrain::Grass;
+        } else if (value < WATER_TRESHOLD){
+            return Terrain::Water;
+        } else if (value < SAND_TRESHOLD){
+            return Terrain::Sand;
+        } else{
+            return Terrain::Rock;
+        }
+    }
 
 
+
+    // generate terrain for a new world using perlin noise generator
     void generateTerrain(
                             World& world,
                             int amountWater,
                             int amountRock,
                             int amountSand,
                             int amountGrass){
+
+        // create perlin generator
+        noise::module::Perlin perlin = generatePerlinGnerator(
+                                                                PERLIN_FREQUENCY,
+                                                                PERLIN_PERSISTENCE,
+                                                                PERLIN_LACUNARITY,
+                                                                PERLIN_OCTAVE_COUNT);
+
+
+
+        // create Cells
+        for(int y = 0; y < CELLS_HORIZONTAL; ++y){
+            for(int x = 0; x < CELLS_VERTICAL; ++x){
+                world.cells.emplace_back(x, y);
+
+                // scale coordinates for perlin
+                double nx = x * PERLIN_SCALE;
+                double ny = y * PERLIN_SCALE;
+
+                // get noise value between -1, 1
+                float noiseValue = perlin.GetValue(nx, ny, 0.0);
+
+                // transform value to be between 0,1
+                noiseValue = (noiseValue + 1.0f) / 2.0f;
+
+                // assign terrain to cell based on noise value
+                world.cells[y * CELLS_HORIZONTAL + x].terrain = determineTerrainType(noiseValue);
+                
+            }
+        }
+        
 
     }
 
