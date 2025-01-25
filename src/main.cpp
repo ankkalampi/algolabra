@@ -1,6 +1,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_events.h>
+#include <SDL2/SDL_pixels.h>
+#include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_rwops.h>
 #include <SDL2/SDL_timer.h>
@@ -15,17 +17,17 @@
 
 
 // const variables for screen size and world grid dimensions based on cell size
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 640;
+const int SCREEN_WIDTH = 1200;
+const int SCREEN_HEIGHT = 1200;
 const int CELL_SIZE = 4;
 const int CELLS_HORIZONTAL = SCREEN_WIDTH / CELL_SIZE;
 const int CELLS_VERTICAL = SCREEN_HEIGHT / CELL_SIZE;
 
 // const variables for perlin noise generation
-const double PERLIN_FREQUENCY = noise::module::DEFAULT_PERLIN_FREQUENCY;
-const double PERLIN_PERSISTENCE = noise::module::DEFAULT_PERLIN_PERSISTENCE;
-const double PERLIN_LACUNARITY = noise::module::DEFAULT_PERLIN_LACUNARITY;
-const double PERLIN_OCTAVE_COUNT = noise::module::DEFAULT_PERLIN_OCTAVE_COUNT;
+const double PERLIN_FREQUENCY = 1.0;
+const double PERLIN_PERSISTENCE = 0.5;
+const double PERLIN_LACUNARITY = 2.0;
+const double PERLIN_OCTAVE_COUNT = 6.0;
 const float PERLIN_SCALE = 0.1f;
 
 // treshold values for perlin terrain generation
@@ -234,6 +236,31 @@ namespace entity{
 };
 
 
+void renderWorld(SDL_Renderer* renderer, const std::vector<world::Cell>& cells){
+
+    std::unordered_map<world::Terrain, SDL_Color> terrainColors = {
+        {world::Terrain::Water, {0, 0, 255, 255}},       // Sininen
+        {world::Terrain::Grass, {0, 255, 0, 255}},       // Vihreä
+        {world::Terrain::Sand, {194, 178, 128, 255}},    // Hiekan väri
+        {world::Terrain::Rock, {128, 128, 128, 255}} // Harmaa
+    };
+
+    for (int y = 0; y < CELLS_HORIZONTAL; ++y ){
+        for (int x = 0; x < CELLS_VERTICAL; ++x){
+            const world::Cell& cell = cells[y * CELLS_HORIZONTAL + x];
+
+            // set color of cell
+            SDL_Color color = terrainColors[cell.terrain];
+            SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+
+            // draw cell
+            SDL_Rect rect = {x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE};
+            SDL_RenderFillRect(renderer, &rect);
+        }
+    }
+}
+
+
 
 
 
@@ -277,6 +304,13 @@ int main(){
     bool running  = true;
     SDL_Event event;
 
+
+
+    world::World world = world::World(1,1,1,1,1,1,1,1,1,1,1,1);
+
+
+    
+
     while(running){
 
         // check events, quit if window closed
@@ -289,6 +323,10 @@ int main(){
         // draw content
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
+
+        renderWorld(renderer, world.cells);
+
+        SDL_RenderPresent(renderer);
 
         // set fps
         SDL_Delay(16);
