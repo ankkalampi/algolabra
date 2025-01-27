@@ -4,7 +4,7 @@
 
 
 # check if build folder exists, create it if necessary
-if [ ! -d "build"]; then
+if [ ! -d "build" ]; then
 	echo "creating build folder.."
 	mkdir build || { echo "unable to create build folder, exiting"; exit 1; }
 else
