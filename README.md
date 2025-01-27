@@ -10,27 +10,27 @@ Projektia pääsee testailemaan omalla koneella (Debian-pohjaisella Linuxilla) s
 
 1. Kloonaa projekti itsellesi
 
-´´´
+```
 git clone git@github.com:ankkalampi/algolabra.git
-´´´
+```
 
 2. Asenna tarvittavat riippuvuudet
 
-´´´
+```
 sudo apt update
 sudo apt install libsdl2-dev
 sudo apt install libnoise-dev
-´´´
+```
 
 3. Anna brun.sh:lle ajo-oikeudet (kääntää ja ajaa ohjelman)
 
-´´´
+```
 cd algolabra
 sudo chmod +x brun.sh
-´´´
+```
 
 4. suorita brun.sh (kääntää ja ajaa ohjelman)
 
-´´´
+```
 ./brun.sh
-´´´ 
+``` 
