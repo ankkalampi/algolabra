@@ -2,15 +2,6 @@
 
 namespace render{
 
-    // FORWARD DECLARATIONS
-    SDL_Texture* createTerrainTexture(   
-                                                SDL_Renderer* renderer,
-                                                const std::vector<world::Cell>& cells,
-                                                int cellSize);
-
-    /////////////////////////////////////////////////////
-
-
     
     // renders the whole scene. This is called every tick
     void draw(){
