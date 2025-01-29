@@ -1,12 +1,4 @@
-#pragma once
-
-#include <unordered_map>
-#include <vector>
-
-#include "SDL.h"
-#include "SDL_render.h"
-#include "globals.hpp"
-#include "world.hpp"
+#include "render.hpp"
 
 namespace render{
 
@@ -19,13 +11,9 @@ namespace render{
     /////////////////////////////////////////////////////
 
 
-    inline SDL_Renderer* renderer;
-    inline SDL_Window* window;
-    inline SDL_Texture* terrainTexture;
-
-
+    
     // renders the whole scene. This is called every tick
-    inline void draw(){
+    void draw(){
 
         // draw content
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -41,7 +29,7 @@ namespace render{
     }
 
     // destroys everything related to SDL. This is used when exiting program
-    inline void cleanup(){
+    void cleanup(){
         SDL_DestroyTexture(terrainTexture);
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
@@ -49,7 +37,7 @@ namespace render{
     }
 
     // this function inits the rendering context creating renderer and window, and connecting them
-    inline int init(){
+    int init(){
         // init SDL 
         if (SDL_Init(SDL_INIT_VIDEO) < 0){
             std::cerr << "SDL initialization failed: " << SDL_GetError() << std::endl;
@@ -88,7 +76,7 @@ namespace render{
     }
 
     // sets up terrain and everything else for rendering
-    inline void setupRenderingSystem(const world::World& world){
+    void setupRenderingSystem(const world::World& world){
         init();
         terrainTexture = createTerrainTexture(renderer, world.cells, CELL_SIZE);
     }
@@ -97,7 +85,7 @@ namespace render{
      
 
     // this function is used for rendering the world terrain to a texture
-    inline void worldToTexture(
+    void worldToTexture(
                                 SDL_Renderer* renderer,
                                 const std::vector<world::Cell>& cells){
 
@@ -124,7 +112,7 @@ namespace render{
     }
 
     // generate texture for world terrain. Using texture for terrain speeds up rendering significantly
-    inline SDL_Texture* createTerrainTexture(   
+    SDL_Texture* createTerrainTexture(   
                                                 SDL_Renderer* renderer,
                                                 const std::vector<world::Cell>& cells,
                                                 int cellSize){
@@ -155,7 +143,3 @@ namespace render{
 
     }
 };
-
-
-
-

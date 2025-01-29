@@ -8,13 +8,13 @@
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_video.h>
 #include <iostream>
-#include "../include/world.hpp"
+#include "world/world.hpp"
 
 
 #include <glm/glm.hpp>
 #include <libnoise/noise.h>
 
-#include "../include/runtime.hpp"
+#include "runtime/runtime.hpp"
 
 
 

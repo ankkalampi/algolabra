@@ -2,9 +2,9 @@
 
 
 #include "SDL_events.h"
-#include "render.hpp"
-#include "globals.hpp"
-#include "world.hpp"
+#include "../render/render.hpp"
+#include "../globals.hpp"
+#include "../world/world.hpp"
 
 
 namespace runtime{

@@ -3,7 +3,7 @@
 #include <libnoise/module/perlin.h>
 #include <vector>
 #include <unordered_map>
-#include "globals.hpp"
+#include "../globals.hpp"
 #include <iostream>
 
 namespace world{
