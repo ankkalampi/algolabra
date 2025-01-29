@@ -4,9 +4,9 @@
 - ~~Worldin terrainin generointi siten, että muodostuu parametrien perusteella yhtenäisiä alueita, eikä pelkkää noisea~~
 - Worldin asuttaminen eläimillä ja kasveilla
 
-### App:
-- appin runtimen alustus (maailman luonti jne)
-- pääloopin pyörittäminen (simulaatio ja inputin kuuntelu)
+### App(Runtime):
+- ~~appin runtimen alustus (maailman luonti jne)~~
+- ~~pääloopin pyörittäminen (simulaatio ja inputin kuuntelu)~~~
 
 ### Renderöinti:
 - ~~Terrainin renderöinti~~
@@ -32,13 +32,13 @@
 - millä perusteella geenit mutatoituvat?
 
 ### Refaktorointi:
-- World omaan tiedostoonsa
+- ~~World omaan tiedostoonsa~~
 - Eläimet omaan tiedostoonsa
 - Kasvit omaan tiedostoonsa
-- App omaan tiedostoonsa
+- ~~Runtime omaan tiedostoonsa~~
 - Neuroverkko omaan tiedostoonsa
 - Geneettinen algoritmi omaan tiedostoonsa
-- Renderöinti omaan tiedostoonsa
+- ~~Renderöinti omaan tiedostoonsa~~
 - UI omaan tiedostoonsa
 
 ### UI (jos aikaa):

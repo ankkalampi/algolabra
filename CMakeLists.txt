@@ -25,6 +25,7 @@ add_executable(neuralanimals ${SOURCES})
 target_include_directories(neuralanimals PRIVATE  ${SDL2_INCLUDE_DIRS})
 target_include_directories(neuralanimals PRIVATE /usr/include/glm)
 target_include_directories(neuralanimals PRIVATE /usr/include/libnoise)
+target_include_directories(neuralanimals PRIVATE ${CMAKE_SOURCE_DIR}/include)
 ## link libraries
 target_link_libraries(neuralanimals PRIVATE ${SDL2_LIBRARIES})
 target_link_libraries(neuralanimals PRIVATE noise)
