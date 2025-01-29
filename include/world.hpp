@@ -133,13 +133,13 @@ namespace world{
     // determine terrain type baswd on treshold values in perlin terrain generation
     inline Terrain determineTerrainType(float value){
         if (value < GRASS_TRESHOLD){
-            return Terrain::Grass;
-        } else if (value < WATER_TRESHOLD){
             return Terrain::Water;
+        } else if (value < WATER_TRESHOLD){
+            return Terrain::Sand;
         } else if (value < SAND_TRESHOLD){
             return Terrain::Sand;
         } else{
-            return Terrain::Rock;
+            return Terrain::Grass;
         }
     }
 
@@ -178,7 +178,7 @@ namespace world{
                 noiseValue = (noiseValue + 1.0f) / 2.0f;
 
                 // assign terrain to cell based on noise value
-                std::cout << "accessing cell num: " << (y * CELLS_HORIZONTAL +x) << " cells total: " << world.cells.size() << " width: " << CELLS_HORIZONTAL << " height: " << CELLS_VERTICAL << " determining type for cell: " << x << ", " << y << std::endl;
+                //std::cout << "accessing cell num: " << (y * CELLS_HORIZONTAL +x) << " cells total: " << world.cells.size() << " width: " << CELLS_HORIZONTAL << " height: " << CELLS_VERTICAL << " determining type for cell: " << x << ", " << y << std::endl;
                 world.cells[y * CELLS_HORIZONTAL + x].terrain = determineTerrainType(noiseValue);
 
             }
