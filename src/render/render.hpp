@@ -10,15 +10,7 @@
 
 namespace render{
 
-    // FORWARD DECLARATIONS
-    SDL_Texture* createTerrainTexture(   
-                                                SDL_Renderer* renderer,
-                                                const std::vector<world::Cell>& cells,
-                                                int cellSize);
-
-    /////////////////////////////////////////////////////
-
-
+    
     inline SDL_Renderer* renderer;
     inline SDL_Window* window;
     inline SDL_Texture* terrainTexture;
