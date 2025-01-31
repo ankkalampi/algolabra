@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include "../globals.hpp"
 #include <iostream>
-#include "../entity/entity.hpp"
+#include "entity.hpp"
 
 namespace world{
 

@@ -4,7 +4,7 @@
 #include "../globals.hpp"
 #include <iostream>
 #include "world.hpp"
-#include "../entity/entity.hpp"
+#include "entity.hpp"
 
 namespace world{
 
