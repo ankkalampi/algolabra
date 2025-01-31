@@ -16,7 +16,10 @@ include_directories(/usr/include/libnoise)
 
 
 ## add source files
-set(SOURCES src/main.cpp src/render/render.cpp)
+set(SOURCES     src/main.cpp
+                src/render/render.cpp
+                src/runtime/runtime.cpp
+                src/world/world.cpp)
 
 ## create executable
 add_executable(neuralanimals ${SOURCES})
