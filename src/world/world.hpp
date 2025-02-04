@@ -30,6 +30,8 @@ namespace world{
         std::vector<Cell> cells;
         std::unordered_map<int, entity::Animal*> animals;
         std::unordered_map<int, entity::Plant*> plants;
+        std::vector<Cell*> grassCells;
+        std::vector<Cell*> landCells;
 
         int plantSpawnRate;
         int plantSpawnDistance;

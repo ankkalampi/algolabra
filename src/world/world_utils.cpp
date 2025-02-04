@@ -26,6 +26,9 @@ namespace world{
             for(int x = 0; x < CELLS_HORIZONTAL; ++x){
                 world.cells.emplace_back(x, y);
 
+                // calculate cell index
+                int cellIndex = y * CELLS_HORIZONTAL + x;
+
                 // scale coordinates for perlin
                 double nx = x * PERLIN_SCALE;
                 double ny = y * PERLIN_SCALE;
@@ -36,14 +39,33 @@ namespace world{
                 // transform value to be between 0,1
                 noiseValue = (noiseValue + 1.0f) / 2.0f;
 
+                // get terrain type based on noise value
+                terrain::Terrain terrainType = terrain::determineTerrainType(noiseValue);
+
                 // assign terrain to cell based on noise value
-                //std::cout << "accessing cell num: " << (y * CELLS_HORIZONTAL +x) << " cells total: " << world.cells.size() << " width: " << CELLS_HORIZONTAL << " height: " << CELLS_VERTICAL << " determining type for cell: " << x << ", " << y << std::endl;
-                world.cells[y * CELLS_HORIZONTAL + x].terrain = terrain::determineTerrainType(noiseValue);
+                world.cells[cellIndex].terrain = terrainType;
+
+               
+                // check if cell is land or grass and add them to the appropriate vector
+                if (terrainType == terrain::Terrain::Sand) {
+                    world.landCells.push_back(&world.cells[cellIndex]);
+                }
+
+                if (terrainType == terrain::Grass) {
+                    world.landCells.push_back(&world.cells[cellIndex]);
+                    world.grassCells.push_back(&world.cells[cellIndex]);
+                }
+
+                
+
+                
 
             }
         }
 
 
     }
+
+
 };
 
