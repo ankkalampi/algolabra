@@ -80,7 +80,7 @@ namespace world{
         shuffleVector(world.grassCells);
 
         
-        for (int i = 0; i < numberPlants; ++i) {
+        for (int i = 0; i < numberPlants + 200; ++i) {
 
             // get real cell index of a cell in shuffled grassCells vector
             int x = world.grassCells[i]->x;
@@ -93,6 +93,8 @@ namespace world{
             std::cout << "size of plants map: " << world.plants.size() << std::endl;
             
         }
+
+        std::cout << "size of plants map: " << world.plants.size() << std::endl;
 
 
     }

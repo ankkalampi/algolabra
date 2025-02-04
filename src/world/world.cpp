@@ -44,6 +44,8 @@ namespace world{
             
             // reserve space for cells
             cells.reserve(CELLS_HORIZONTAL * CELLS_VERTICAL);
+            plants.reserve(CELLS_HORIZONTAL * CELLS_VERTICAL);
+            grassCells.reserve(CELLS_HORIZONTAL * CELLS_VERTICAL);
 
             // generate terrain
             generateTerrain(*this, amountWater, amountRock, amountSand, amountGrass);

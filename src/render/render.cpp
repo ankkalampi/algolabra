@@ -149,6 +149,9 @@ namespace render{
         if (!renderedonce){
             std::vector<int> keys;
 
+        std::cout << "SIZE OF WORLD.PLANTS: " << world.plants.size() << std::endl;
+        
+
         for (auto it = world.plants.begin(); it != world.plants.end(); ++it) {
             std::cout << "SIZE OF WORLD.PLANTS: " << world.plants.size() << std::endl;
             std::cout << "ITERATING!!!!!!" << std::endl;
