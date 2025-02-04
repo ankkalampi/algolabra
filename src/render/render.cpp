@@ -1,4 +1,7 @@
 #include "render.hpp"
+#include "SDL_rect.h"
+#include "SDL_render.h"
+#include <vector>
 
 namespace render{
 
@@ -12,7 +15,11 @@ namespace render{
 
         // use terrin texture for rendering
         SDL_RenderCopy(renderer,terrainTexture, nullptr, nullptr);
+       
+        // render plants
+        renderPlants(world::world);
 
+        
         SDL_RenderPresent(renderer);
 
         // set fps
@@ -132,5 +139,65 @@ namespace render{
         return terrainTexture;
 
 
+    }
+
+
+    // renders plants
+    void renderPlants(const world::World& world){
+        int index;
+
+        if (!renderedonce){
+            std::vector<int> keys;
+
+        for (auto it = world.plants.begin(); it != world.plants.end(); ++it) {
+            std::cout << "SIZE OF WORLD.PLANTS: " << world.plants.size() << std::endl;
+            std::cout << "ITERATING!!!!!!" << std::endl;
+            std::cout <<  it->first << std::endl;
+        
+            keys.push_back(it->first);
+        }
+        for (int ind : keys){
+            std::cout << ind << std::endl;
+        }
+            renderedonce = true;
+        }
+
+        
+        
+        
+
+        
+        for (const auto& entry : world.plants) {
+            
+            // find index of the correct cell using the key of plant map
+            index = entry.first;
+            
+
+            //std::cout << "rendering plant at index " << index << std::endl;
+            //std::cout << "world.cells[index].x: " << world.cells[index].x << std::endl;
+
+            // form SDL_Rect based on coordinates of the cell
+            SDL_Rect plantRect;
+            plantRect.x = world.cells[index].x * CELL_SIZE;
+            plantRect.y = world.cells[index].y * CELL_SIZE;
+            plantRect.w = 20;
+            plantRect.h = 20;
+
+            //std::cout << "rendering plant at (" << plantRect.x << ", " << plantRect.y << ")" << std::endl;
+
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+            SDL_RenderFillRect(renderer, &plantRect);
+        }
+    }
+
+    // tests rect rendering
+    void testRectRendering(){
+        SDL_Rect testRect;
+        testRect.x = 100;
+        testRect.y = 200;
+        testRect.w = 30;
+        testRect.h = 40;
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_RenderFillRect(renderer, &testRect);
     }
 };

@@ -62,7 +62,7 @@ namespace world{
 
     };
 
-    inline World world = World(1,1,1,1,1,1,1,1,1,1,1,1);
+    inline World world = World(1,1,100,1,1,1,1,1,1,1,1,1);
     inline std::vector<entity::Animal> animals;
     inline std::vector<entity::Plant> plants;
 

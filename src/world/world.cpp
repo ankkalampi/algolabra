@@ -45,13 +45,13 @@ namespace world{
             // reserve space for cells
             cells.reserve(CELLS_HORIZONTAL * CELLS_VERTICAL);
 
-            // generate terrain and starting populations
+            // generate terrain
             generateTerrain(*this, amountWater, amountRock, amountSand, amountGrass);
             
 
             // populate world with starting populations
-            populateWorld(*this, numberHerbivores, numberCarnivores, numberPlants);
-
+            createStartingHerbivores(*this, numberHerbivores);
+            createStartingPlants(*this, numberPlants);
 
 
         }

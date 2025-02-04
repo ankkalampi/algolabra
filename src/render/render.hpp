@@ -10,6 +10,8 @@
 
 namespace render{
 
+    inline bool renderedonce = false;
+
     
     inline SDL_Renderer* renderer;
     inline SDL_Window* window;
@@ -41,6 +43,13 @@ namespace render{
                                                 SDL_Renderer* renderer,
                                                 const std::vector<world::Cell>& cells,
                                                 int cellSize);
+
+    // renders plants
+    void renderPlants(const world::World& world);
+
+
+     // tests rect rendering
+    void testRectRendering();
 };
 
 

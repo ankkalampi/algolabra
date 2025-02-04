@@ -1,6 +1,10 @@
 #include "world_utils.hpp"
 #include "world.hpp"
 #include "terrain.hpp"
+#include <algorithm>
+#include "../entity/animal.hpp"
+#include "../entity/plant.hpp"
+
 
 
 namespace world{
@@ -63,6 +67,41 @@ namespace world{
             }
         }
 
+
+    }
+
+    
+
+
+    // create starting population of plants in the world
+    void createStartingPlants(World &world, int numberPlants){
+
+        // shuffle vector to randomize order of cells
+        shuffleVector(world.grassCells);
+
+        
+        for (int i = 0; i < numberPlants; ++i) {
+
+            // get real cell index of a cell in shuffled grassCells vector
+            int x = world.grassCells[i]->x;
+            int y = world.grassCells[i]->y;
+            int cellIndex = x + y * CELLS_HORIZONTAL;
+
+           // add plant to the map containing plants and their cell indices
+            world.plants.insert({cellIndex, new entity::Plant});
+            std::cout << "creating new plant in cell: x: " << x << ", y: " << y << ", cellIndex: " << cellIndex << std::endl;
+            std::cout << "size of plants map: " << world.plants.size() << std::endl;
+            
+        }
+
+
+    }
+
+    // create starting population of animals in the world
+    void createStartingHerbivores(World &world, int numberHerbivores){
+
+        // shuffle vector to randomize order of cells
+        shuffleVector(world.landCells);
 
     }
 
