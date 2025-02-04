@@ -1,9 +1,9 @@
 #pragma once
 
 // treshold values for perlin terrain generation
-inline const float GRASS_TRESHOLD = 0.3f;
+inline const float GRASS_TRESHOLD = 0.25f;
 inline const float WATER_TRESHOLD = 0.5f;
-inline const float SAND_TRESHOLD = 0.7f;
+inline const float SAND_TRESHOLD = 0.65f;
 
 // const variables for screen size and world grid dimensions based on cell size
 inline const int SCREEN_WIDTH = 1800;
@@ -13,7 +13,7 @@ inline const int CELLS_HORIZONTAL = SCREEN_WIDTH / CELL_SIZE;
 inline const int CELLS_VERTICAL = SCREEN_HEIGHT / CELL_SIZE;
 
 // const variables for perlin noise generation
-inline const double PERLIN_FREQUENCY = 0.5;
+inline const double PERLIN_FREQUENCY = 0.1;
 inline const double PERLIN_PERSISTENCE = 0.9;
 inline const double PERLIN_LACUNARITY = 9.0;
 inline const double PERLIN_OCTAVE_COUNT = 1.0;

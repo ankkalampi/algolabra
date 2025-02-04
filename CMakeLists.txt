@@ -19,7 +19,10 @@ include_directories(/usr/include/libnoise)
 set(SOURCES     src/main.cpp
                 src/render/render.cpp
                 src/runtime/runtime.cpp
-                src/world/world.cpp)
+                src/world/world.cpp
+                src/world/world_utils.cpp
+                src/world/terrain.cpp
+                src/entity/entity.cpp)
 
 ## create executable
 add_executable(neuralanimals ${SOURCES})
@@ -28,7 +31,12 @@ add_executable(neuralanimals ${SOURCES})
 target_include_directories(neuralanimals PRIVATE  ${SDL2_INCLUDE_DIRS})
 target_include_directories(neuralanimals PRIVATE /usr/include/glm)
 target_include_directories(neuralanimals PRIVATE /usr/include/libnoise)
-target_include_directories(neuralanimals PRIVATE ${CMAKE_SOURCE_DIR}/src)
+target_include_directories(neuralanimals PRIVATE 
+                                                    ${CMAKE_SOURCE_DIR}/src
+                                                    ${CMAKE_SOURCE_DIR}/src/entity
+                                                    ${CMAKE_SOURCE_DIR}/src/render
+                                                    ${CMAKE_SOURCE_DIR}/src/runtime
+                                                    ${CMAKE_SOURCE_DIR}/src/world)
 ## link libraries
 target_link_libraries(neuralanimals PRIVATE ${SDL2_LIBRARIES})
 target_link_libraries(neuralanimals PRIVATE noise)

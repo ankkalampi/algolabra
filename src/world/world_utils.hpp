@@ -1,8 +1,11 @@
 #pragma once
-#include "world.hpp"
+
 
 
 namespace world{
+
+    struct World;
+
     // generate terrain for a new world using perlin noise generator
     void generateTerrain(
                         World& world,

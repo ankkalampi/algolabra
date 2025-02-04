@@ -1,4 +1,6 @@
 #include "world_utils.hpp"
+#include "world.hpp"
+#include "terrain.hpp"
 
 
 namespace world{
