@@ -80,11 +80,11 @@ namespace render{
                                 SDL_Renderer* renderer,
                                 const std::vector<world::Cell>& cells){
 
-        std::unordered_map<world::Terrain, SDL_Color> terrainColors = {
-            {world::Terrain::Water, {0, 0, 255, 255}},       // Sininen
-            {world::Terrain::Grass, {0, 255, 0, 255}},       // Vihreä
-            {world::Terrain::Sand, {194, 178, 128, 255}},    // Hiekan väri
-            {world::Terrain::Rock, {128, 128, 128, 255}} // Harmaa
+        std::unordered_map<terrain::Terrain, SDL_Color> terrainColors = {
+            {terrain::Terrain::Water, {0, 0, 255, 255}},       // Sininen
+            {terrain::Terrain::Grass, {0, 255, 0, 255}},       // Vihreä
+            {terrain::Terrain::Sand, {194, 178, 128, 255}},    // Hiekan väri
+            {terrain::Terrain::Rock, {128, 128, 128, 255}} // Harmaa
         };
 
         for (int y = 0; y < CELLS_VERTICAL; ++y ){

@@ -5,22 +5,19 @@
 #include <unordered_map>
 #include "../globals.hpp"
 #include <iostream>
-#include "entity.hpp"
+#include "../entity/entity.hpp"
+#include "terrain.hpp"
+
+
 
 namespace world{
 
    
 
-    enum Terrain {
-        Grass,
-        Sand,
-        Water,
-        Rock,
-        NotSet
-    };
+    
 
     struct Cell{
-        Terrain terrain;
+        terrain::Terrain terrain;
         enum Tenant {Empty, Herbivore, Predator} tenant;
         int tenantID;
         int x, y;
@@ -71,21 +68,9 @@ namespace world{
 
     
 
-    // creates perlin generator to use with terrain generation
-    noise::module::Perlin generatePerlinGnerator(double freq, double pers, double lacun, double octave);
+    
 
-    // determine terrain type baswd on treshold values in perlin terrain generation
-    Terrain determineTerrainType(float value);
-
-
-
-    // generate terrain for a new world using perlin noise generator
-    void generateTerrain(
-                            World& world,
-                            int amountWater,
-                            int amountRock,
-                            int amountSand,
-                            int amountGrass);
+    
 
     void populateWorld(
                         World& world,
