@@ -22,7 +22,8 @@ set(SOURCES     src/main.cpp
                 src/world/world.cpp
                 src/world/world_utils.cpp
                 src/world/terrain.cpp
-                src/entity/entity.cpp)
+                src/entity/animal.cpp
+                src/entity/plant.cpp)
 
 ## create executable
 add_executable(neuralanimals ${SOURCES})

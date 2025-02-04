@@ -5,7 +5,8 @@
 #include <unordered_map>
 #include "../globals.hpp"
 #include <iostream>
-#include "../entity/entity.hpp"
+#include "../entity/animal.hpp"
+#include "../entity/plant.hpp"
 #include "terrain.hpp"
 
 

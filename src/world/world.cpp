@@ -4,7 +4,7 @@
 #include "../globals.hpp"
 #include <iostream>
 #include "world.hpp"
-#include "../entity/entity.hpp"
+
 #include "world_utils.hpp"
 #include "terrain.hpp"
 
