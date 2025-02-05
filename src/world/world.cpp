@@ -52,7 +52,7 @@ namespace world{
             
 
             // populate world with starting populations
-            createStartingHerbivores(*this, numberHerbivores);
+            //createStartingHerbivores(*this, numberHerbivores);
             createStartingPlants(*this, numberPlants);
 
 
@@ -60,9 +60,9 @@ namespace world{
 
 
     // sets up simulation world. Makes it ready for starting simulation and rendering
-    void setupWorld(){
+    void setupWorld(World &world){
         // generate world for simulation
-        world::world = World(1,1,1,1,1,1,1,1,1,1,1,1);
+        world = World(1,1,100,1,1,1,1,1,1,1,1,1);
     }
 
     

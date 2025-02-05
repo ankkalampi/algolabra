@@ -7,15 +7,20 @@
 
 namespace runtime{
 
+    std::optional<world::World> world;
+    bool running;
+    SDL_Event event;
+
+
 
     // sets up the runtime system for simulation and rendering
     void init(){
 
         // setting up the simulation world
-        world::setupWorld();
+        world::setupWorld(*world);
 
         // setting up rendering system
-        render::setupRenderingSystem(world::world);
+        render::setupRenderingSystem(*world);
 
         running = true;
     }

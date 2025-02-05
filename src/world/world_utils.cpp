@@ -1,13 +1,12 @@
 #include "world_utils.hpp"
 #include "world.hpp"
 #include "terrain.hpp"
-#include <algorithm>
-#include "../entity/animal.hpp"
 #include "../entity/plant.hpp"
 
 
 
 namespace world{
+    inline int rounds = 0;
     // generate terrain for a new world using perlin noise generator
     void generateTerrain(
                             World& world,
@@ -75,12 +74,13 @@ namespace world{
 
     // create starting population of plants in the world
     void createStartingPlants(World &world, int numberPlants){
+        std::cout << "Creating starting population of plants..." << std::endl;
 
         // shuffle vector to randomize order of cells
         shuffleVector(world.grassCells);
 
         
-        for (int i = 0; i < numberPlants + 200; ++i) {
+        for (int i = 0; i < numberPlants; ++i) {
 
             // get real cell index of a cell in shuffled grassCells vector
             int x = world.grassCells[i]->x;
@@ -89,14 +89,14 @@ namespace world{
 
            // add plant to the map containing plants and their cell indices
             world.plants.insert({cellIndex, new entity::Plant});
-            std::cout << "creating new plant in cell: x: " << x << ", y: " << y << ", cellIndex: " << cellIndex << std::endl;
-            std::cout << "size of plants map: " << world.plants.size() << std::endl;
-            
+            //std::cout << "creating new plant in cell: x: " << x << ", y: " << y << ", cellIndex: " << cellIndex << std::endl;
+            //std::cout << "size of plants map: " << world.plants.size() << std::endl;
+            rounds++;
         }
 
-        std::cout << "size of plants map: " << world.plants.size() << std::endl;
-
-
+        //std::cout << "size of plants map: " << world.plants.size() << std::endl;
+        std::cout << "rounds: " << rounds << " numberPlants: " << numberPlants << std::endl;
+        return;
     }
 
     // create starting population of animals in the world

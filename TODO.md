@@ -6,14 +6,14 @@
 
 ### App(Runtime):
 - ~~appin runtimen alustus (maailman luonti jne)~~
-- ~~pääloopin pyörittäminen (simulaatio ja inputin kuuntelu)~~~
+- ~~pääloopin pyörittäminen (simulaatio ja inputin kuuntelu)~~
 
 ### Renderöinti:
 - ~~Terrainin renderöinti~~
 - ~~Terrainin renderöinti tekstuuriin (nopeuttaa huomattavasti)~~
 - Eläinten renderöinti
 - Eläinten iän ja sukukypsyyden näkyminen
-- Kasvien renderöinti
+- ~~Kasvien renderöinti~~
 - Kasvien iän näkyminen
 - Kasvien myrkyllisyyden näkyminen
 

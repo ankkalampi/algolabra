@@ -1,6 +1,7 @@
 #pragma once
 
 #include <libnoise/module/perlin.h>
+#include <memory>
 #include <vector>
 #include <unordered_map>
 #include "../globals.hpp"
@@ -62,12 +63,12 @@ namespace world{
 
     };
 
-    inline World world = World(1,1,100,1,1,1,1,1,1,1,1,1);
+
     inline std::vector<entity::Animal> animals;
     inline std::vector<entity::Plant> plants;
 
     // sets up simulation world. Makes it ready for starting simulation and rendering
-    void setupWorld();
+    void setupWorld(World &world);
 
     
 

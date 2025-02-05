@@ -2,6 +2,7 @@
 #include "SDL_rect.h"
 #include "SDL_render.h"
 #include <vector>
+#include "../runtime/runtime.hpp"
 
 namespace render{
 
@@ -17,7 +18,7 @@ namespace render{
         SDL_RenderCopy(renderer,terrainTexture, nullptr, nullptr);
        
         // render plants
-        renderPlants(world::world);
+        renderPlants(*runtime::world);
 
         
         SDL_RenderPresent(renderer);
@@ -146,24 +147,26 @@ namespace render{
     void renderPlants(const world::World& world){
         int index;
 
+        /*
         if (!renderedonce){
             std::vector<int> keys;
 
-        std::cout << "SIZE OF WORLD.PLANTS: " << world.plants.size() << std::endl;
-        
-
-        for (auto it = world.plants.begin(); it != world.plants.end(); ++it) {
             std::cout << "SIZE OF WORLD.PLANTS: " << world.plants.size() << std::endl;
-            std::cout << "ITERATING!!!!!!" << std::endl;
-            std::cout <<  it->first << std::endl;
-        
-            keys.push_back(it->first);
+            
+
+            for (auto it = world.plants.begin(); it != world.plants.end(); ++it) {
+                std::cout << "SIZE OF WORLD.PLANTS: " << world.plants.size() << std::endl;
+                std::cout << "ITERATING!!!!!!" << std::endl;
+                std::cout <<  it->first << std::endl;
+            
+                keys.push_back(it->first);
+            }
+            for (int ind : keys){
+                std::cout << ind << std::endl;
+            }
+                renderedonce = true;
         }
-        for (int ind : keys){
-            std::cout << ind << std::endl;
-        }
-            renderedonce = true;
-        }
+        */
 
         
         

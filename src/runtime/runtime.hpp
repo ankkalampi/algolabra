@@ -3,12 +3,14 @@
 
 #include "SDL_events.h"
 #include "../world/world.hpp"
+#include <optional>
 
 
 namespace runtime{
 
-    inline bool running;
-    inline SDL_Event event;
+    extern bool running;
+    extern SDL_Event event;
+    extern std::optional<world::World> world;
 
     // sets up the runtime system for simulation and rendering
     void init();
