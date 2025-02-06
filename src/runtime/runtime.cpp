@@ -8,6 +8,7 @@
 namespace runtime{
 
     std::optional<world::World> world;
+    std::optional<world::WorldParameters> worldParameters;
     bool running;
     SDL_Event event;
 
@@ -16,8 +17,10 @@ namespace runtime{
     // sets up the runtime system for simulation and rendering
     void init(){
 
+        worldParameters = world::WorldParameters(1,1,100000,1,1,1,1,1,1,1,1,1);
+
         // setting up the simulation world
-        world::setupWorld(*world);
+        world::setupWorld(*world, *worldParameters);
 
         // setting up rendering system
         render::setupRenderingSystem(*world);

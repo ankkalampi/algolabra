@@ -27,6 +27,38 @@ namespace world{
         Cell(int x, int y);
     };
 
+    struct WorldParameters{
+        int numberHerbivores;
+        int numberCarnivores;
+        int numberPlants;
+        int amountGrass;
+        int amountRock;
+        int amountSand;
+        int amountWater;
+        int plantSpawnRate;
+        int herbivoreMaturityAge;
+        int herbivoreBirthSatiation;
+        int carnivoreMaturityAge;
+        int carnivoreBirthSatiation;
+
+        WorldParameters(
+
+                int numberHerbivores,
+                int numberCarnivores,
+                int numberPlants,
+                int amountGrass,
+                int amountRock,
+                int amountSand,
+                int amountWater,
+                int plantSpawnRate,
+                int herbivoreMaturityAge,
+                int herbivoreBirthSatiation,
+                int carnivoreMaturityAge,
+                int carnivoreBirthSatiation);
+    };
+
+
+
     struct World{
         std::vector<Cell> cells;
         std::unordered_map<int, entity::Animal*> animals;
@@ -45,20 +77,7 @@ namespace world{
         int carnivoreBirthSatiation;
 
 
-        World(
-
-                int numberHerbivores,
-                int numberCarnivores,
-                int numberPlants,
-                int amountGrass,
-                int amountRock,
-                int amountSand,
-                int amountWater,
-                int plantSpawnRate,
-                int herbivoreMaturityAge,
-                int herbivoreBirthSatiation,
-                int carnivoreMaturityAge,
-                int carnivoreBirthSatiation);
+        World(WorldParameters parameters);
 
 
     };
@@ -68,7 +87,7 @@ namespace world{
     inline std::vector<entity::Plant> plants;
 
     // sets up simulation world. Makes it ready for starting simulation and rendering
-    void setupWorld(World &world);
+    void setupWorld(World &world, WorldParameters parameters);
 
     
 

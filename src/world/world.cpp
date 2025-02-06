@@ -19,8 +19,7 @@ namespace world{
             this->tenant = Tenant::Empty;
         }
 
-    
-        World::World(
+        WorldParameters::WorldParameters(
 
                 int numberHerbivores,
                 int numberCarnivores,
@@ -33,13 +32,31 @@ namespace world{
                 int herbivoreMaturityAge,
                 int herbivoreBirthSatiation,
                 int carnivoreMaturityAge,
-                int carnivoreBirthSatiation)
-                :
+                int carnivoreBirthSatiation) :
+                numberHerbivores(numberHerbivores),
+                numberCarnivores(numberCarnivores),
+                numberPlants(numberPlants),
+                amountGrass(amountGrass),
+                amountRock(amountRock),
+                amountSand(amountSand),
+                amountWater(amountWater),
                 plantSpawnRate(plantSpawnRate),
                 herbivoreMaturityAge(herbivoreMaturityAge),
                 herbivoreBirthSatiation(herbivoreBirthSatiation),
                 carnivoreMaturityAge(carnivoreMaturityAge),
-                carnivoreBirthSatiation(carnivoreBirthSatiation){
+                carnivoreBirthSatiation(carnivoreBirthSatiation)
+                {}
+
+    
+        World::World(
+
+                WorldParameters parameters)
+                :
+                plantSpawnRate(parameters.plantSpawnRate),
+                herbivoreMaturityAge(parameters.herbivoreMaturityAge),
+                herbivoreBirthSatiation(parameters.herbivoreBirthSatiation),
+                carnivoreMaturityAge(parameters.carnivoreMaturityAge),
+                carnivoreBirthSatiation(parameters.carnivoreBirthSatiation){
 
             
             // reserve space for cells
@@ -48,21 +65,21 @@ namespace world{
             grassCells.reserve(CELLS_HORIZONTAL * CELLS_VERTICAL);
 
             // generate terrain
-            generateTerrain(*this, amountWater, amountRock, amountSand, amountGrass);
+            generateTerrain(*this, parameters.amountWater, parameters.amountRock, parameters.amountSand, parameters.amountGrass);
             
 
             // populate world with starting populations
             //createStartingHerbivores(*this, numberHerbivores);
-            createStartingPlants(*this, numberPlants);
+            createStartingPlants(*this, parameters.numberPlants);
 
 
         }
 
 
     // sets up simulation world. Makes it ready for starting simulation and rendering
-    void setupWorld(World &world){
+    void setupWorld(World &world, WorldParameters parameters){
         // generate world for simulation
-        world = World(1,1,100,1,1,1,1,1,1,1,1,1);
+        world = World(parameters);
     }
 
     

@@ -74,7 +74,7 @@ namespace world{
 
     // create starting population of plants in the world
     void createStartingPlants(World &world, int numberPlants){
-        std::cout << "Creating starting population of plants..." << std::endl;
+        //std::cout << "Creating starting population of plants..." << std::endl;
 
         // shuffle vector to randomize order of cells
         shuffleVector(world.grassCells);
@@ -95,7 +95,7 @@ namespace world{
         }
 
         //std::cout << "size of plants map: " << world.plants.size() << std::endl;
-        std::cout << "rounds: " << rounds << " numberPlants: " << numberPlants << std::endl;
+        //std::cout << "rounds: " << rounds << " numberPlants: " << numberPlants << std::endl;
         return;
     }
 

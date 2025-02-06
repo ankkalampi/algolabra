@@ -11,6 +11,7 @@ namespace runtime{
     extern bool running;
     extern SDL_Event event;
     extern std::optional<world::World> world;
+    extern std::optional<world::WorldParameters> worldParameters;
 
     // sets up the runtime system for simulation and rendering
     void init();

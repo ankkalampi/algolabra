@@ -147,26 +147,6 @@ namespace render{
     void renderPlants(const world::World& world){
         int index;
 
-        /*
-        if (!renderedonce){
-            std::vector<int> keys;
-
-            std::cout << "SIZE OF WORLD.PLANTS: " << world.plants.size() << std::endl;
-            
-
-            for (auto it = world.plants.begin(); it != world.plants.end(); ++it) {
-                std::cout << "SIZE OF WORLD.PLANTS: " << world.plants.size() << std::endl;
-                std::cout << "ITERATING!!!!!!" << std::endl;
-                std::cout <<  it->first << std::endl;
-            
-                keys.push_back(it->first);
-            }
-            for (int ind : keys){
-                std::cout << ind << std::endl;
-            }
-                renderedonce = true;
-        }
-        */
 
         
         
@@ -186,12 +166,12 @@ namespace render{
             SDL_Rect plantRect;
             plantRect.x = world.cells[index].x * CELL_SIZE;
             plantRect.y = world.cells[index].y * CELL_SIZE;
-            plantRect.w = 20;
-            plantRect.h = 20;
+            plantRect.w = CELL_SIZE;
+            plantRect.h = CELL_SIZE;
 
             //std::cout << "rendering plant at (" << plantRect.x << ", " << plantRect.y << ")" << std::endl;
 
-            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+            SDL_SetRenderDrawColor(renderer, 255, 50, 100, 255);
             SDL_RenderFillRect(renderer, &plantRect);
         }
     }
