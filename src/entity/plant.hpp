@@ -1,8 +1,10 @@
 #pragma once
 
+#include "entity.hpp"
+
 namespace entity{
-    struct Plant{
-        int id;
+    struct Plant : public Entity<Plant>{
+      
         int age;
         enum PlantSize {
                         Small,

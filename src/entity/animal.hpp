@@ -1,11 +1,13 @@
 #pragma once
 
+#include "entity.hpp"
+
 namespace entity{
 
 
 
-    struct Animal{
-        int id;
+    struct Animal : public Entity<Animal>{
+        
         int foodEaten;
         int satiation;
         int age;
