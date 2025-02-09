@@ -1,8 +1,14 @@
+#pragma once
 
 #include <unordered_map>
 #include <vector>
-#include "../entity/plant.hpp"
-#include "../entity/animal.hpp"
+
+
+
+
+
+
+
 
 
 
@@ -24,7 +30,7 @@ namespace population{
             
             // iterates all entities of population
             for (const T& entity : this->iterContainer){
-                entity.update();
+                entity.update(&this);
             }
         }
 
@@ -46,9 +52,33 @@ namespace population{
 
         // remove entity from population
         void remove(const T& entity){
-            
+            int id = entity.id;
+            // find index of entity in itercontainer using pointer arithmetics
+            size_t index = &entity - &this->iterContainer[0];
+
+            // remove entity reference from search container
+            this->searchContainer.erase(entity.id);
+
+            // check if entity is the last item  in itercontainer, if not, swap with
+            // last item, update idtoindex map before removing last item in itercontainer
+            if (index != this->iterContainer.size()-1){
+                // change idtoindex map so that this entity and last entity are swapped
+                // this entity id -> last index
+                this->idToIndexMap[id] = this->iterContainer.size()-1;
+                // last entity id -> this entity index
+                this->idToIndexMap[this->iterContainer[this->iterContainer.size()-1].id] = index;
+                
+            }
+
+            // remove last entity
+            this->iterContainer.pop_back();
+
+
+
         }
     };
+
+    
 
    
 };
