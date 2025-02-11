@@ -18,12 +18,14 @@ namespace population{
     template <typename T>
     struct Population {
         // map for quick search
-        std::unordered_map<int, T&> searchContainer;
+        std::unordered_map<int, T*> searchContainer;
         // vector for quick iteration
         std::vector<T> iterContainer;
 
         // this map is used for finding correct entity in itercontainer when removing
         std::unordered_map<int, int> idToIndexMap;
+
+        
 
         // update population, this is run each tick
         void update(){
