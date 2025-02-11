@@ -16,16 +16,12 @@ include_directories(/usr/include/libnoise)
 
 
 ## add source files
-set(SOURCES     src/main.cpp
-                src/render/render.cpp
-                src/runtime/runtime.cpp
-                src/world/world.cpp
-                src/world/world_utils.cpp
-                src/world/terrain.cpp
-                src/entity/animal.cpp
-                src/entity/plant.cpp
-                src/population.cpp
-                src/entity/entity.cpp)
+file(GLOB_RECURSE SOURCES
+    src/*.cpp
+    src/render/*.cpp
+    src/runtime/*.cpp
+    src/world/*.cpp
+    src/entity/*.cpp)
 
 ## create executable
 add_executable(neuralanimals ${SOURCES})
