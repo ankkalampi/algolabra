@@ -50,6 +50,17 @@ file(GLOB_RECURSE SOURCES
 ## create executable
 add_executable(neuralanimals ${SOURCES})
 
+## add test source files
+file(GLOB_RECURSE TEST_SOURCES
+    tests/*.cpp
+    tests/render/*.cpp
+    tests/runtime/*.cpp
+    tests/world/*.cpp
+    tests/entity/*.cpp)
+
+## create test executable
+add_executable(neuralanimals_tests ${TEST_SOURCES})
+
 ## include libraries
 target_include_directories(neuralanimals PRIVATE 
                                                     ${CMAKE_SOURCE_DIR}/src
@@ -61,6 +72,10 @@ target_include_directories(neuralanimals PRIVATE
 target_link_libraries(neuralanimals PRIVATE
     SDL2::SDL2main SDL2::SDL2
     noise
+    gtest gtest_main)
+
+## link libraries for tests
+target_link_libraries(neuralanimals_tests PRIVATE
     gtest gtest_main)
 
 
