@@ -6,13 +6,37 @@ project(neuralanimals)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+## install dependencies 
+include(FetchContent)
 
-## find SDL
-find_package(SDL2 REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS})
+## sdl2
+FetchContent_Declare(
+    sdl2
+    GIT_REPOSITORY "https://github.com/libsdl-org/SDL.git"
+    GIT_TAG release-2.26.5
+)
 
-## Noise library
-include_directories(/usr/include/libnoise)
+FetchContent_MakeAvailable(sdl2)
+
+
+## gtest
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG        release-1.12.1
+)
+
+FetchContent_MakeAvailable(googletest)
+
+
+## libnoise
+FetchContent_Declare(
+    libnoise
+    GIT_REPOSITORY "https://github.com/eXpl0it3r/libnoise"
+    GIT_TAG "master"
+)
+FetchContent_MakeAvailable(libnoise)
+
 
 
 ## add source files
@@ -27,9 +51,6 @@ file(GLOB_RECURSE SOURCES
 add_executable(neuralanimals ${SOURCES})
 
 ## include libraries
-target_include_directories(neuralanimals PRIVATE  ${SDL2_INCLUDE_DIRS})
-target_include_directories(neuralanimals PRIVATE /usr/include/glm)
-target_include_directories(neuralanimals PRIVATE /usr/include/libnoise)
 target_include_directories(neuralanimals PRIVATE 
                                                     ${CMAKE_SOURCE_DIR}/src
                                                     ${CMAKE_SOURCE_DIR}/src/entity
@@ -37,7 +58,10 @@ target_include_directories(neuralanimals PRIVATE
                                                     ${CMAKE_SOURCE_DIR}/src/runtime
                                                     ${CMAKE_SOURCE_DIR}/src/world)
 ## link libraries
-target_link_libraries(neuralanimals PRIVATE ${SDL2_LIBRARIES})
-target_link_libraries(neuralanimals PRIVATE noise)
+target_link_libraries(neuralanimals PRIVATE
+    SDL2::SDL2main SDL2::SDL2
+    noise
+    gtest gtest_main)
+
 
 
