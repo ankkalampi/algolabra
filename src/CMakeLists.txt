@@ -20,6 +20,11 @@ target_include_directories(neuralanimals_lib PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     )
 
+## this is required for libnoise
+target_include_directories(neuralanimals PRIVATE ${CMAKE_BINARY_DIR}/_deps/noise-src/include)
+target_link_directories(neuralanimals PRIVATE ${CMAKE_BINARY_DIR}/_deps/noise-build)
+
+
 # link libraries
 target_link_libraries(neuralanimals_lib PRIVATE
     SDL2::SDL2main SDL2::SDL2
