@@ -12,7 +12,7 @@ else
 fi
 
 # move to build folder
-cd build || { echo "unable to move to build folder, exiting"; exit 1; }
+cd build/src || { echo "unable to move to build folder, exiting"; exit 1; }
 
 # remove old executable if it exists
 rm -f neuralanimals

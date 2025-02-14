@@ -1,3 +1,4 @@
+## THIS IS THE MAIN CMAKELIST
 
 ## setup project
 cmake_minimum_required(VERSION 3.10)
@@ -37,46 +38,10 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(libnoise)
 
+## add source and test folders
+add_subdirectory(src)
+add_subdirectory(tests)
 
-
-## add source files
-file(GLOB_RECURSE SOURCES
-    src/*.cpp
-    src/render/*.cpp
-    src/runtime/*.cpp
-    src/world/*.cpp
-    src/entity/*.cpp)
-
-## create executable
-add_executable(neuralanimals ${SOURCES})
-
-## add test source files
-file(GLOB_RECURSE TEST_SOURCES
-    tests/*.cpp
-    tests/render/*.cpp
-    tests/runtime/*.cpp
-    tests/world/*.cpp
-    tests/entity/*.cpp)
-
-## create test executable
-add_executable(neuralanimals_tests ${TEST_SOURCES})
-
-## include libraries
-target_include_directories(neuralanimals PRIVATE 
-                                                    ${CMAKE_SOURCE_DIR}/src
-                                                    ${CMAKE_SOURCE_DIR}/src/entity
-                                                    ${CMAKE_SOURCE_DIR}/src/render
-                                                    ${CMAKE_SOURCE_DIR}/src/runtime
-                                                    ${CMAKE_SOURCE_DIR}/src/world)
-## link libraries
-target_link_libraries(neuralanimals PRIVATE
-    SDL2::SDL2main SDL2::SDL2
-    noise
-    gtest gtest_main)
-
-## link libraries for tests
-target_link_libraries(neuralanimals_tests PRIVATE
-    gtest gtest_main)
 
 
 

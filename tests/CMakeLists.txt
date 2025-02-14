@@ -1,0 +1,22 @@
+## THIS CMAKELIST CREATES THE TEST EXECUTABLE
+
+## enable testing for ctest
+enable_testing()
+
+## add source files
+file(GLOB_RECURSE TEST_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+
+## create executable
+add_executable(neuralanimals_tests ${TEST_SOURCES})
+
+
+
+## link libraries
+target_link_libraries(neuralanimals_tests PRIVATE
+    neuralanimals_lib
+    gtest
+    gtest_main)
+
+## enable automatic test discovery for googletest
+include(GoogleTest)
+gtest_discover_tests(neuralanimals_tests)
