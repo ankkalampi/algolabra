@@ -22,7 +22,6 @@ target_include_directories(neuralanimals_lib PRIVATE
 
 ## this is required for libnoise
 target_include_directories(neuralanimals PRIVATE ${CMAKE_BINARY_DIR}/_deps/noise-src/include)
-target_link_directories(neuralanimals PRIVATE ${CMAKE_BINARY_DIR}/_deps/noise-build)
 
 
 # link libraries
