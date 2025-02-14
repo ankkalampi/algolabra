@@ -2,7 +2,7 @@
 
 Tässä projektissa on tarkoituksena toteuttaa ekosysteemisimulaatio, jossa virtuaalieläimet pyrkivät lisääntymään ympäristössä, jossa niitä uhkaa nälkiintymisen lisäksi myös verenhimoiset lihansyöjät, sekä lisääntymismahdollisuuksista kilpailevat toiset saman lajin edustajat.
 
-Tämä projetki käyttää seuraavia ulkoisia kirjastoja:
+Tämä projekti käyttää seuraavia ulkoisia kirjastoja:
 - SDL2 -> grafiikan piirtäminen, ikkunan avaaminen 
 - libnoise -> perlin-kohinan muodostaminen maailman generointia varten
 - google test -> testaus
