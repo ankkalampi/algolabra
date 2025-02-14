@@ -42,7 +42,7 @@ brun.sh ja cmake huolehtivat riippuvuuksien lataamisesta, kääntämisestä yms.
 
 brun.sh: eri vipuvaihtoehdot:
 
--b -> kääntää ja ajaa ohjelman (build and run)
--c -> poistaa build-kansion kokonaan ja kääntää projektin ja riippuvuudet (clean build)
--t -> ajaa testit (projekti on oltava käännetty joko -b tai -c -vivulla)
-ei vipua -> ajaa vain ajotiedoston (projekti on oltava käännetty joko -b tai -c -vivulla)
+- -b -> kääntää ja ajaa ohjelman (build and run)
+- -c -> poistaa build-kansion kokonaan ja kääntää projektin ja riippuvuudet (clean build)
+- -t -> ajaa testit (projekti on oltava käännetty joko -b tai -c -vivulla)
+- ei vipua -> ajaa vain ajotiedoston (projekti on oltava käännetty joko -b tai -c -vivulla)
