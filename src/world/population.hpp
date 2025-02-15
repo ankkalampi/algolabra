@@ -56,7 +56,7 @@ namespace population{
         void remove(const T& entity){
             int id = entity.id;
             // find index of entity in itercontainer using pointer arithmetics
-            size_t index = &entity - &this->iterContainer[0];
+            std::size_t index = &entity - &this->iterContainer[0];
 
             // remove entity reference from search container
             this->searchContainer.erase(entity.id);

@@ -6,6 +6,7 @@ project(neuralanimals)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 ## install dependencies 
 include(FetchContent)
@@ -41,6 +42,8 @@ FetchContent_MakeAvailable(libnoise)
 ## add source and test folders
 add_subdirectory(src)
 add_subdirectory(tests)
+
+
 
 
 
