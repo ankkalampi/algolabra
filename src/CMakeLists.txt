@@ -18,20 +18,26 @@ add_executable(neuralanimals main.cpp)
 ## add headers
 target_include_directories(neuralanimals_lib PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_BINARY_DIR}/_deps/libnoise-src/include
+    )
+
+target_include_directories(neuralanimals PRIVATE 
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_BINARY_DIR}/_deps/libnoise-src/include
     )
 
 ## this is required for libnoise
-target_include_directories(neuralanimals PRIVATE ${CMAKE_BINARY_DIR}/_deps/noise-src/include)
-
+target_link_directories(neuralanimals PRIVATE ${CMAKE_BINARY_DIR}/_deps/libnoise-build)
+target_link_directories(neuralanimals_lib PRIVATE ${CMAKE_BINARY_DIR}/_deps/libnoise-build)
 
 # link libraries
 target_link_libraries(neuralanimals_lib PRIVATE
     SDL2::SDL2main SDL2::SDL2
-    noise)
+    libnoise)
 
 ## link libraries
 target_link_libraries(neuralanimals PRIVATE
     neuralanimals_lib
     SDL2::SDL2main SDL2::SDL2
-    noise)
+    libnoise)
 

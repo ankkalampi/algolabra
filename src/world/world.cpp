@@ -1,4 +1,4 @@
-#include "libnoise/module/perlin.h"
+#include "noise/module/perlin.h"
 #include <vector>
 #include <unordered_map>
 #include "../globals.hpp"

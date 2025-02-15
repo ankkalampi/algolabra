@@ -1,4 +1,4 @@
-## Seuraavaksi tehtävää:
+## Seuraavaksi tehtävää (backlog):
 
 ### World:
 - ~~Worldin terrainin generointi siten, että muodostuu parametrien perusteella yhtenäisiä alueita, eikä pelkkää noisea~~
@@ -7,6 +7,7 @@
 ### App(Runtime):
 - ~~appin runtimen alustus (maailman luonti jne)~~
 - ~~pääloopin pyörittäminen (simulaatio ja inputin kuuntelu)~~
+- mahdollisesti engine-luokka, joka kapseloi enginen ominaisuudet ja parametrit
 
 ### Renderöinti:
 - ~~Terrainin renderöinti~~
@@ -40,6 +41,8 @@
 - Geneettinen algoritmi omaan tiedostoonsa
 - ~~Renderöinti omaan tiedostoonsa~~
 - UI omaan tiedostoonsa
+- Eroon globaaleista extern-muuttujista, eri moduulien kapselointi
+- mahdollisesti config.txt-tiedoston lukeminen
 
 ### UI (jos aikaa):
 - alkuvalikko, jossa kentät/sliderit alkuparametreille, sekä start-nappula

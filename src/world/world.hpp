@@ -1,6 +1,6 @@
 #pragma once
 
-#include "libnoise/module/perlin.h"
+#include "noise/module/perlin.h"
 #include <memory>
 #include <vector>
 #include <unordered_map>

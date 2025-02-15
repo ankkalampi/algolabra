@@ -1,6 +1,6 @@
 #pragma once
 
-#include "libnoise/module/perlin.h"
+#include "noise/module/perlin.h"
 
 
 

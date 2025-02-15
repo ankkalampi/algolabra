@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "SDL.h"
+#include <SDL.h>
 #include "SDL_render.h"
 #include "../globals.hpp"
 #include "../world/world.hpp"
