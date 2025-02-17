@@ -58,6 +58,8 @@ namespace world{
                 carnivoreMaturityAge(parameters.carnivoreMaturityAge),
                 carnivoreBirthSatiation(parameters.carnivoreBirthSatiation){
 
+            runningId = 0;
+
             
             // reserve space for cells
             cells.reserve(CELLS_HORIZONTAL * CELLS_VERTICAL);

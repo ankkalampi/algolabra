@@ -4,7 +4,13 @@
 enable_testing()
 
 ## add source files
-file(GLOB_RECURSE TEST_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+file(GLOB_RECURSE TEST_SOURCES 
+    ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/behavior/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/entity/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/render/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/runtime/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/world/*.cpp)
 
 ## create executable
 add_executable(neuralanimals_tests ${TEST_SOURCES})

@@ -89,7 +89,8 @@ namespace world{
             int cellIndex = x + y * CELLS_HORIZONTAL;
 
            // add plant to the map containing plants and their cell indices
-            world.plants.insert({cellIndex, new entity::Plant});
+            world.plants.insert({cellIndex, new entity::Plant(world.runningId, 20, 20)});
+            world.runningId++;
             //std::cout << "creating new plant in cell: x: " << x << ", y: " << y << ", cellIndex: " << cellIndex << std::endl;
             //std::cout << "size of plants map: " << world.plants.size() << std::endl;
             rounds++;

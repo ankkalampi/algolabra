@@ -10,7 +10,7 @@
 #include <unordered_map>
 #include "../globals.hpp"
 #include <iostream>
-#include "../entity/animal.hpp"
+
 #include "../entity/plant.hpp"
 #include "terrain.hpp"
 
@@ -44,6 +44,7 @@ namespace world{
         int herbivoreBirthSatiation;
         int carnivoreMaturityAge;
         int carnivoreBirthSatiation;
+      
 
         WorldParameters(
 
@@ -65,7 +66,6 @@ namespace world{
 
     struct World{
         std::vector<Cell> cells;
-        std::unordered_map<int, entity::Animal*> animals;
         std::unordered_map<int, entity::Plant*> plants;
         std::vector<Cell*> grassCells;
         std::vector<Cell*> landCells;
@@ -80,6 +80,9 @@ namespace world{
         int carnivoreMaturityAge;
         int carnivoreBirthSatiation;
 
+        int runningId;
+        
+
 
         World(WorldParameters parameters);
 
@@ -89,7 +92,6 @@ namespace world{
     };
 
 
-    inline std::vector<entity::Animal> animals;
     inline std::vector<entity::Plant> plants;
 
     // sets up simulation world. Makes it ready for starting simulation and rendering

@@ -19,6 +19,11 @@ namespace entity{
                             GreatlyPoisonous,
                             Deadly
                             } safety;
+
+
+        Plant(int id, int x, int y) : Entity<Plant>(id, x, y) {}
     };
+
+    
 };
     

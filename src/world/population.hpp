@@ -5,7 +5,10 @@
 
 
 
-
+// forward declaration
+namespace entity{
+    template <typename T> struct Entity;
+}
 
 
 
@@ -18,12 +21,13 @@ namespace population{
     template <typename T>
     struct Population {
         // map for quick search
-        std::unordered_map<int, T*> searchContainer;
+        std::unordered_map<int, entity::Entity<T>*> searchContainer;
         // vector for quick iteration
-        std::vector<T> iterContainer;
+        std::vector<entity::Entity<T>> iterContainer;
 
         // this map is used for finding correct entity in itercontainer when removing
         std::unordered_map<int, int> idToIndexMap;
+
 
         
 
@@ -31,16 +35,16 @@ namespace population{
         void update(){
             
             // iterates all entities of population
-            for (const T& entity : this->iterContainer){
+            for (const entity::Entity<T>& entity : this->iterContainer){
                 entity.update(&this);
             }
         }
 
 
         // add new entity to population 
-        void add(const T& entity){
+        void add(entity::Entity<T>& entity){
             // add id and reference of entity to search container
-            this->searchContainer[entity.id] = entity;
+            this->searchContainer[entity.id] = &entity;
 
             // add id and index to idtoindexmap for quick removal
             this->idToIndexMap[entity.id] = this->iterContainer.size();
@@ -53,7 +57,7 @@ namespace population{
 
 
         // remove entity from population
-        void remove(const T& entity){
+        void remove(entity::Entity<T>& entity){
             int id = entity.id;
             // find index of entity in itercontainer using pointer arithmetics
             std::size_t index = &entity - &this->iterContainer[0];
