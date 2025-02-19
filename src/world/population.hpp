@@ -50,7 +50,7 @@ namespace population{
             this->idToIndexMap[entity.id] = this->iterContainer.size();
 
             // add reference of entity to iteration container
-            this->iterContainer.push_back(entity);
+            this->iterContainer.push_back(std::move(entity));
 
             
         }

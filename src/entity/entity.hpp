@@ -13,6 +13,8 @@ namespace entity{
         // cell coordinates of an entity
         int x, y;
 
+        Entity<T>() = default;
+
         Entity<T>(int id, int x , int y) : id(id), x(x), y(y){}
 
         // CRTP style function override for update function
