@@ -3,25 +3,25 @@
 # this script is for quickly building and running this project
 
 # if no arguments are given, then only run
-BUILD_AND_RUN=false
+BUILD=false
 CLEAN_BUILD=false
 RUN_TESTS=false
-JUST_RUN=true
+RUN_APP=false
 
 # handle arguments
-while getopts "bct" opt; do
+while getopts "bctr" opt; do
 	case $opt in
 		b)
-			BUILD_AND_RUN=true
-			JUST_RUN=false
+			BUILD=true
 			;;
 		c)
 			CLEAN_BUILD=true
-			JUST_RUN=false
 			;;
 		t)
 			RUN_TESTS=true
-			JUST_RUN=false
+			;;
+		r)
+			RUN_APP=true
 			;;
 		*)
 			echo "Usage: $0 [-b] [-c] [t]"
@@ -30,9 +30,18 @@ while getopts "bct" opt; do
 	esac
 done
 
-if $BUILD_AND_RUN || $CLEAN_BUILD; then
+# no options given
+if [ $OPTIND -eq 1 ]; then
+	# move to build folder
+	cd build/src || { echo "unable to move to build folder, exiting"; exit 1; }
 
-	if $BUILD_AND_RUN; then
+	# run executable
+	./neuralanimals || { echo "unable to run program, exiting"; exit 1; }
+fi
+
+if $BUILD || $CLEAN_BUILD; then
+
+	if $BUILD; then
 		# check if build folder exists, create it if necessary
 		if [ ! -d "build" ]; then
 			echo "creating build folder.."
@@ -71,24 +80,19 @@ if $BUILD_AND_RUN || $CLEAN_BUILD; then
 
 	# give priviledges and run executable
 	chmod +x neuralanimals || { echo "unable to give priviledges, exiting"; exit 1; }
-	./neuralanimals || { echo "unable to run program, exiting"; exit 1; }
-fi
 
-if $RUN_TESTS; then
+	if $RUN_APP; then
+		./neuralanimals || { echo "unable to run program, exiting"; exit 1; }
+	fi
+
+	if $RUN_TESTS; then
 	# move to build folder
-	cd build/tests || { echo "unable to move to build folder, exiting"; exit 1; }
+	cd ../tests || { echo "unable to move to build folder, exiting"; exit 1; }
 
 	# give priviledges and run executable
 	chmod +x neuralanimals_tests || { echo "unable to give priviledges, exiting"; exit 1; }
 	./neuralanimals_tests || { echo "unable to run tests, exiting"; exit 1; }
-fi
-
-if $JUST_RUN; then
-	# move to build folder
-	cd build/src || { echo "unable to move to build folder, exiting"; exit 1; }
-
-	# run executable
-	./neuralanimals || { echo "unable to run program, exiting"; exit 1; }
+	fi
 fi
 
 
