@@ -48,4 +48,4 @@ brun.sh: eri vipuvaihtoehdot:
 - -t -> ajaa testit (projekti on oltava käännetty joko -b tai -c -vivulla)
 - ei vipua -> ajaa vain ajotiedoston (projekti on oltava käännetty joko -b tai -c -vivulla)
 
-vipuja voi yhdistää siten, että ensimmäinen vipu on joko -b tai -c ja jälkimmäinen on joko -r tai -t. Eli on siis mahdollista ainoastaan ajaa ohjelma tai testit, tai ainoastaan kääntää ohjelman, tai suorittaa molemmat toiminnot samalla kertaa.
+vipuja voi yhdistää siten, että ensimmäinen vipu on joko -b tai -c ja jälkimmäinen on joko -r tai -t. Eli on siis mahdollista ainoastaan ajaa ohjelma tai testit, tai ainoastaan kääntää ohjelma, tai suorittaa molemmat toiminnot samalla kertaa.
