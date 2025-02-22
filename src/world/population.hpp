@@ -20,22 +20,19 @@ namespace population{
     // generics for population
     template <typename T>
     struct Population {
-        // map for quick search
-        std::unordered_map<int, entity::Entity<T>*> searchContainer;
         // vector for quick iteration
         std::vector<entity::Entity<T>> iterContainer;
 
-        // this map is used for finding correct entity in itercontainer when removing
-        std::unordered_map<int, int> idToIndexMap;
+        // this map is used for finding correct entity in itercontainer
+        //  used whenever entity needs to be found
+        std::unordered_map<int, std::size_t> idToIndexMap;
 
-
-        
 
         // update population, this is run each tick
         void update(){
             
             // iterates all entities of population
-            for (const entity::Entity<T>& entity : this->iterContainer){
+            for (const entity::Entity<T>& entity : iterContainer){
                 entity.update(&this);
             }
         }
@@ -43,41 +40,43 @@ namespace population{
 
         // add new entity to population 
         void add(entity::Entity<T>& entity){
-            // add id and reference of entity to search container
-            this->searchContainer[entity.id] = &entity;
 
             // add id and index to idtoindexmap for quick removal
-            this->idToIndexMap[entity.id] = this->iterContainer.size();
+            idToIndexMap[entity.id] = iterContainer.size();
 
             // add reference of entity to iteration container
-            this->iterContainer.push_back(std::move(entity));
+            iterContainer.push_back(std::move(entity));
 
             
         }
 
 
         // remove entity from population
-        void remove(entity::Entity<T>& entity){
-            int id = entity.id;
-            // find index of entity in itercontainer using pointer arithmetics
-            std::size_t index = &entity - &this->iterContainer[0];
+        void remove(int id){
+            
+            
+            // find index of entity in itercontainer using idtoindexmap
+            std::size_t index = idToIndexMap[id];
 
-            // remove entity reference from search container
-            this->searchContainer.erase(entity.id);
 
             // check if entity is the last item  in itercontainer, if not, swap with
             // last item, update idtoindex map before removing last item in itercontainer
-            if (index != this->iterContainer.size()-1){
+            if (index != iterContainer.size()-1){
                 // change idtoindex map so that this entity and last entity are swapped
                 // this entity id -> last index
-                this->idToIndexMap[id] = this->iterContainer.size()-1;
+                idToIndexMap[id] = iterContainer.size()-1;
                 // last entity id -> this entity index
-                this->idToIndexMap[this->iterContainer[this->iterContainer.size()-1].id] = index;
+                idToIndexMap[iterContainer[iterContainer.size()-1].id] = index;
+
+                // swap last entity with entity to be removed
+                std::swap(iterContainer[index], iterContainer[iterContainer.size() -1]);
                 
             }
+            // remove entity reference from idtoindexmap
+            idToIndexMap.erase(id);
 
             // remove last entity
-            this->iterContainer.pop_back();
+            iterContainer.pop_back();
 
 
 

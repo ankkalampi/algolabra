@@ -37,6 +37,8 @@ namespace population_test{
     TYPED_TEST_SUITE(PopulationTest, TestTypes);
 
 
+
+
     // ADD FUNCTION TESTS
 
     // test add function (add one entity, stack version)
@@ -54,10 +56,6 @@ namespace population_test{
         EXPECT_EQ(this->stackPop.idToIndexMap.size(), 1);
         EXPECT_EQ(this->stackPop.idToIndexMap[entity.id], 0);
 
-        // searchcontainer should be size()==1 and contain item (1, &entity)
-        // check if the pointer points to entity
-        EXPECT_EQ(this->stackPop.searchContainer.size(), 1);
-        EXPECT_EQ(this->stackPop.searchContainer[entity.id], &entity);
     }
 
     // test add function (add many entities, stack version)
@@ -79,14 +77,9 @@ namespace population_test{
         // idtoindexmap should be size()==100 and 
         EXPECT_EQ(this->stackPop.idToIndexMap.size(), 100);
 
-        // searchcontainer should be size()==100 
-        EXPECT_EQ(this->stackPop.searchContainer.size(), 100);
-
         // idtoindexmap should find correct index
         EXPECT_EQ(this->stackPop.idToIndexMap[this->stackPop.iterContainer[10].id], 10);
 
-        // searchcontainer should have the correct pointer
-        EXPECT_EQ(this->stackPop.searchContainer[this->stackPop.iterContainer[10].id], this->stackPop.searchContainer[11]);
 
     }
 
@@ -105,10 +98,6 @@ namespace population_test{
         EXPECT_EQ(this->heapPop->idToIndexMap.size(), 1);
         EXPECT_EQ(this->heapPop->idToIndexMap[entity->id], 0);
 
-        // searchcontainer should be size()==1 and contain item (1, &entity)
-        // check if the pointer points to entity
-        EXPECT_EQ(this->heapPop->searchContainer.size(), 1);
-        EXPECT_EQ(this->heapPop->searchContainer[entity->id], entity);
 
         // release memory of entity
         delete entity;
@@ -134,18 +123,108 @@ namespace population_test{
         // idtoindexmap should be size()==100 and 
         EXPECT_EQ(this->heapPop->idToIndexMap.size(), 100);
 
-        // searchcontainer should be size()==100 
-        EXPECT_EQ(this->heapPop->searchContainer.size(), 100);
-
         // idtoindexmap should find correct index
         EXPECT_EQ(this->heapPop->idToIndexMap[this->heapPop->iterContainer[10].id], 10);
-
-        // searchcontainer should have the correct pointer
-        EXPECT_EQ(this->heapPop->searchContainer[this->heapPop->iterContainer[10].id], this->heapPop->searchContainer[11]);
 
         for (int i = 0; i < 100; ++i){
             delete entities[i];
         }
+    }
+
+    // REMOVE FUNCTION TESTS
+
+    // test if removal works correctly when one entity is removed 
+    TYPED_TEST(PopulationTest, StackRemoveWorks_RemoveOne){
+
+        // create 100 entities for testing
+        int runningId = 1;
+        std::array<typename TestFixture::Entity, 100> entities;
+        for (int i=0; i <100; ++i){
+            entities[i] = typename TestFixture::Entity(runningId, 20, 20);
+            this->stackPop.add(entities[i]);
+            runningId++;
+        }
+
+        this->stackPop.remove(10);
+
+        // containers should be size()==99
+        EXPECT_EQ(this->stackPop.iterContainer.size(), 99);
+        EXPECT_EQ(this->stackPop.idToIndexMap.size(), 99);
+
+        // check if last entity is swapped to replace the removed entity in itercontainer (id:100)
+        EXPECT_EQ(this->stackPop.iterContainer[9].id, 100);
+
+    }
+
+    // test if removal works correctly when several entities are removed non-consecutively and then more are added
+    TYPED_TEST(PopulationTest, StackRemoveWorks_RemoveSeveralAndAdd){
+
+        // create 100 entities for testing
+        int runningId = 1;
+        std::array<typename TestFixture::Entity, 100> entities;
+        for (int i=0; i <100; ++i){
+            entities[i] = typename TestFixture::Entity(runningId, 20, 20);
+            this->stackPop.add(entities[i]);
+            runningId++;
+        }
+
+        // remove entities from arbitrary positions (16 removals in total)
+        this->stackPop.remove(10);  // [09] = 100, [99] = null
+        this->stackPop.remove(18);  // [17] = 99, [98] = null
+        this->stackPop.remove(12);  // [11] = 98, [97] = null
+        this->stackPop.remove(2);   // [1] = 97, [96] = null
+        this->stackPop.remove(19);  // [18] = 96, [95] = null
+        this->stackPop.remove(57);  // [56] = 95, [94] = null
+        this->stackPop.remove(60);  // [59] = 94, [93] = null
+        this->stackPop.remove(88);  // [87] = 93, [92] = null
+        this->stackPop.remove(42);  // [41] = 92, [91] = null
+        this->stackPop.remove(44);  // [43] = 91, [90] = null
+        this->stackPop.remove(43);  // [42] = 90, [89] = null
+        this->stackPop.remove(90);  // [42] = 89, [88] = null
+        this->stackPop.remove(45);  // [44] = 88, [87] = null
+        this->stackPop.remove(65);  // [64] = 87, [86] = null
+        this->stackPop.remove(66);  // [65] = 86, [85] = null
+        this->stackPop.remove(11);  // [10] = 85, [84] = null
+
+        // create 10 new entities and add them
+        std::array<typename TestFixture::Entity, 10> entities2;
+        for (int i=0; i <10; ++i){
+            entities[i] = typename TestFixture::Entity(runningId, 20, 20);
+            this->stackPop.add(entities[i]);
+            runningId++;
+        }
+
+        /*
+        Last ten should be:
+        [84] = 101
+        [85] = 102
+        [86] = 103
+        [87] = 104
+        [88] = 105
+        [89] = 106
+        [90] = 107
+        [91] = 108
+        [92] = 109
+        [93] = 110
+        */
+
+        // containers should be size()==99
+        EXPECT_EQ(this->stackPop.iterContainer.size(), 94);
+        EXPECT_EQ(this->stackPop.idToIndexMap.size(), 94);
+
+        // check if last entity is swapped to replace the removed entity in itercontainer
+        // see comments above for explanation of expected values
+        EXPECT_EQ(this->stackPop.iterContainer[42].id, 89);
+        EXPECT_EQ(this->stackPop.iterContainer[10].id, 85);
+        EXPECT_EQ(this->stackPop.iterContainer[1].id, 97);
+        EXPECT_EQ(this->stackPop.iterContainer[64].id, 87);
+        EXPECT_EQ(this->stackPop.iterContainer[65].id, 86);
+        EXPECT_EQ(this->stackPop.iterContainer[84].id, 101);
+        EXPECT_EQ(this->stackPop.iterContainer[90].id, 107);
+        EXPECT_EQ(this->stackPop.iterContainer[92].id, 109);
+        EXPECT_EQ(this->stackPop.iterContainer[93].id, 110);
+
+
     }
     
     
