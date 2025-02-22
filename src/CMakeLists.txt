@@ -13,6 +13,14 @@ add_library(neuralanimals_lib ${SRC_SOURCES})
 ## create executable
 add_executable(neuralanimals main.cpp)
 
+## enable OpenMP
+find_package(OpenMP REQUIRED)
+
+if(OpenMP_CXX_FOUND)
+    target_compile_options(neuralanimals_lib PRIVATE ${OpenMP_CXX_FLAGS})
+    target_link_libraries(neuralanimals_lib PRIVATE OpenMP::OpenMP_CXX)
+endif()
+
 
 
 ## add headers

@@ -15,6 +15,12 @@ file(GLOB_RECURSE TEST_SOURCES
 ## create executable
 add_executable(neuralanimals_tests ${TEST_SOURCES})
 
+target_include_directories(neuralanimals_tests PRIVATE 
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_BINARY_DIR}/_deps/libnoise-src/include
+    ${CMAKE_SOURCE_DIR}/src
+    )
+
 
 
 ## link libraries

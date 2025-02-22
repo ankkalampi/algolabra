@@ -1,14 +1,22 @@
 #pragma once
 
+#include <functional>
 #include <unordered_map>
 #include <vector>
+#include "../entity/entity.hpp"
+#include "cell.hpp"
+#include "globals.hpp"
 
 
 
-// forward declaration
-namespace entity{
-    template <typename T> struct Entity;
+
+namespace world{
+
+    template <typename T>
+    void shuffleVector(std::vector<T> &vec);
+
 }
+
 
 
 
@@ -27,13 +35,42 @@ namespace population{
         //  used whenever entity needs to be found
         std::unordered_map<int, std::size_t> idToIndexMap;
 
+        // cells that a population's entities can spawn into
+        // reference wrapper makes it possible to use reference here
+        std::vector<world::Cell*>* habitat;
+        
+        
+        Population<T>(std::vector<world::Cell*>* habitatPtr) : habitat(habitatPtr){
+            // shuffles the habitat cell vector making spawn placement random
+            world::shuffleVector(*habitat);
+        }
+
+        // this constructor is used for testing only
+        Population<T>(){}
+       
+
+
+
+       
 
         // update population, this is run each tick
         void update(){
             
             // iterates all entities of population
             for (const entity::Entity<T>& entity : iterContainer){
-                entity.update(&this);
+                entity.updateEntity(this);
+            }
+        }
+
+        // spawns entities in this population according to spawning habitat
+        void spawn(int num){
+            
+            
+            for (int i=0; i < num; ++i){
+                // get cell index of a cell in shuffled vector
+                int x = (*habitat)[i]->x;
+                int y = (*habitat)[i]->y;
+                int cellIndex = x + y * CELLS_HORIZONTAL;
             }
         }
 

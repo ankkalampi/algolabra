@@ -1,3 +1,5 @@
+
+
 #include "../../src/world/population.hpp"
 #include "../../src/entity/carnivore.hpp"
 #include "../../src/entity/herbivore.hpp"
@@ -6,6 +8,8 @@
 #include <array>
 #include <cstddef>
 #include <gtest/gtest.h>
+#include <vector>
+
 
 namespace population_test{
 
@@ -17,15 +21,21 @@ namespace population_test{
         using Entity = entity::Entity<T>;
         protected:
             // test instances
-            Population stackPop; // stack version
+
+            std::vector<world::Cell*>* cells = new std::vector<world::Cell*>;
+
+
+            Population stackPop = Population(cells); // stack version
             Population* heapPop = nullptr; // heap version
 
             void SetUp() override {
-                heapPop = new Population();
+                heapPop = new Population(cells);
+                
             }
 
             void TearDown() override {
                 delete heapPop;
+                delete cells;
                 heapPop = nullptr;
             }
     } ;

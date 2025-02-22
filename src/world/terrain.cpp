@@ -1,6 +1,7 @@
 #include "terrain.hpp"
 #include "../globals.hpp"
 
+
 namespace terrain{
     // creates perlin generator to use with terrain generation
     noise::module::Perlin generatePerlinGenerator(double freq, double pers, double lacun, double octave){

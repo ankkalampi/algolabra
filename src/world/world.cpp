@@ -1,23 +1,18 @@
-#include "noise/module/perlin.h"
+
 #include <vector>
 #include <unordered_map>
 #include "../globals.hpp"
 #include <iostream>
 #include "world.hpp"
 
+#include "world/population.hpp"
 #include "world_utils.hpp"
-#include "terrain.hpp"
+
 
 namespace world{
 
    
 
-
-
-        Cell::Cell(int x, int y) : x(x), y(y){
-            this->tenantID = 0;
-            this->tenant = Tenant::Empty;
-        }
 
         WorldParameters::WorldParameters(
 
@@ -56,9 +51,12 @@ namespace world{
                 herbivoreMaturityAge(parameters.herbivoreMaturityAge),
                 herbivoreBirthSatiation(parameters.herbivoreBirthSatiation),
                 carnivoreMaturityAge(parameters.carnivoreMaturityAge),
-                carnivoreBirthSatiation(parameters.carnivoreBirthSatiation){
+                carnivoreBirthSatiation(parameters.carnivoreBirthSatiation),
+                plantPopulation(population::Population<entity::Plant>(&grassCells)),
+                herbivorePopulation(population::Population<entity::Herbivore>(&landCells)),
+                carnivorePopulation(population::Population<entity::Carnivore>(&landCells)){
 
-            runningId = 0;
+        
 
             
             // reserve space for cells
@@ -69,7 +67,7 @@ namespace world{
             // generate terrain
             generateTerrain(*this, parameters.amountWater, parameters.amountRock, parameters.amountSand, parameters.amountGrass);
             
-
+            plantPopulation = population::Population<entity::Plant>(&grassCells);
             // populate world with starting populations
             //createStartingHerbivores(*this, numberHerbivores);
             createStartingPlants(*this, parameters.numberPlants);

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "noise/module/perlin.h"
 
 #include <memory>
 #include <vector>
@@ -12,7 +11,15 @@
 #include <iostream>
 
 #include "../entity/plant.hpp"
-#include "terrain.hpp"
+
+#include "population.hpp"
+
+
+namespace entity{
+    struct Carnivore;
+    struct Herbivore;
+    struct Plant;
+}
 
 
 
@@ -22,14 +29,7 @@ namespace world{
 
     
 
-    struct Cell{
-        terrain::Terrain terrain;
-        enum Tenant {Empty, Herbivore, Predator} tenant;
-        int tenantID;
-        int x, y;
-
-        Cell(int x, int y);
-    };
+    
 
     struct WorldParameters{
         int numberHerbivores;
@@ -69,6 +69,10 @@ namespace world{
         std::unordered_map<int, entity::Plant*> plants;
         std::vector<Cell*> grassCells;
         std::vector<Cell*> landCells;
+
+        population::Population<entity::Plant> plantPopulation;
+        population::Population<entity::Herbivore> herbivorePopulation;
+        population::Population<entity::Carnivore> carnivorePopulation;
 
         int plantSpawnRate;
         int plantSpawnDistance;
