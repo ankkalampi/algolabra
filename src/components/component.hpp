@@ -1,5 +1,5 @@
 #pragma once
-namespace entity
+namespace components
 {
 
 template <typename T>
@@ -16,4 +16,4 @@ template <typename T>
 void processComponent(Component<T>& component)
 {
 }
-};  // namespace entity
+};  // namespace components

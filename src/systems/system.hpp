@@ -1,23 +1,23 @@
 #pragma once
 
-#include "component.hpp"
+#include "../components/component.hpp"
 
 #include <unordered_map>
 #include <vector>
 
-namespace entity
+namespace systems
 {
 template <typename T>
 struct System {
     // vector for quick iteration
-    std::vector<entity::Component<T>> iterContainer;
+    std::vector<components::Component<T>> iterContainer;
 
     // this map is used for finding correct component in itercontainer
     //  used whenever component needs to be found
     std::unordered_map<int, std::size_t> idToIndexMap;
 
     // add new component to system
-    void add(entity::Component<T> &component)
+    void add(components::Component<T> &component)
     {
         // add id and index to idtoindexmap for quick removal
         idToIndexMap[component.id] = iterContainer.size();
@@ -53,13 +53,19 @@ struct System {
         iterContainer.pop_back();
     }
 
+    // returns reference to component based on entity id
+    components::Component<T> &getComponent(int entityId)
+    {
+        return iterContainer[idToIndexMap[entityId]];
+    }
+
     // update system, this is run each tick
-    void update()
+    void updateComponents()
     {
         // iterates all entities of population
-        for (const entity::Component<T> &component : iterContainer) {
+        for (const components::Component<T> &component : iterContainer) {
             processComponent(component);
         }
     }
 };
-};  // namespace entity
+};  // namespace systems

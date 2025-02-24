@@ -10,7 +10,10 @@ file(GLOB_RECURSE TEST_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/entity/*.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/render/*.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/runtime/*.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/world/*.cpp)
+    ${CMAKE_CURRENT_SOURCE_DIR}/world/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/systems/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/components/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/entities/*.cpp)
 
 ## create executable
 add_executable(neuralanimals_tests ${TEST_SOURCES})
