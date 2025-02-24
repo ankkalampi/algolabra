@@ -2,6 +2,9 @@
 
 #include "../world/world.hpp"
 #include "SDL_events.h"
+#include "systems/behavior_system.hpp"
+#include "systems/coordinate_system.hpp"
+#include "systems/render_system.hpp"
 
 #include <optional>
 
@@ -12,6 +15,20 @@ extern bool running;
 extern SDL_Event event;
 extern std::optional<world::World> world;
 extern std::optional<world::WorldParameters> worldParameters;
+
+struct Runtime {
+    uint32_t tick;
+
+    systems::CoordinateSystem coordinateSystem;
+    systems::RenderSystem renderSystem;
+    systems::BehaviorSystem behaviorSystem;
+
+    world::World world;
+
+    Runtime();
+
+    void run();
+};
 
 // sets up the runtime system for simulation and rendering
 void init();

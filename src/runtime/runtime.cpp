@@ -4,6 +4,9 @@
 #include "../render/render.hpp"
 #include "../world/world.hpp"
 #include "SDL_events.h"
+#include "systems/behavior_system.hpp"
+#include "systems/coordinate_system.hpp"
+#include "systems/render_system.hpp"
 
 namespace runtime
 {
@@ -13,6 +16,19 @@ std::optional<world::WorldParameters> worldParameters;
 bool running;
 SDL_Event event;
 
+Runtime::Runtime()
+    : tick(0),
+      coordinateSystem(
+          static_cast<systems::CoordinateSystem>(systems::CoordinateSystem())),
+      renderSystem(static_cast<systems::RenderSystem>(
+          systems::RenderSystem(&coordinateSystem))),
+      behaviorSystem(
+          static_cast<systems::BehaviorSystem>(systems::BehaviorSystem())),
+      world(world::WorldParameters(1, 1, 100000, 1, 1, 1, 1, 1, 1, 1, 1, 1))
+{
+}
+
+void Runtime::run() { tick++; }
 // sets up the runtime system for simulation and rendering
 void init()
 {

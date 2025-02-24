@@ -21,6 +21,8 @@ RenderManager::RenderManager(systems::RenderSystem& renderSystem)
 
 void RenderManager::Run()
 {
+    // clear screen
+    SDL_RenderClear(renderer);
     // create texture from all rendercomponents.
     // highly parallelized and optimized
     updateTextureBasedOnRenderComponents(renderSystem, entityLayer);

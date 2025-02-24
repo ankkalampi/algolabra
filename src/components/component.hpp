@@ -8,12 +8,13 @@ struct Component {
     int entityId;
 
     Component<T>(int id) : entityId(id) {}
+
+    // process a component, used by owner system. Has to be specialized for each
+    // component type in respective code files
+    static void processComponent(Component<T>& component)
+    {
+        T::process(component);
+    }
 };
 
-// process a component, used by owner system. Has to be specialized for each
-// component type in respective code files
-template <typename T>
-void processComponent(Component<T>& component)
-{
-}
 };  // namespace components
