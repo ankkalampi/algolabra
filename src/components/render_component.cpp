@@ -4,6 +4,8 @@
 
 namespace components
 {
+systems::CoordinateSystem* RenderComponent::coordinateSystem = nullptr;
+
 RenderComponent::RenderComponent(int entityId,
                                  const SDL_Rect& rect,
                                  const SDL_Color& color)
@@ -14,16 +16,15 @@ RenderComponent::RenderComponent(int entityId,
 }
 
 // static processing method
-void RenderComponent::process(RenderComponent& rendComp,
-                              systems::CoordinateSystem& coordinateSystem)
+void RenderComponent::process(RenderComponent& rendComp)
 {
     // update rendercomponent x, y based on coordinacomponent
     // later this could be used to make camera translations etc
     rendComp.x = static_cast<CoordinateComponent&>(
-                     coordinateSystem.getComponent(rendComp.entityId))
+                     coordinateSystem->getComponent(rendComp.entityId))
                      .x;
     rendComp.y = static_cast<CoordinateComponent&>(
-                     coordinateSystem.getComponent(rendComp.entityId))
+                     coordinateSystem->getComponent(rendComp.entityId))
                      .y;
 }
 };  // namespace components

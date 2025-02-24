@@ -114,7 +114,7 @@ BehaviorComponent::BehaviorComponent(
     }
 }
 
-void process(BehaviorComponent& behavComp)
+void BehaviorComponent::process(BehaviorComponent& behavComp)
 {
     behavComp.move(behavComp.movementPlant[behavComp.counter]);
 

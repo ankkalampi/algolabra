@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 namespace components
 {
 
@@ -11,10 +12,7 @@ struct Component {
 
     // process a component, used by owner system. Has to be specialized for each
     // component type in respective code files
-    static void processComponent(Component<T>& component)
-    {
-        T::process(component);
-    }
+    static void processComponent(T& component) { T::process(component); }
 };
 
 };  // namespace components

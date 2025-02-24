@@ -63,8 +63,9 @@ struct System {
     void updateComponents()
     {
         // iterates all entities of population
-        for (const components::Component<T> &component : iterContainer) {
-            processComponent(component);
+        for (components::Component<T> &component : iterContainer) {
+            components::Component<T>::processComponent(
+                static_cast<T &>(component));
         }
     }
 };

@@ -1,17 +1,20 @@
 #include "render_manager.hpp"
 
 #include "SDL_render.h"
+#include "SDL_video.h"
+#include "render/render.hpp"
 #include "render/render_utils.hpp"
+#include "runtime/runtime.hpp"
 
 namespace render
 {
-RenderManager::RenderManager(systems::RenderSystem& renderSystem)
+RenderManager::RenderManager(systems::RenderSystem& renderSystem,
+                             runtime::Runtime& runtime)
     : renderSystem(renderSystem)
 {
-    renderer = render::renderer;  // globaali muuttuja tullaan kapseloimaan
-                                  // tähän luokkaan
-    terrainLayer = render::createTerrainTexture(
-        renderer, runtime::world->cells, CELL_SIZE);
+    init(renderer, window);
+    terrainLayer =
+        render::createTerrainTexture(renderer, runtime.world.cells, CELL_SIZE);
     entityLayer = SDL_CreateTexture(renderer,
                                     SDL_PIXELFORMAT_ABGR8888,
                                     SDL_TEXTUREACCESS_TARGET,
@@ -19,7 +22,7 @@ RenderManager::RenderManager(systems::RenderSystem& renderSystem)
                                     SCREEN_HEIGHT);
 }
 
-void RenderManager::Run()
+void RenderManager::update()
 {
     // clear screen
     SDL_RenderClear(renderer);
@@ -35,5 +38,17 @@ void RenderManager::Run()
 
     // draw
     SDL_RenderPresent(renderer);
+
+    // set fps
+    SDL_Delay(FPS_DELAY);
+}
+
+void RenderManager::cleanup()
+{
+    SDL_DestroyTexture(terrainLayer);
+    SDL_DestroyTexture(entityLayer);
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 }
 };  // namespace render

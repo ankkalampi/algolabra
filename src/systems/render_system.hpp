@@ -9,9 +9,6 @@ namespace systems
 struct RenderSystem : public System<components::RenderComponent> {
     CoordinateSystem* coordinateSystem;
 
-    RenderSystem(CoordinateSystem* coordinateSystem)
-        : coordinateSystem(coordinateSystem)
-    {
-    }
+    RenderSystem(CoordinateSystem* coordinateSystem);
 };
 };  // namespace systems

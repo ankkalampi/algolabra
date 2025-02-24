@@ -5,6 +5,8 @@
 namespace render
 {
 
+int init(SDL_Renderer* renderer, SDL_Window* window);
+
 void updateTextureBasedOnRenderComponents(systems::RenderSystem& renderSystem,
                                           SDL_Texture* texture);
-};
+};  // namespace render

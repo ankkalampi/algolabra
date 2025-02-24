@@ -2,6 +2,7 @@
 
 #include "../world/world.hpp"
 #include "SDL_events.h"
+#include "render/render_manager.hpp"
 #include "systems/behavior_system.hpp"
 #include "systems/coordinate_system.hpp"
 #include "systems/render_system.hpp"
@@ -18,10 +19,13 @@ extern std::optional<world::WorldParameters> worldParameters;
 
 struct Runtime {
     uint32_t tick;
+    bool running;
 
     systems::CoordinateSystem coordinateSystem;
     systems::RenderSystem renderSystem;
     systems::BehaviorSystem behaviorSystem;
+
+    render::RenderManager renderManager;
 
     world::World world;
 
