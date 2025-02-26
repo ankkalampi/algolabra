@@ -4,9 +4,10 @@
 
 namespace components
 {
-BehaviorComponent::BehaviorComponent(
-    int entityId, Pattern pattern, systems::CoordinateSystem* coordinateSystem)
-    : Component(entityId), pattern(pattern), counter(0)
+systems::CoordinateSystem* components::BehaviorComponent::coordinateSystem =
+    nullptr;
+BehaviorComponent::BehaviorComponent(Pattern pattern)
+    : pattern(pattern), counter(0)
 {
     // find the corresponding coordinate component
     coordinateComponent = static_cast<CoordinateComponent*>(

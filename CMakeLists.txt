@@ -11,14 +11,23 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ## install dependencies 
 include(FetchContent)
 
+## set root directory for file i/o etc
+## use in code: PROJECT_ROOT_DIR
+add_definitions(-DPROJECT_ROOT_DIR="${CMAKE_SOURCE_DIR}")
+
+set(SDL3_DISABLE_INSTALL ON CACHE BOOL "" FORCE) # Ei asenneta järjestelmään
+set(SDL_TEST OFF CACHE BOOL "" FORCE) # Ei testejä
+set(SDL_SHARED OFF CACHE BOOL "" FORCE) # Käytä vain staattista versiota
+set(SDL_STATIC ON CACHE BOOL "" FORCE) # Pakota staattinen käännös
+
 ## sdl2
 FetchContent_Declare(
-    sdl2
+    sdl3
     GIT_REPOSITORY "https://github.com/libsdl-org/SDL.git"
-    GIT_TAG release-2.26.5
+    GIT_TAG release-3.2.0
 )
 
-FetchContent_MakeAvailable(sdl2)
+FetchContent_MakeAvailable(sdl3)
 
 
 ## gtest

@@ -16,10 +16,16 @@ add_executable(neuralanimals main.cpp)
 ## enable OpenMP
 find_package(OpenMP REQUIRED)
 
+## debug
+set(CMAKE_BUILD_TYPE Debug)
+
 if(OpenMP_CXX_FOUND)
     target_compile_options(neuralanimals_lib PRIVATE ${OpenMP_CXX_FLAGS})
     target_link_libraries(neuralanimals_lib PRIVATE OpenMP::OpenMP_CXX)
 endif()
+
+
+include_directories(${SDL3_SOURCE_DIR}/include)
 
 
 
@@ -27,11 +33,14 @@ endif()
 target_include_directories(neuralanimals_lib PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}/_deps/libnoise-src/include
+    
+    
     )
 
 target_include_directories(neuralanimals PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}/_deps/libnoise-src/include
+  
     )
 
 ## this is required for libnoise
@@ -40,12 +49,12 @@ target_link_directories(neuralanimals_lib PRIVATE ${CMAKE_BINARY_DIR}/_deps/libn
 
 # link libraries
 target_link_libraries(neuralanimals_lib PRIVATE
-    SDL2::SDL2main SDL2::SDL2
+    SDL3-static
     libnoise)
 
 ## link libraries
 target_link_libraries(neuralanimals PRIVATE
     neuralanimals_lib
-    SDL2::SDL2main SDL2::SDL2
+    SDL3-static
     libnoise)
 

@@ -2,9 +2,9 @@
 
 #include "../globals.hpp"
 #include "../world/world.hpp"
-#include "SDL_render.h"
+#include "SDL3/SDL_render.h"
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include <unordered_map>
 #include <vector>
 
@@ -13,22 +13,22 @@ namespace render
 
 inline bool renderedonce = false;
 
-inline SDL_Renderer* renderer;
-inline SDL_Window* window;
-inline SDL_Texture* terrainTexture;
+// inline SDL_Renderer* renderer;
+// inline SDL_Window* window;
+// inline SDL_Texture* terrainTexture;
 
 // renders the whole scene. This is called every tick
-void draw();
+// void draw();
 
 // destroys everything related to SDL. This is used when exiting program
-void cleanup();
+// void cleanup();
 
 // this function inits the rendering context creating renderer and window, and
 // connecting them
 int init();
 
 // sets up terrain and everything else for rendering
-void setupRenderingSystem(const world::World& world);
+// void setupRenderingSystem(const world::World& world);
 
 // this function is used for rendering the world terrain to a texture
 void worldToTexture(SDL_Renderer* renderer,
@@ -41,8 +41,8 @@ SDL_Texture* createTerrainTexture(SDL_Renderer* renderer,
                                   int cellSize);
 
 // renders plants
-void renderPlants(const world::World& world);
+// void renderPlants(const world::World& world);
 
 // tests rect rendering
-void testRectRendering();
+// void testRectRendering();
 };  // namespace render

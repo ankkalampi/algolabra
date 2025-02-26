@@ -6,5 +6,8 @@
 namespace systems
 {
 struct BehaviorSystem : public System<components::BehaviorComponent> {
+    CoordinateSystem* coordinateSystem;
+
+    BehaviorSystem(CoordinateSystem* coordinateSystem);
 };
 };  // namespace systems

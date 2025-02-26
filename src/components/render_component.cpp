@@ -6,10 +6,8 @@ namespace components
 {
 systems::CoordinateSystem* RenderComponent::coordinateSystem = nullptr;
 
-RenderComponent::RenderComponent(int entityId,
-                                 const SDL_Rect& rect,
-                                 const SDL_Color& color)
-    : Component(entityId), x(rect.x), y(rect.y), w(rect.w), h(rect.h)
+RenderComponent::RenderComponent(const SDL_Rect& rect, const SDL_Color& color)
+    : x(rect.x), y(rect.y), w(rect.w), h(rect.h)
 {
     // convert SDL_Color to uint32_t using bitwise operations
     this->color = (color.a << 24) | (color.b << 16) | (color.g << 8) | color.r;
@@ -27,4 +25,5 @@ void RenderComponent::process(RenderComponent& rendComp)
                      coordinateSystem->getComponent(rendComp.entityId))
                      .y;
 }
+
 };  // namespace components

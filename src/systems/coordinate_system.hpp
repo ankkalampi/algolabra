@@ -6,5 +6,6 @@
 namespace systems
 {
 struct CoordinateSystem : public System<components::CoordinateComponent> {
+    CoordinateSystem() {}
 };
 };  // namespace systems

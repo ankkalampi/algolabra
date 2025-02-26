@@ -9,3 +9,5 @@
 - mahdollisesti engine-luokka, joka kokoaa sovelluksen toiminnan aloituksesta sulkemiseen
 - kaikki globaalit muuttujat tullaan kapseloimaan managereihin 
 - globals.hpp:n arvot voidaan lukea tiedostosta, ja tallentaa esim engine-luokkaan
+
+- system templatessa voisi käyttää components::Component<T>:n sijasta vain T. Tämä säästäisi static casteilta monessa paikkaa. Pitää refaktoroida tämä jossain vaiheessa

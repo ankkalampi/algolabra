@@ -1,43 +1,52 @@
 #pragma once
 
 #include "../world/world.hpp"
-#include "SDL_events.h"
+#include "SDL3/SDL_events.h"
+#include "components/entity_component.hpp"
+#include "components/render_component.hpp"
 #include "render/render_manager.hpp"
+#include "runtime/systems_manager.hpp"
 #include "systems/behavior_system.hpp"
 #include "systems/coordinate_system.hpp"
+#include "systems/entity_system.hpp"
 #include "systems/render_system.hpp"
 
 #include <optional>
+#include <typeindex>
+#include <typeinfo>
+#include <unordered_map>
+#include <variant>
+
+// this system stuff should maybe go to dedicated system manager class
+// better yet, this std::variant and system pointer map stuff should be
+// automatically handled using some static magic in component and system
 
 namespace runtime
 {
-
-extern bool running;
-extern SDL_Event event;
-extern std::optional<world::World> world;
-extern std::optional<world::WorldParameters> worldParameters;
 
 struct Runtime {
     uint32_t tick;
     bool running;
 
+    SDL_Event event;
+
+    // this system stuff should maybe go to dedicated system manager class
+    // better yet, this std::variant and system pointer map stuff should be
+    // automatically handled using some static magic in component and system
+
+    world::World world;
+    systems::EntitySystem entitySystem;
     systems::CoordinateSystem coordinateSystem;
     systems::RenderSystem renderSystem;
     systems::BehaviorSystem behaviorSystem;
+    // end of systems stuff
 
     render::RenderManager renderManager;
-
-    world::World world;
+    engine::SystemsManager systemsManager = engine::SystemsManager();
 
     Runtime();
 
     void run();
 };
-
-// sets up the runtime system for simulation and rendering
-void init();
-
-// starts the runtime loop. Exits the program if window is closed
-void run();
 
 };  // namespace runtime

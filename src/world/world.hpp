@@ -1,78 +1,31 @@
 #pragma once
 
-#include <memory>
-#include <vector>
-
 #include "../globals.hpp"
-#include <iostream>
-#include <unordered_map>
-
-#include "../entity/plant.hpp"
-
+#include "entity/habitat.hpp"
 #include "population.hpp"
 
-namespace entity {
+#include <iostream>
+#include <memory>
+#include <unordered_map>
+#include <vector>
+
+namespace entity
+{
 struct Carnivore;
 struct Herbivore;
 struct Plant;
-} // namespace entity
+}  // namespace entity
 
-namespace world {
-
-struct WorldParameters {
-  int numberHerbivores;
-  int numberCarnivores;
-  int numberPlants;
-  int amountGrass;
-  int amountRock;
-  int amountSand;
-  int amountWater;
-  int plantSpawnRate;
-  int herbivoreMaturityAge;
-  int herbivoreBirthSatiation;
-  int carnivoreMaturityAge;
-  int carnivoreBirthSatiation;
-
-  WorldParameters(
-
-      int numberHerbivores, int numberCarnivores, int numberPlants,
-      int amountGrass, int amountRock, int amountSand, int amountWater,
-      int plantSpawnRate, int herbivoreMaturityAge, int herbivoreBirthSatiation,
-      int carnivoreMaturityAge, int carnivoreBirthSatiation);
-};
+namespace world
+{
 
 struct World {
-  std::vector<Cell> cells;
-  std::unordered_map<int, entity::Plant *> plants;
-  std::vector<Cell *> grassCells;
-  std::vector<Cell *> landCells;
+    std::vector<Cell> cells;
 
-  population::Population<entity::Plant> plantPopulation;
-  population::Population<entity::Herbivore> herbivorePopulation;
-  population::Population<entity::Carnivore> carnivorePopulation;
+    entity::Habitat grassHabitat;
+    entity::Habitat landHabitat;
 
-  int plantSpawnRate;
-  int plantSpawnDistance;
-  int plantMaturityAge;
-
-  int herbivoreMaturityAge;
-  int herbivoreBirthSatiation;
-
-  int carnivoreMaturityAge;
-  int carnivoreBirthSatiation;
-
-  int runningId;
-
-  World(WorldParameters parameters);
+    World(int amountWater, int amountRock, int amountSand, int amountGrass);
 };
 
-inline std::vector<entity::Plant> plants;
-
-// sets up simulation world. Makes it ready for starting simulation and
-// rendering
-void setupWorld(World &world, WorldParameters parameters);
-
-void populateWorld(World &world, int numberHerbivores, int numberCarnivores,
-                   int numberPlants);
-
-}; // namespace world
+};  // namespace world

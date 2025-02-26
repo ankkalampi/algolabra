@@ -1,0 +1,11 @@
+# Plant
+
+RENDER_SYSTEM:
+w: 1,
+h: 1,
+r: 100,
+g: 40,
+b: 22
+SYSTEM_END
+
+

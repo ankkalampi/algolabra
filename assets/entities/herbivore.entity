@@ -1,0 +1,20 @@
+# Herbivore
+
+RENDER_SYSTEM:
+w: 1,
+h: 1,
+r: 30,
+g: 50,
+b: 70
+SYSTEM_END
+
+BEHAVIOR_SYSTEM:
+ALT
+Pattern: Circles,
+Pattern: StraightAndBack,
+Pattern: Stay,
+Pattern: Careful
+ALT_END
+SYSTEM_END
+
+

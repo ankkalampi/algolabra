@@ -3,49 +3,64 @@
 #include "../globals.hpp"
 #include "../render/render.hpp"
 #include "../world/world.hpp"
-#include "SDL_events.h"
+#include "SDL3/SDL_events.h"
 #include "render/render_manager.hpp"
+#include "runtime/systems_manager.hpp"
 #include "systems/behavior_system.hpp"
 #include "systems/coordinate_system.hpp"
+#include "systems/entity_system.hpp"
 #include "systems/render_system.hpp"
 
 namespace runtime
 {
 
-std::optional<world::World> world;
-std::optional<world::WorldParameters> worldParameters;
-bool running;
-SDL_Event event;
-
 Runtime::Runtime()
     : tick(0),
-      coordinateSystem(
-          static_cast<systems::CoordinateSystem>(systems::CoordinateSystem())),
-      renderSystem(static_cast<systems::RenderSystem>(
-          systems::RenderSystem(&coordinateSystem))),
-      behaviorSystem(
-          static_cast<systems::BehaviorSystem>(systems::BehaviorSystem())),
-      world(world::WorldParameters(1, 1, 100000, 1, 1, 1, 1, 1, 1, 1, 1, 1)),
-      renderManager(renderSystem, *this),
+      coordinateSystem(systems::CoordinateSystem()),
+      renderSystem(systems::RenderSystem(&coordinateSystem)),
+      behaviorSystem(systems::BehaviorSystem(&coordinateSystem)),
+      entitySystem(&coordinateSystem, &renderSystem, &behaviorSystem),
+      world(world::World(1, 1, 1, 1)),
+      renderManager(renderSystem, world),
       running(true)
 {
+    std::cout << "we are constructing runtime!" << std::endl;
+    std::cout << "----------------------RUNTIME PROPERTIES--------------------"
+              << std::endl;
+    std::cout << "coordinatesystem: " << &coordinateSystem << std::endl;
+    std::cout << "rendersystem: " << &renderSystem << std::endl;
+    std::cout << "behaviorsystem: " << &behaviorSystem << std::endl;
+    std::cout << "world: " << &world << std::endl;
+    std::cout << "rendermanager: " << &renderManager << std::endl;
+    std::cout << "----------------------RUNTIME PROPERTIES--------------------"
+              << std::endl;
 }
 
 void Runtime::run()
-{  // runtime loop --------------------------------------
+
+{
+    // runtime loop --------------------------------------
     while (running) {
         tick++;
         // check events, quit if window closed
         while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
+            if (event.type == SDL_EVENT_QUIT) {
                 running = false;
             }
         }
 
-        behaviorSystem.updateComponents();
-        renderSystem.updateComponents();
-
+        std::cout << "int the runtime loop, about to update behaviorsystem"
+                  << std::endl;
+        systemsManager.behaviorSystem.updateComponents();
+        std::cout << "int the runtime loop, behaviorsystem updated, about to "
+                     "update rendersystem"
+                  << std::endl;
+        systemsManager.renderSystem.updateComponents();
+        std::cout << "int the runtime loop, rendersystem updated, about to "
+                     "update rendermanager"
+                  << std::endl;
         renderManager.update();
+        std::cout << "int the runtime loop, rendermanager updated" << std::endl;
     }
     //------------------------------------------------------
 
@@ -55,41 +70,4 @@ void Runtime::run()
     return;
 }
 
-// sets up the runtime system for simulation and rendering
-void init()
-{
-    worldParameters =
-        world::WorldParameters(1, 1, 100000, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-
-    // setting up the simulation world
-    world::setupWorld(*world, *worldParameters);
-
-    // setting up rendering system
-    render::setupRenderingSystem(*world);
-
-    running = true;
-}
-
-// starts the runtime loop. Exits the program if window is closed
-void run()
-{
-    // runtime loop --------------------------------------
-    while (running) {
-        // check events, quit if window closed
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                running = false;
-            }
-        }
-
-        // draw situation on this tick
-        render::draw();
-    }
-    //------------------------------------------------------
-
-    // cleanup of SDL stuff before exiting
-    render::cleanup();
-
-    return;
-}
 };  // namespace runtime

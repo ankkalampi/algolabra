@@ -2,11 +2,11 @@
 
 #include "../components/render_component.hpp"
 #include "../systems/render_system.hpp"
-#include "SDL.h"
-#include "SDL_pixels.h"
-#include "SDL_rect.h"
-#include "SDL_render.h"
-#include "SDL_video.h"
+#include "SDL3/SDL.h"
+#include "SDL3/SDL_pixels.h"
+#include "SDL3/SDL_rect.h"
+#include "SDL3/SDL_render.h"
+#include "SDL3/SDL_video.h"
 #include "globals.hpp"
 
 #include <iostream>
@@ -14,46 +14,6 @@
 
 namespace render
 {
-
-// this function inits the rendering context creating renderer and window, and
-// connecting them
-int init(SDL_Renderer *renderer, SDL_Window *window)
-{
-    // init SDL
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        std::cerr << "SDL initialization failed: " << SDL_GetError()
-                  << std::endl;
-        return 1;
-    }
-
-    // create SDL Window
-    window = SDL_CreateWindow("neural animals",
-                              SDL_WINDOWPOS_CENTERED,
-                              SDL_WINDOWPOS_CENTERED,
-                              SCREEN_WIDTH,
-                              SCREEN_HEIGHT,
-                              SDL_WINDOW_SHOWN);
-
-    if (!window) {
-        std::cerr << "SDL Window creation failed: " << SDL_GetError()
-                  << std::endl;
-        SDL_Quit();
-        return 1;
-    }
-
-    // create SDL renderer
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-    if (!window) {
-        std::cerr << "SDL Renderer creation failed: " << SDL_GetError()
-                  << std::endl;
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-        return 1;
-    }
-
-    return 0;
-}
 
 // creates one big texture from all rendercomponents
 // dramatically reduces number of render calls per tick

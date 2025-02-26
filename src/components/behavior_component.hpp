@@ -29,9 +29,9 @@ struct BehaviorComponent : public Component<BehaviorComponent> {
     CoordinateComponent* coordinateComponent;
     std::vector<Direction> movementPlant;
 
-    BehaviorComponent(int entityId,
-                      Pattern pattern,
-                      systems::CoordinateSystem* coordinateSystem);
+    static systems::CoordinateSystem* coordinateSystem;
+
+    BehaviorComponent(Pattern pattern);
 
     static void process(BehaviorComponent& behavComp);
 

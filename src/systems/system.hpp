@@ -20,7 +20,7 @@ struct System {
     void add(components::Component<T> &component)
     {
         // add id and index to idtoindexmap for quick removal
-        idToIndexMap[component.id] = iterContainer.size();
+        idToIndexMap[component.entityId] = iterContainer.size();
 
         // add reference of component to iteration container
         iterContainer.push_back(std::move(component));

@@ -3,8 +3,5 @@
 #include "component.hpp"
 namespace components
 {
-CoordinateComponent::CoordinateComponent(int entityId, int x, int y)
-    : Component(entityId), x(x), y(y)
-{
-}
+CoordinateComponent::CoordinateComponent(int x, int y) : x(x), y(y) {}
 };  // namespace components
