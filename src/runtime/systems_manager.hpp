@@ -3,6 +3,7 @@
 #include "../systems/system.hpp"
 #include "components/component_storage.hpp"
 #include "entity/entity_storage.hpp"
+#include "runtime/engine.hpp"
 #include "systems/behavior_system.hpp"
 #include "systems/coordinate_system.hpp"
 #include "systems/render_system.hpp"
@@ -15,7 +16,7 @@ using namespace systems;
 
 namespace engine
 {
-struct SystemsManager {
+struct SystemsManager : debug::Debuggable {
     CoordinateSystem coordinateSystem;
     RenderSystem renderSystem;
     BehaviorSystem behaviorSystem;

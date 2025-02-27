@@ -7,5 +7,10 @@ BehaviorSystem::BehaviorSystem(CoordinateSystem* coordinateSystem)
 {
     // set coordinatesystem towork with render components as well
     components::BehaviorComponent::coordinateSystem = coordinateSystem;
+
+    addDebugName("BEHAVIOR_SYSTEM");
+    addDebugProperty("coordinateSystem", &coordinateSystem);
+
+    printDebugInfo();
 }
 }  // namespace systems

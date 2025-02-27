@@ -3,15 +3,15 @@
 #include "components/behavior_component.hpp"
 #include "components/entity_component.hpp"
 #include "components/render_component.hpp"
+#include "runtime/engine.hpp"
 #include "runtime/systems_manager.hpp"
-#include "systems/entity_system.hpp"
 #include "world/cell.hpp"
 
 #include <random>
 #include <vector>
 namespace entity
 {
-struct Habitat {
+struct Habitat : public debug::Debuggable {
     std::vector<world::Cell*> cells;
 
     // these are for finding random cell
@@ -19,7 +19,7 @@ struct Habitat {
     std::mt19937 gen;
     std::uniform_int_distribution<size_t> distrib;
 
-    Habitat(std::vector<world::Cell*>& habitatCells);
+    Habitat(std::vector<world::Cell*> habitatCells);
 
     Habitat();
 

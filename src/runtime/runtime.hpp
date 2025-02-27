@@ -5,10 +5,10 @@
 #include "components/entity_component.hpp"
 #include "components/render_component.hpp"
 #include "render/render_manager.hpp"
+#include "runtime/engine.hpp"
 #include "runtime/systems_manager.hpp"
 #include "systems/behavior_system.hpp"
 #include "systems/coordinate_system.hpp"
-#include "systems/entity_system.hpp"
 #include "systems/render_system.hpp"
 
 #include <optional>
@@ -24,7 +24,7 @@
 namespace runtime
 {
 
-struct Runtime {
+struct Runtime : public debug::Debuggable {
     uint32_t tick;
     bool running;
 
@@ -35,7 +35,7 @@ struct Runtime {
     // automatically handled using some static magic in component and system
 
     world::World world;
-    systems::EntitySystem entitySystem;
+
     systems::CoordinateSystem coordinateSystem;
     systems::RenderSystem renderSystem;
     systems::BehaviorSystem behaviorSystem;

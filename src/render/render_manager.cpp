@@ -21,6 +21,15 @@ RenderManager::RenderManager(systems::RenderSystem& renderSystem,
                                     SDL_TEXTUREACCESS_TARGET,
                                     SCREEN_WIDTH,
                                     SCREEN_HEIGHT);
+
+    addDebugName("RENDER_MANAGER");
+    addDebugProperty("terrainLayer", &terrainLayer);
+    addDebugProperty("entityLayer", &entityLayer);
+    addDebugProperty("renderSystem", &this->renderSystem);
+    addDebugProperty("renderer", &renderer);
+    addDebugProperty("window", &window);
+
+    printDebugInfo();
 }
 
 void RenderManager::update()
@@ -55,14 +64,12 @@ void RenderManager::cleanup()
 
 int RenderManager::init()
 {
-    std::cout << "WE ARE STARTING RENDERMANAGER INIT!!!" << std::endl;
     // init SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::cerr << "SDL initialization failed: " << SDL_GetError()
                   << std::endl;
         return 1;
     }
-    std::cout << "SDL INITIALIZED!!" << std::endl;
 
     // create SDL Window
     window = SDL_CreateWindow("neural animals",
@@ -79,17 +86,12 @@ int RenderManager::init()
         return 1;
     }
 
-    std::cout << "WINDOW CREATED!!" << std::endl;
-    std::cout << "Window pointer: " << window << std::endl;
-
     // create SDL renderer
     renderer = SDL_CreateRenderer(window, NULL);
 
     if (renderer == nullptr) {
         std::cerr << "Renderer creation failed: " << SDL_GetError()
                   << std::endl;
-    } else {
-        std::cout << "renderer doing just fine!" << std::endl;
     }
 
     if (renderer == nullptr) {

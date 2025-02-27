@@ -9,5 +9,10 @@ RenderSystem::RenderSystem(CoordinateSystem* coordinateSystem)
 {
     // set coordinatesystem towork with render components as well
     components::RenderComponent::coordinateSystem = coordinateSystem;
+
+    addDebugName("RENDER_SYSTEM");
+    addDebugProperty("coordinateSystem", coordinateSystem);
+
+    printDebugInfo();
 }
 }  // namespace systems

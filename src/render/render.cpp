@@ -25,9 +25,6 @@ SDL_FRect toFRect(const SDL_Rect& rect)
 void worldToTexture(SDL_Renderer* renderer,
                     const std::vector<world::Cell>& cells)
 {
-    std::cout << "starting worldtotexture!"
-              << "  the size of cells is: " << cells.size() << std::endl;
-
     std::unordered_map<int, SDL_Color> terrainColors = {
         {1, {0, 0, 255, 255}},      // Sininen
         {2, {0, 255, 0, 255}},      // Vihreä
@@ -69,8 +66,6 @@ void worldToTexture(SDL_Renderer* renderer,
             SDL_RenderFillRect(renderer, &fr);
         }
     }
-
-    std::cout << "finished texture loop!" << std::endl;
 }
 
 // generate texture for world terrain. Using texture for terrain speeds up
@@ -79,18 +74,12 @@ SDL_Texture* createTerrainTexture(SDL_Renderer* renderer,
                                   const std::vector<world::Cell>& cells,
                                   int cellSize)
 {
-    std::cout << "Starting to create terrain texture!" << std::endl;
     // create SDL_Texture for rendering
     SDL_Texture* terrainTexture = SDL_CreateTexture(renderer,
                                                     SDL_PIXELFORMAT_ABGR8888,
                                                     SDL_TEXTUREACCESS_TARGET,
                                                     SCREEN_WIDTH,
                                                     SCREEN_HEIGHT);
-
-    if (!terrainTexture) {
-        std::cerr << "texture creation failed: " << SDL_GetError() << std::endl;
-        return nullptr;
-    }
 
     // setting the texture as render target
     SDL_SetRenderTarget(renderer, terrainTexture);

@@ -17,18 +17,17 @@ World::World(int amountWater, int amountRock, int amountSand, int amountGrass)
 
 {
     // reserve space for cells
-    cells.reserve(CELLS_HORIZONTAL * CELLS_VERTICAL);
-
-    std::cout << "just about to generate terrain!!!" << std::endl;
+    cells.reserve(CELLS_HORIZONTAL * CELLS_VERTICAL + 10);
 
     // generate terrain
     generateTerrain(*this, amountWater, amountRock, amountSand, amountGrass);
 
-    std::cout << "--------------WORLD------------------" << std::endl;
-    std::cout << "world created! habitats: " << std::endl;
-    std::cout << "grasshabitat: " << &grassHabitat << std::endl;
-    std::cout << "landhabitat: " << &landHabitat << std::endl;
-    std::cout << "--------------WORLD------------------" << std::endl;
+    addDebugName("WORLD");
+    addDebugProperty("cells", &cells);
+    addDebugProperty("grassHabitat", &grassHabitat);
+    addDebugProperty("landHabitat", &landHabitat);
+
+    printDebugInfo();
 }
 
 };  // namespace world

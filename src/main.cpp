@@ -1,5 +1,6 @@
 
 #include "entity/entity_storage.hpp"
+#include "runtime/engine.hpp"
 #include "runtime/runtime.hpp"
 
 int main()
@@ -10,7 +11,8 @@ int main()
 
     runtime::Runtime engine = runtime::Runtime();
 
-    std::cout << "starting to spawn entities in main loop!" << std::endl;
+    debug::Debuggable test = debug::Debuggable();
+
     engine.world.grassHabitat.spawnEntity(
         engine.systemsManager,
         engine.systemsManager.entityStorage.generateEntity(

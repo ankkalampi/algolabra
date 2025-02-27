@@ -14,15 +14,12 @@ void generateTerrain(World &world,
                      int amountSand,
                      int amountGrass)
 {
-    std::cout << "started to generate Terrain!" << std::endl;
     // create perlin generator
     noise::module::Perlin perlin =
         terrain::generatePerlinGenerator(PERLIN_FREQUENCY,
                                          PERLIN_PERSISTENCE,
                                          PERLIN_LACUNARITY,
                                          PERLIN_OCTAVE_COUNT);
-
-    std::cout << "Starting to create cells! " << std::endl;
 
     std::vector<Cell *> grassCells;
     std::vector<Cell *> landCells;
@@ -67,9 +64,6 @@ void generateTerrain(World &world,
 
     world.grassHabitat = entity::Habitat(grassCells);
     world.landHabitat = entity::Habitat(landCells);
-
-    std::cout << "Cells created! Cells.size() = " << world.cells.size()
-              << std::endl;
 }
 
 };  // namespace world

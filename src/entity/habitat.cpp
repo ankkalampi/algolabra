@@ -14,7 +14,7 @@ namespace entity
 
 Habitat::Habitat() {}
 
-Habitat::Habitat(std::vector<world::Cell*>& habitatCells)
+Habitat::Habitat(std::vector<world::Cell*> habitatCells)
 {
     // create these for picking random items in cells vector
     cells = habitatCells;
@@ -26,8 +26,12 @@ Habitat::Habitat(std::vector<world::Cell*>& habitatCells)
         distrib = std::uniform_int_distribution<size_t>(0, cells.size() - 1);
     }
 
-    std::cout << "habitat created successfully!" << std::endl;
-    std::cout << "gen: " << &gen << " distrib: " << &distrib << std::endl;
+    addDebugName("HABITAT");
+    addDebugProperty("cells", &cells);
+    addDebugProperty("gen", &gen);
+    addDebugProperty("distrib", &distrib);
+
+    printDebugInfo();
 }
 
 // creating a given number of entities to the world using coordinates found
@@ -37,8 +41,6 @@ void Habitat::spawnEntity(engine::SystemsManager& systemsManager,
                           const std::vector<std::any>& components,
                           int num)
 {
-    std::cout << "-------------SPAWNING FUNCTION STARTS----------------"
-              << std::endl;
     components::CoordinateComponent coordinateComponent =
         components::CoordinateComponent(0, 0);
 
@@ -46,33 +48,20 @@ void Habitat::spawnEntity(engine::SystemsManager& systemsManager,
 
     entityPrototype.emplace_back(coordinateComponent);
 
-    std::cout << "entityprototype.size() = " << entityPrototype.size()
-              << std::endl;
-
     world::Cell* targetCell = nullptr;
 
-    std::cout << "starting cell finding process. size of habitat cells: "
-              << cells.size() << std::endl;
     for (int i = 0; i < num; ++i) {
         // try to find a free cell within habitat. give up if nopt found until
         // limit
-        std::cout << "trying to find cell for entity number: " << i
-                  << std::endl;
+
         bool limitReached = true;
         for (int j = 0; j < SPAWN_MISS_LIMIT; ++j) {
-            std::cout << "attempt: " << j + 1 << " for entity: " << i
-                      << std::endl;
-
             // get random index
             int randIndex = distrib(gen);
 
-            std::cout << "trying to access random habitat cell. index: "
-                      << randIndex << " cells.size(): " << cells.size()
-                      << std::endl;
             // pick random cell from habitat cells
             targetCell = cells[distrib(gen)];
 
-            std::cout << "targetcell: " << &targetCell << std::endl;
             // if free cell found, update coordinate component with the
             // coordiantes of that cell. transltion has to be made from cell
             // coordinates to pixel coordinates

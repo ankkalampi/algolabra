@@ -5,12 +5,13 @@
 #include "SDL3/SDL_video.h"
 #include "globals.hpp"
 #include "render/render.hpp"
+#include "runtime/engine.hpp"
 
 namespace render
 {
 
 // responsible for actual rendering tasks
-struct RenderManager {
+struct RenderManager : public debug::Debuggable {
     SDL_Texture* terrainLayer;
     SDL_Texture* entityLayer;
     systems::RenderSystem* renderSystem;
@@ -26,4 +27,5 @@ struct RenderManager {
 
     void cleanup();
 };
+
 };  // namespace render

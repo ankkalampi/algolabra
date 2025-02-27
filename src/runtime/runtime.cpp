@@ -8,7 +8,6 @@
 #include "runtime/systems_manager.hpp"
 #include "systems/behavior_system.hpp"
 #include "systems/coordinate_system.hpp"
-#include "systems/entity_system.hpp"
 #include "systems/render_system.hpp"
 
 namespace runtime
@@ -19,21 +18,20 @@ Runtime::Runtime()
       coordinateSystem(systems::CoordinateSystem()),
       renderSystem(systems::RenderSystem(&coordinateSystem)),
       behaviorSystem(systems::BehaviorSystem(&coordinateSystem)),
-      entitySystem(&coordinateSystem, &renderSystem, &behaviorSystem),
       world(world::World(1, 1, 1, 1)),
       renderManager(renderSystem, world),
       running(true)
 {
-    std::cout << "we are constructing runtime!" << std::endl;
-    std::cout << "----------------------RUNTIME PROPERTIES--------------------"
-              << std::endl;
-    std::cout << "coordinatesystem: " << &coordinateSystem << std::endl;
-    std::cout << "rendersystem: " << &renderSystem << std::endl;
-    std::cout << "behaviorsystem: " << &behaviorSystem << std::endl;
-    std::cout << "world: " << &world << std::endl;
-    std::cout << "rendermanager: " << &renderManager << std::endl;
-    std::cout << "----------------------RUNTIME PROPERTIES--------------------"
-              << std::endl;
+    addDebugName("RUNTIME");
+    addDebugProperty("world", &world);
+
+    addDebugProperty("coordinateSystem", &coordinateSystem);
+    addDebugProperty("renderSystem", &renderSystem);
+    addDebugProperty("behaviorSystem", &behaviorSystem);
+    addDebugProperty("renderManager", &renderManager);
+    addDebugProperty("systemsManager", &systemsManager);
+
+    printDebugInfo();
 }
 
 void Runtime::run()
@@ -49,18 +47,11 @@ void Runtime::run()
             }
         }
 
-        std::cout << "int the runtime loop, about to update behaviorsystem"
-                  << std::endl;
         systemsManager.behaviorSystem.updateComponents();
-        std::cout << "int the runtime loop, behaviorsystem updated, about to "
-                     "update rendersystem"
-                  << std::endl;
+
         systemsManager.renderSystem.updateComponents();
-        std::cout << "int the runtime loop, rendersystem updated, about to "
-                     "update rendermanager"
-                  << std::endl;
+
         renderManager.update();
-        std::cout << "int the runtime loop, rendermanager updated" << std::endl;
     }
     //------------------------------------------------------
 

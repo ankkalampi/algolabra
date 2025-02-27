@@ -14,7 +14,18 @@ SystemsManager::SystemsManager()
       renderSystem(RenderSystem(&coordinateSystem)),
       behaviorSystem(BehaviorSystem(&coordinateSystem)),
       entityStorage()
+
 {
+    addDebugName("SYSTEMS_MANAGER");
+    addDebugProperty("coordinateSystem", &coordinateSystem);
+    addDebugProperty("renderSystem", &renderSystem);
+    addDebugProperty("behaviorSystem", &behaviorSystem);
+    addDebugProperty("entityStorage", &entityStorage);
+    addDebugProperty("componentStorage", &componentStorage);
+    addDebugProperty("runningID", &runningID);
+    addDebugProperty("mtx", &mtx);
+
+    printDebugInfo();
 }
 uint32_t SystemsManager::giveID()
 {

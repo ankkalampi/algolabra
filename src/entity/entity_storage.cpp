@@ -8,6 +8,9 @@ namespace entity
 EntityStorage::EntityStorage()
     : componentStorage(components::ComponentStorage())
 {
+    addDebugName("ENTITY_STORAGE");
+    addDebugProperty("componentStorage", &componentStorage);
+    printDebugInfo();
 }
 
 std::vector<std::any> EntityStorage::generateEntity(EntityType type)

@@ -3,6 +3,7 @@
 #include "../globals.hpp"
 #include "entity/habitat.hpp"
 #include "population.hpp"
+#include "runtime/engine.hpp"
 
 #include <iostream>
 #include <memory>
@@ -19,7 +20,7 @@ struct Plant;
 namespace world
 {
 
-struct World {
+struct World : public debug::Debuggable {
     std::vector<Cell> cells;
 
     entity::Habitat grassHabitat;

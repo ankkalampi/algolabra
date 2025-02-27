@@ -2,7 +2,6 @@
 
 #include "../runtime/runtime.hpp"
 #include "components/entity_component.hpp"
-#include "systems/entity_system.hpp"
 
 #include <random>
 #include <string>

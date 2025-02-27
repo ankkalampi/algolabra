@@ -1,7 +1,6 @@
 #include "system_utils.hpp"
 
 #include "globals.hpp"
-#include "systems/entity_system.hpp"
 
 #include <fstream>
 #include <stdexcept>
