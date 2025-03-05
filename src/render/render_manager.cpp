@@ -80,7 +80,7 @@ void RenderManager::cleanup()
 int RenderManager::init()
 {
     // init SDL
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+    if (SDL_Init(SDL_INIT_VIDEO) == false) {
         std::cerr << "SDL initialization failed: " << SDL_GetError()
                   << std::endl;
         return 1;

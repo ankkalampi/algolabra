@@ -7,10 +7,10 @@ int main()
     runtime::Runtime engine = runtime::Runtime();
 
     engine.systemsManager.world.grassHabitat.spawnEntity(
-        engine.systemsManager, 0, 10000);
+        engine.systemsManager, 0, 10);
 
     engine.systemsManager.world.landHabitat.spawnEntity(
-        engine.systemsManager, 1, 5000);
+        engine.systemsManager, 1, 5);
 
     engine.run();
 
