@@ -116,32 +116,34 @@ BehaviorComponent::BehaviorComponent(
         break;
 
     default:
-        // std::cout << "INVALID PATTERN VALUE!!!" << std::endl;
+        std::cout << "INVALID PATTERN VALUE!!!" << std::endl;
         break;
     }
 }
 
+// resolves move function based on movement plan
+// this will be replaced with neural net based movement
 void BehaviorComponent::process(BehaviorComponent& behavComp)
 {
-    behavComp.move(behavComp.movementPlant[behavComp.counter]);
-
-    if (behavComp.counter < behavComp.movementPlant.size()) {
+    if (behavComp.counter < behavComp.movementPlant.size() - 1) {
         behavComp.counter++;
     } else {
         behavComp.counter = 0;
     }
+
+    // check if coordinatecomponent pointer points to correct component. update,
+    // if necessary
+    if (!(behavComp.entityId == behavComp.coordinateComponent->entityId)) {
+        behavComp.coordinateComponent =
+            &behavComp.coordinateSystem->getComponent(behavComp.entityId);
+    }
+
+    behavComp.move(behavComp.movementPlant[behavComp.counter]);
 }
 
+// updates corresponding coordinatecomponent based on direction given
 void BehaviorComponent::move(Direction direction)
 {
-    std::cout << "CHECKING!!! BEHAVIORCOMP ID: " << entityId
-              << " COORDINATECOMP ID: " << coordinateComponent->entityId
-              << std::endl;
-    std::cout << "MOVING! entity: " << entityId
-              << " direction: " << static_cast<int>(direction)
-              << " old coordinates:  x: " << coordinateComponent->x
-              << " y: " << coordinateComponent->y;
-
     switch (direction) {
         // y increases down, and decreases up in SDL
         // x increases right, and decreases left in SDL
@@ -198,12 +200,11 @@ void BehaviorComponent::move(Direction direction)
         break;
     default:
 
-        // std::cout << std::endl << "INVALID DIRECTION VALUE!!!" << std::endl;
+        std::cout << std::endl
+                  << "INVALID DIRECTION VALUE!!! VALUE: "
+                  << static_cast<int>(direction) << std::endl;
 
         return;
     }
-
-    std::cout << " new: x: " << coordinateComponent->x
-              << " y: " << coordinateComponent->y << std::endl;
 }
 };  // namespace components

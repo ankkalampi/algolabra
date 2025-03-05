@@ -2,7 +2,6 @@
 
 #include "components/behavior_component.hpp"
 #include "components/render_component.hpp"
-#include "entity/entity_storage.hpp"
 #include "systems/render_system.hpp"
 
 #include <mutex>
@@ -13,15 +12,14 @@ SystemsManager::SystemsManager()
     : world(world::World(1, 1, 1, 1)),
       coordinateSystem(systems::CoordinateSystem()),
       renderSystem(systems::RenderSystem(&coordinateSystem)),
-      behaviorSystem(systems::BehaviorSystem(&coordinateSystem)),
-      entityStorage()
+      behaviorSystem(systems::BehaviorSystem(&coordinateSystem))
 
 {
     addDebugName("SYSTEMS_MANAGER");
     addDebugProperty("coordinateSystem", &coordinateSystem);
     addDebugProperty("renderSystem", &renderSystem);
     addDebugProperty("behaviorSystem", &behaviorSystem);
-    addDebugProperty("entityStorage", &entityStorage);
+
     addDebugProperty("componentStorage", &componentStorage);
     addDebugProperty("runningID", &runningID);
     addDebugProperty("mtx", &mtx);

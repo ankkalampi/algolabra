@@ -1,5 +1,5 @@
 
-#include "entity/entity_storage.hpp"
+
 #include "runtime/runtime.hpp"
 
 int main()
@@ -7,10 +7,10 @@ int main()
     runtime::Runtime engine = runtime::Runtime();
 
     engine.systemsManager.world.grassHabitat.spawnEntity(
-        engine.systemsManager, 0, 1);
+        engine.systemsManager, 0, 100000);
 
     engine.systemsManager.world.landHabitat.spawnEntity(
-        engine.systemsManager, 1, 5);
+        engine.systemsManager, 1, 10000);
 
     engine.run();
 

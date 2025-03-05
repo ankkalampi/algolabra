@@ -2,7 +2,6 @@
 
 #include "../systems/system.hpp"
 #include "components/component_storage.hpp"
-#include "entity/entity_storage.hpp"
 #include "systems/behavior_system.hpp"
 #include "systems/coordinate_system.hpp"
 #include "systems/render_system.hpp"
@@ -21,7 +20,6 @@ struct SystemsManager : debug::Debuggable {
     systems::RenderSystem renderSystem;
     systems::BehaviorSystem behaviorSystem;
 
-    entity::EntityStorage entityStorage;
     components::ComponentStorage componentStorage;
 
     uint32_t runningID = 0;
