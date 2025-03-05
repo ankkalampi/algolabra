@@ -4,7 +4,6 @@
 #include "SDL3/SDL_rect.h"
 #include "SDL3/SDL_render.h"
 #include "components/behavior_component.hpp"
-#include "runtime/engine.hpp"
 #include "systems/coordinate_system.hpp"
 
 #include <tuple>

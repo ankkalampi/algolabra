@@ -15,30 +15,34 @@ namespace runtime
 
 Runtime::Runtime()
     : tick(0),
-      coordinateSystem(systems::CoordinateSystem()),
-      renderSystem(systems::RenderSystem(&coordinateSystem)),
-      behaviorSystem(systems::BehaviorSystem(&coordinateSystem)),
-      world(world::World(1, 1, 1, 1)),
-      renderManager(renderSystem, world),
+
+      systemsManager(engine::SystemsManager()),
+      renderManager(systemsManager.renderSystem, systemsManager.world),
       running(true)
 {
     addDebugName("RUNTIME");
-    addDebugProperty("world", &world);
 
-    addDebugProperty("coordinateSystem", &coordinateSystem);
-    addDebugProperty("renderSystem", &renderSystem);
-    addDebugProperty("behaviorSystem", &behaviorSystem);
     addDebugProperty("renderManager", &renderManager);
     addDebugProperty("systemsManager", &systemsManager);
-
-    printDebugInfo();
 }
 
 void Runtime::run()
 
 {
+    std::cout << "MAIN LOOP!!!" << std::endl;
+    printDebugInfo();
+    std::cout << "rendersystem size: "
+              << systemsManager.renderSystem.iterContainer.size() << std::endl;
+    std::cout << "behaviorsystem size: "
+              << systemsManager.behaviorSystem.iterContainer.size()
+              << std::endl;
+
+    auto lastTime = std::chrono::high_resolution_clock::now();
+    int frameCount = 0;
     // runtime loop --------------------------------------
     while (running) {
+        frameCount++;
+        auto currentTime = std::chrono::high_resolution_clock::now();
         tick++;
         // check events, quit if window closed
         while (SDL_PollEvent(&event)) {
@@ -52,6 +56,13 @@ void Runtime::run()
         systemsManager.renderSystem.updateComponents();
 
         renderManager.update();
+        std::chrono::duration<float> elapsedTime = currentTime - lastTime;
+
+        if (elapsedTime.count() >= 1.0f) {
+            std::cout << "FPS: " << frameCount << std::endl;
+            lastTime = currentTime;
+            frameCount = 0;
+        }
     }
     //------------------------------------------------------
 

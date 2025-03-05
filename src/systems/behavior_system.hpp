@@ -1,7 +1,6 @@
 #pragma once
 
 #include "components/behavior_component.hpp"
-#include "runtime/engine.hpp"
 #include "systems/system.hpp"
 
 namespace systems

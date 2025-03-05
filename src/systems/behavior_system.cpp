@@ -10,7 +10,5 @@ BehaviorSystem::BehaviorSystem(CoordinateSystem* coordinateSystem)
 
     addDebugName("BEHAVIOR_SYSTEM");
     addDebugProperty("coordinateSystem", &coordinateSystem);
-
-    printDebugInfo();
 }
 }  // namespace systems

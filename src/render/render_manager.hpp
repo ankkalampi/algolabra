@@ -1,11 +1,11 @@
 #pragma once
 
 #include "../systems/render_system.hpp"
+#include "../world/world.hpp"
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_video.h"
 #include "globals.hpp"
 #include "render/render.hpp"
-#include "runtime/engine.hpp"
 
 namespace render
 {
@@ -14,6 +14,8 @@ namespace render
 struct RenderManager : public debug::Debuggable {
     SDL_Texture* terrainLayer;
     SDL_Texture* entityLayer;
+
+    SDL_Texture* testTexture;
     systems::RenderSystem* renderSystem;
 
     SDL_Renderer* renderer;
@@ -26,6 +28,13 @@ struct RenderManager : public debug::Debuggable {
     int init();
 
     void cleanup();
+
+    void drawRenderComponents(systems::RenderSystem& renderSystem,
+                              SDL_Renderer* renderer);
 };
+
+SDL_FRect toFRect(SDL_Rect& rect);
+
+void renderRect(SDL_Renderer* renderer, SDL_FRect* rect, SDL_Color& color);
 
 };  // namespace render

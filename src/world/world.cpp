@@ -26,8 +26,6 @@ World::World(int amountWater, int amountRock, int amountSand, int amountGrass)
     addDebugProperty("cells", &cells);
     addDebugProperty("grassHabitat", &grassHabitat);
     addDebugProperty("landHabitat", &landHabitat);
-
-    printDebugInfo();
 }
 
 };  // namespace world

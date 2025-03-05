@@ -6,7 +6,6 @@
 #include "components/behavior_component.hpp"
 #include "components/component_storage.hpp"
 #include "components/render_component.hpp"
-#include "runtime/engine.hpp"
 #include "systems/coordinate_system.hpp"
 
 #include <any>

@@ -3,23 +3,23 @@
 #include "../systems/system.hpp"
 #include "components/component_storage.hpp"
 #include "entity/entity_storage.hpp"
-#include "runtime/engine.hpp"
 #include "systems/behavior_system.hpp"
 #include "systems/coordinate_system.hpp"
 #include "systems/render_system.hpp"
+#include "world.hpp"
 
 #include <any>
 #include <memory>
 #include <mutex>
 
-using namespace systems;
-
 namespace engine
 {
 struct SystemsManager : debug::Debuggable {
-    CoordinateSystem coordinateSystem;
-    RenderSystem renderSystem;
-    BehaviorSystem behaviorSystem;
+    world::World world;
+
+    systems::CoordinateSystem coordinateSystem;
+    systems::RenderSystem renderSystem;
+    systems::BehaviorSystem behaviorSystem;
 
     entity::EntityStorage entityStorage;
     components::ComponentStorage componentStorage;

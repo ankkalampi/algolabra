@@ -10,14 +10,14 @@ namespace systems
 template <typename T>
 struct System {
     // vector for quick iteration
-    std::vector<components::Component<T>> iterContainer;
+    std::vector<T> iterContainer;
 
     // this map is used for finding correct component in itercontainer
     //  used whenever component needs to be found
     std::unordered_map<int, std::size_t> idToIndexMap;
 
     // add new component to system
-    void add(components::Component<T> &component)
+    void add(T &component)
     {
         // add id and index to idtoindexmap for quick removal
         idToIndexMap[component.entityId] = iterContainer.size();
@@ -54,7 +54,7 @@ struct System {
     }
 
     // returns reference to component based on entity id
-    components::Component<T> &getComponent(int entityId)
+    T &getComponent(int entityId)
     {
         return iterContainer[idToIndexMap[entityId]];
     }
@@ -63,9 +63,8 @@ struct System {
     void updateComponents()
     {
         // iterates all entities of population
-        for (components::Component<T> &component : iterContainer) {
-            components::Component<T>::processComponent(
-                static_cast<T &>(component));
+        for (T &component : iterContainer) {
+            T::processComponent(component);
         }
     }
 };

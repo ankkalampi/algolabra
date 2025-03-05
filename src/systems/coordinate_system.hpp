@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../components/coordinate_component.hpp"
-#include "runtime/engine.hpp"
+#include "../runtime/debuggable.hpp"
 #include "system.hpp"
 
 namespace systems

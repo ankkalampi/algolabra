@@ -1,5 +1,6 @@
 #include "behavior_component.hpp"
 
+#include "globals.hpp"
 #include "systems/coordinate_system.hpp"
 
 namespace components
@@ -10,8 +11,7 @@ BehaviorComponent::BehaviorComponent(Pattern pattern)
     : pattern(pattern), counter(0)
 {
     // find the corresponding coordinate component
-    coordinateComponent = static_cast<CoordinateComponent*>(
-        &coordinateSystem->getComponent(entityId));
+    coordinateComponent = &coordinateSystem->getComponent(entityId);
 
     // set limit based on move pattern
     switch (pattern) {
@@ -128,38 +128,61 @@ void BehaviorComponent::process(BehaviorComponent& behavComp)
 
 void BehaviorComponent::move(Direction direction)
 {
+    std::cout << "MOVING! entity: " << entityId << std::endl;
+
     switch (direction) {
         // y increases down, and decreases up in SDL
         // x increases right, and decreases left in SDL
     case Center:
         break;
     case North:
-        coordinateComponent->y--;
+        if (coordinateComponent->y > 0) {
+            coordinateComponent->y--;
+        }
         break;
     case South:
-        coordinateComponent->y++;
+        if (coordinateComponent->y < SCREEN_HEIGHT / CELL_SIZE) {
+            coordinateComponent->y++;
+        }
         break;
     case East:
-        coordinateComponent->x++;
+        if (coordinateComponent->x < SCREEN_WIDTH / CELL_SIZE) {
+            coordinateComponent->x++;
+        }
         break;
     case West:
-        coordinateComponent->x--;
+        if (coordinateComponent->x > 0)
+            coordinateComponent->x--;
         break;
     case NorthEast:
-        coordinateComponent->x++;
-        coordinateComponent->y--;
+        if (coordinateComponent->x > SCREEN_WIDTH / CELL_SIZE &&
+            coordinateComponent->y > 0) {
+            coordinateComponent->x++;
+            coordinateComponent->y--;
+        }
+
         break;
     case NorthWest:
-        coordinateComponent->x--;
-        coordinateComponent->y--;
+        if (coordinateComponent->x > 0 && coordinateComponent->y > 0) {
+            coordinateComponent->x--;
+            coordinateComponent->y--;
+        }
+
         break;
     case SouthEast:
-        coordinateComponent->x++;
-        coordinateComponent->y++;
+        if (coordinateComponent->x > SCREEN_WIDTH / CELL_SIZE &&
+            coordinateComponent->y < SCREEN_HEIGHT / CELL_SIZE) {
+            coordinateComponent->x++;
+            coordinateComponent->y++;
+        }
         break;
     case SouthWest:
-        coordinateComponent->x--;
-        coordinateComponent->y++;
+        if (coordinateComponent->x > 0 &&
+            coordinateComponent->y < SCREEN_HEIGHT / CELL_SIZE) {
+            coordinateComponent->x--;
+            coordinateComponent->y++;
+        }
+
         break;
     }
 }

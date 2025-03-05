@@ -32,6 +32,11 @@ include_directories(${SDL3_SOURCE_DIR}/include)
 ## add headers
 target_include_directories(neuralanimals_lib PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/world
+    ${CMAKE_CURRENT_SOURCE_DIR}/systems
+    ${CMAKE_CURRENT_SOURCE_DIR}/runtime
+    ${CMAKE_CURRENT_SOURCE_DIR}/render
+    ${CMAKE_CURRENT_SOURCE_DIR}/entity
     ${CMAKE_BINARY_DIR}/_deps/libnoise-src/include
     
     
@@ -39,6 +44,11 @@ target_include_directories(neuralanimals_lib PRIVATE
 
 target_include_directories(neuralanimals PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/world
+    ${CMAKE_CURRENT_SOURCE_DIR}/systems
+    ${CMAKE_CURRENT_SOURCE_DIR}/runtime
+    ${CMAKE_CURRENT_SOURCE_DIR}/render
+    ${CMAKE_CURRENT_SOURCE_DIR}/entity
     ${CMAKE_BINARY_DIR}/_deps/libnoise-src/include
   
     )

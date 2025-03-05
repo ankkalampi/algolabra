@@ -10,9 +10,10 @@
 namespace engine
 {
 SystemsManager::SystemsManager()
-    : coordinateSystem(CoordinateSystem()),
-      renderSystem(RenderSystem(&coordinateSystem)),
-      behaviorSystem(BehaviorSystem(&coordinateSystem)),
+    : world(world::World(1, 1, 1, 1)),
+      coordinateSystem(systems::CoordinateSystem()),
+      renderSystem(systems::RenderSystem(&coordinateSystem)),
+      behaviorSystem(systems::BehaviorSystem(&coordinateSystem)),
       entityStorage()
 
 {
@@ -24,8 +25,6 @@ SystemsManager::SystemsManager()
     addDebugProperty("componentStorage", &componentStorage);
     addDebugProperty("runningID", &runningID);
     addDebugProperty("mtx", &mtx);
-
-    printDebugInfo();
 }
 uint32_t SystemsManager::giveID()
 {
@@ -44,11 +43,13 @@ void SystemsManager::manifest(std::vector<std::any>& components)
                 std::any_cast<components::RenderComponent>(component);
             rendComp.entityId = id;
             renderSystem.add(rendComp);
+
         } else if (component.type() == typeid(components::BehaviorComponent)) {
             components::BehaviorComponent behavComp =
                 std::any_cast<components::BehaviorComponent>(component);
             behavComp.entityId = id;
             behaviorSystem.add(behavComp);
+
         } else if (component.type() ==
                    typeid(components::CoordinateComponent)) {
             components::CoordinateComponent coordComp =

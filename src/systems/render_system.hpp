@@ -1,7 +1,7 @@
 #pragma once
 
+#include "../runtime/debuggable.hpp"
 #include "components/render_component.hpp"
-#include "runtime/engine.hpp"
 #include "system.hpp"
 #include "systems/coordinate_system.hpp"
 

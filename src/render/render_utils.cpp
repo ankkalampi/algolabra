@@ -9,11 +9,31 @@
 #include "SDL3/SDL_video.h"
 #include "globals.hpp"
 
+#include <cstdint>
+#include <cstring>
 #include <iostream>
 #include <ostream>
 
 namespace render
 {
+
+void tryTestTexture(SDL_Texture *texture)
+{
+    // open direct access to texture pixels
+    uint32_t *pixels;  // this will become start point of pixels in memory
+    int pitch;         // this will become line length
+    if (SDL_LockTexture(texture, NULL, (void **)&pixels, &pitch) != 0) {
+        printf("SDL_LockTexture failed: %s\n", SDL_GetError());
+        return;
+    } else {
+        printf("Test Texture locked successfully! Pitch: %d\n", pitch);
+    }
+
+    // convert pitch to conform with 32-bit pixels
+    int pitchPixels = pitch / sizeof(uint32_t);
+
+    SDL_UnlockTexture(texture);
+}
 
 // creates one big texture from all rendercomponents
 // dramatically reduces number of render calls per tick
@@ -22,48 +42,41 @@ void updateTextureBasedOnRenderComponents(systems::RenderSystem &renderSystem,
 {
     // open direct access to texture pixels
     uint32_t *pixels;  // this will become start point of pixels in memory
-    int pitch;         // this will become line length
-    SDL_LockTexture(texture, NULL, (void **)&pixels, &pitch);
+    int pitch = 0;     // this will become line length
+    if (SDL_LockTexture(texture, NULL, (void **)&pixels, &pitch) != 0) {
+        printf("SDL_LockTexture failed: %s\n", SDL_GetError());
+        // return;
+    }
 
     // convert pitch to conform with 32-bit pixels
     int pitchPixels = pitch / sizeof(uint32_t);
 
-    // macros are evil, sure, but this loop really needs to be efficient,
-    // and the other option would have been to expand these static cast
-    // statements everywhere
-
-#define X (static_cast<components::RenderComponent *>(&rendComp)->x)
-#define Y (static_cast<components::RenderComponent *>(&rendComp)->y)
-#define W (static_cast<components::RenderComponent *>(&rendComp)->w)
-#define H (static_cast<components::RenderComponent *>(&rendComp)->h)
-#define COLOR (static_cast<components::RenderComponent *>(&rendComp)->color)
-// these are for enforcing texture boundaries
-#define XSTART std::max(0, X)
-#define YSTART std::max(0, Y)
-#define XEND std::min(SCREEN_WIDTH, X + W)
-#define YEND std::min(SCREEN_HEIGHT, Y + H)
+    // buffer for updated pixels
+    std::vector<uint32_t> pixelBuffer(SCREEN_WIDTH * SCREEN_HEIGHT, 0);
+    uint32_t colr;
 
 // parallelized with openmp
-#pragma omp for
+#pragma omp parallel for
     for (auto &rendComp : renderSystem.iterContainer) {
+        // std::cout << "rendcomp color: " << COLOR << std::endl;
+        colr = rendComp.color;
         // update pixels
-        for (int y = YSTART; y < YEND; ++y) {
-            for (int x = XSTART; x < XEND; ++x) {
-                pixels[y * pitchPixels + x] = COLOR;
+        for (int y = std::max(0, rendComp.y);
+             y < std::min(float(SCREEN_HEIGHT),
+                          rendComp.frect.y + rendComp.frect.h);
+             ++y) {
+            for (int x = std::max(0.0f, rendComp.frect.x);
+                 x < std::min(float(SCREEN_WIDTH),
+                              rendComp.frect.x + rendComp.frect.w);
+                 ++x) {
+                pixelBuffer[y * pitchPixels + x] = rendComp.color;
             }
         }
     }
 
-    // let's get rid of these evil macros
-#undef X
-#undef Y
-#undef W
-#undef H
-#undef COLOR
-#undef XSTART
-#undef YSTART
-#undef XEND
-#undef YEND
+    // copy buffer to texture data
+    std::memcpy(
+        pixels, pixelBuffer.data(), pixelBuffer.size() * sizeof(uint32_t));
 
     // release the texture so it can be drawn
     SDL_UnlockTexture(texture);

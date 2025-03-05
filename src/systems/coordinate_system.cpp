@@ -2,10 +2,5 @@
 
 namespace systems
 {
-CoordinateSystem::CoordinateSystem()
-{
-    addDebugName("COORDINATE_SYSTEM");
-
-    printDebugInfo();
-}
+CoordinateSystem::CoordinateSystem() { addDebugName("COORDINATE_SYSTEM"); }
 }  // namespace systems

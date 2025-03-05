@@ -10,19 +10,22 @@ EntityStorage::EntityStorage()
 {
     addDebugName("ENTITY_STORAGE");
     addDebugProperty("componentStorage", &componentStorage);
-    printDebugInfo();
 }
 
 std::vector<std::any> EntityStorage::generateEntity(EntityType type)
 {
+    std::cout << "generateentity called" << std::endl;
     std::vector<std::any> components;
     switch (type) {
     case Plant:
+        std::cout << "calling rendercomponent constructor" << std::endl;
         components.push_back(components::RenderComponent::generateComponent(
             componentStorage.REDBOX));
         break;
     case Herbivore1:
+
         components.push_back(components::RenderComponent::generateComponent(
+
             componentStorage.BLUEBOX));
         components.push_back(components::BehaviorComponent::generateComponent(
             componentStorage.CIRCLES));

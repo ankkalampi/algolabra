@@ -30,7 +30,5 @@ ComponentStorage::ComponentStorage()
     addDebugProperty("REDBOX", &REDBOX);
     addDebugProperty("GREENBOX", &GREENBOX);
     addDebugProperty("BLUEBOX", &BLUEBOX);
-
-    printDebugInfo();
 }
 }  // namespace components

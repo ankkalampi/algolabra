@@ -18,8 +18,9 @@ struct Component {
 
     // generates component from argument list
     template <typename Tuple>
-    static T generateComponent(const Tuple& tuple)
+    static T generateComponent(Tuple& tuple)
     {
+        std::cout << "COMPONENT CREATED!" << std::endl;
         return std::apply([](auto&&... params) { return T(params...); }, tuple);
     }
 };

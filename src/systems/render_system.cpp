@@ -12,7 +12,5 @@ RenderSystem::RenderSystem(CoordinateSystem* coordinateSystem)
 
     addDebugName("RENDER_SYSTEM");
     addDebugProperty("coordinateSystem", coordinateSystem);
-
-    printDebugInfo();
 }
 }  // namespace systems

@@ -21,10 +21,21 @@ struct Debuggable {
 
     void addDebugName(std::string name) { debugName = name; }
 
-    void printDebugInfo()
+    void printDebugInfo() { printinfo(""); }
+
+    void printDebugInfo(std::string message) { printinfo(message); }
+
+    void printinfo(std::string message)
     {
-        std::cout << "-----------------" << debugName << "-----------------"
-                  << std::endl;
+        std::cout << "-----------------\x1b[32m" << debugName
+                  << "\x1b[0m-----------------" << std::endl;
+        if (message != "") {
+            std::cout << "\x1b[20mmessage: " << message << "\x1b[0m"
+                      << std::endl;
+        }
+
+        std::cout << "ADDRESS: " << this << std::endl;
+        std::cout << std::endl;
         for (std::pair<std::string, void*> property : properties) {
             if (property.second == nullptr) {
                 std::cout << property.first << ": NULL POINTER!!!" << std::endl;

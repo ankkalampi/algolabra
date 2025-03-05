@@ -1,14 +1,19 @@
 #pragma once
 
+#include "../runtime/debuggable.hpp"
 #include "components/behavior_component.hpp"
 #include "components/entity_component.hpp"
 #include "components/render_component.hpp"
-#include "runtime/engine.hpp"
-#include "runtime/systems_manager.hpp"
 #include "world/cell.hpp"
 
 #include <random>
 #include <vector>
+
+namespace engine
+{
+struct SystemsManager;
+}
+
 namespace entity
 {
 struct Habitat : public debug::Debuggable {
@@ -26,8 +31,9 @@ struct Habitat : public debug::Debuggable {
     // creating a given number of entities to the world using coordinates found
     // in free habitat cells, and path to entity file. This could fail if free
     // cell is not found fast enough
-    void spawnEntity(engine::SystemsManager& SystemsManager,
-                     const std::vector<std::any>& components,
+    void spawnEntity(engine::SystemsManager& systemsManager,
+                     int type,
+
                      int num);
 };
 }  // namespace entity
