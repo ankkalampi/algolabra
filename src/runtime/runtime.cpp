@@ -36,6 +36,11 @@ void Runtime::run()
     std::cout << "behaviorsystem size: "
               << systemsManager.behaviorSystem.iterContainer.size()
               << std::endl;
+    std::cout << "coordinatesystem size: "
+              << systemsManager.coordinateSystem.iterContainer.size()
+              << std::endl;
+
+    // int runonce = false;
 
     auto lastTime = std::chrono::high_resolution_clock::now();
     int frameCount = 0;
@@ -57,7 +62,27 @@ void Runtime::run()
 
         renderManager.update();
         std::chrono::duration<float> elapsedTime = currentTime - lastTime;
-
+        /*
+                if (!runonce) {
+                    std::cout << "ALL ENTITIES:" << std::endl;
+                    for (auto& comp :
+           systemsManager.coordinateSystem.iterContainer) { std::cout <<
+           "CoordinateComponent: " << comp.entityId
+                                  << " x: " << comp.x << " y: " << comp.y <<
+           std::endl; std::cout << "RenderComponent: " << comp.entityId << " x:
+           "
+                                  << systemsManager.renderSystem
+                                         .getComponent(comp.entityId)
+                                         .rect.x
+                                  << " y: "
+                                  << systemsManager.renderSystem
+                                         .getComponent(comp.entityId)
+                                         .rect.y
+                                  << std::endl;
+                    }
+                    runonce = true;
+                }
+        */
         if (elapsedTime.count() >= 1.0f) {
             std::cout << "FPS: " << frameCount << std::endl;
             lastTime = currentTime;

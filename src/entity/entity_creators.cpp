@@ -38,7 +38,8 @@ void createHerbivore(engine::SystemsManager& sysManager, int x, int y)
         components::RenderComponent(rect, color);
 
     components::BehaviorComponent behaviorComponent =
-        components::BehaviorComponent(components::Circles);
+        components::BehaviorComponent(components::Pattern::Circles,
+                                      &sysManager.coordinateSystem);
 
     coordinateComponent.entityId = id;
     renderComponent.entityId = id;

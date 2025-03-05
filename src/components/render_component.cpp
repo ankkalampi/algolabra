@@ -25,10 +25,18 @@ void RenderComponent::process(RenderComponent& rendComp)
     // update rendercomponent x, y based on coordinacomponent
     // later this could be used to make camera translations etc
 
+    std::cout << "GETTING COORDINATES FOR ENTITY: " << rendComp.entityId
+              << " CoordComp: x: "
+              << coordinateSystem->getComponent(rendComp.entityId).x
+              << " y: " << coordinateSystem->getComponent(rendComp.entityId).y;
+
     rendComp.frect.x =
         float(coordinateSystem->getComponent(rendComp.entityId).x);
     rendComp.frect.y =
         float(coordinateSystem->getComponent(rendComp.entityId).y);
+
+    std::cout << " RendComp: x: " << rendComp.frect.x
+              << " y: " << rendComp.frect.y << std::endl;
 }
 
 };  // namespace components

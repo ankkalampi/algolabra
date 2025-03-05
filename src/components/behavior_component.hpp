@@ -9,9 +9,9 @@
 namespace components
 {
 
-enum Pattern { Circles, StraightAndBack, Stay, Careful };
+enum class Pattern { Circles, StraightAndBack, Stay, Careful };
 
-enum Direction {
+enum class Direction {
     North,
     South,
     East,
@@ -29,9 +29,10 @@ struct BehaviorComponent : public Component<BehaviorComponent> {
     CoordinateComponent* coordinateComponent;
     std::vector<Direction> movementPlant;
 
-    static systems::CoordinateSystem* coordinateSystem;
+    systems::CoordinateSystem* coordinateSystem;
 
-    BehaviorComponent(Pattern pattern);
+    BehaviorComponent(Pattern pattern,
+                      systems::CoordinateSystem* coordinatesystem);
 
     static void process(BehaviorComponent& behavComp);
 

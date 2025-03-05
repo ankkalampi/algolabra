@@ -1,13 +1,9 @@
 #pragma once
 
-#include "../world/world.hpp"
-#include "SDL3/SDL_events.h"
-#include "components/render_component.hpp"
+#include "debuggable.hpp"
 #include "render/render_manager.hpp"
 #include "runtime/runtime.hpp"
 #include "runtime/systems_manager.hpp"
-#include "systems/behavior_system.hpp"
-#include "systems/coordinate_system.hpp"
 
 #include <optional>
 #include <typeindex>

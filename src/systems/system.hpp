@@ -54,7 +54,7 @@ struct System {
     }
 
     // returns reference to component based on entity id
-    T &getComponent(int entityId)
+    inline T &getComponent(int entityId)
     {
         return iterContainer[idToIndexMap[entityId]];
     }

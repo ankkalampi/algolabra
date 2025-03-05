@@ -3,114 +3,120 @@
 #include "globals.hpp"
 #include "systems/coordinate_system.hpp"
 
+#include <iostream>
+
 namespace components
 {
-systems::CoordinateSystem* components::BehaviorComponent::coordinateSystem =
-    nullptr;
-BehaviorComponent::BehaviorComponent(Pattern pattern)
-    : pattern(pattern), counter(0)
+
+BehaviorComponent::BehaviorComponent(
+    Pattern pattern, systems::CoordinateSystem* coordinateSystem)
+    : pattern(pattern), counter(0), coordinateSystem(coordinateSystem)
 {
     // find the corresponding coordinate component
     coordinateComponent = &coordinateSystem->getComponent(entityId);
 
     // set limit based on move pattern
     switch (pattern) {
-    case Circles:
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
+    case Pattern::Circles:
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
 
-        movementPlant.push_back(South);
-        movementPlant.push_back(South);
-        movementPlant.push_back(South);
-        movementPlant.push_back(South);
-        movementPlant.push_back(South);
-        movementPlant.push_back(South);
-        movementPlant.push_back(South);
+        movementPlant.push_back(Direction::South);
+        movementPlant.push_back(Direction::South);
+        movementPlant.push_back(Direction::South);
+        movementPlant.push_back(Direction::South);
+        movementPlant.push_back(Direction::South);
+        movementPlant.push_back(Direction::South);
+        movementPlant.push_back(Direction::South);
 
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
 
-        movementPlant.push_back(North);
-        movementPlant.push_back(North);
-        movementPlant.push_back(North);
-        movementPlant.push_back(North);
-        movementPlant.push_back(North);
-        movementPlant.push_back(North);
-        movementPlant.push_back(North);
+        movementPlant.push_back(Direction::North);
+        movementPlant.push_back(Direction::North);
+        movementPlant.push_back(Direction::North);
+        movementPlant.push_back(Direction::North);
+        movementPlant.push_back(Direction::North);
+        movementPlant.push_back(Direction::North);
+        movementPlant.push_back(Direction::North);
         break;
-    case StraightAndBack:
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
-        movementPlant.push_back(West);
+    case Pattern::StraightAndBack:
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
+        movementPlant.push_back(Direction::West);
 
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
-        movementPlant.push_back(East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
+        movementPlant.push_back(Direction::East);
         break;
-    case Stay:
+    case Pattern::Stay:
         break;
-    case Careful:
-        movementPlant.push_back(East);
+    case Pattern::Careful:
+        movementPlant.push_back(Direction::East);
 
-        movementPlant.push_back(Center);
-        movementPlant.push_back(Center);
-        movementPlant.push_back(Center);
-        movementPlant.push_back(Center);
+        movementPlant.push_back(Direction::Center);
+        movementPlant.push_back(Direction::Center);
+        movementPlant.push_back(Direction::Center);
+        movementPlant.push_back(Direction::Center);
 
-        movementPlant.push_back(East);
+        movementPlant.push_back(Direction::East);
 
-        movementPlant.push_back(Center);
-        movementPlant.push_back(Center);
-        movementPlant.push_back(Center);
-        movementPlant.push_back(Center);
+        movementPlant.push_back(Direction::Center);
+        movementPlant.push_back(Direction::Center);
+        movementPlant.push_back(Direction::Center);
+        movementPlant.push_back(Direction::Center);
 
-        movementPlant.push_back(East);
+        movementPlant.push_back(Direction::East);
 
-        movementPlant.push_back(Center);
-        movementPlant.push_back(Center);
-        movementPlant.push_back(Center);
-        movementPlant.push_back(Center);
+        movementPlant.push_back(Direction::Center);
+        movementPlant.push_back(Direction::Center);
+        movementPlant.push_back(Direction::Center);
+        movementPlant.push_back(Direction::Center);
 
-        movementPlant.push_back(West);
+        movementPlant.push_back(Direction::West);
 
-        movementPlant.push_back(Center);
-        movementPlant.push_back(Center);
-        movementPlant.push_back(Center);
-        movementPlant.push_back(Center);
+        movementPlant.push_back(Direction::Center);
+        movementPlant.push_back(Direction::Center);
+        movementPlant.push_back(Direction::Center);
+        movementPlant.push_back(Direction::Center);
+        break;
+
+    default:
+        // std::cout << "INVALID PATTERN VALUE!!!" << std::endl;
         break;
     }
 }
@@ -128,33 +134,39 @@ void BehaviorComponent::process(BehaviorComponent& behavComp)
 
 void BehaviorComponent::move(Direction direction)
 {
-    std::cout << "MOVING! entity: " << entityId << std::endl;
+    std::cout << "CHECKING!!! BEHAVIORCOMP ID: " << entityId
+              << " COORDINATECOMP ID: " << coordinateComponent->entityId
+              << std::endl;
+    std::cout << "MOVING! entity: " << entityId
+              << " direction: " << static_cast<int>(direction)
+              << " old coordinates:  x: " << coordinateComponent->x
+              << " y: " << coordinateComponent->y;
 
     switch (direction) {
         // y increases down, and decreases up in SDL
         // x increases right, and decreases left in SDL
-    case Center:
+    case Direction::Center:
         break;
-    case North:
+    case Direction::North:
         if (coordinateComponent->y > 0) {
             coordinateComponent->y--;
         }
         break;
-    case South:
+    case Direction::South:
         if (coordinateComponent->y < SCREEN_HEIGHT / CELL_SIZE) {
             coordinateComponent->y++;
         }
         break;
-    case East:
+    case Direction::East:
         if (coordinateComponent->x < SCREEN_WIDTH / CELL_SIZE) {
             coordinateComponent->x++;
         }
         break;
-    case West:
+    case Direction::West:
         if (coordinateComponent->x > 0)
             coordinateComponent->x--;
         break;
-    case NorthEast:
+    case Direction::NorthEast:
         if (coordinateComponent->x > SCREEN_WIDTH / CELL_SIZE &&
             coordinateComponent->y > 0) {
             coordinateComponent->x++;
@@ -162,21 +174,21 @@ void BehaviorComponent::move(Direction direction)
         }
 
         break;
-    case NorthWest:
+    case Direction::NorthWest:
         if (coordinateComponent->x > 0 && coordinateComponent->y > 0) {
             coordinateComponent->x--;
             coordinateComponent->y--;
         }
 
         break;
-    case SouthEast:
+    case Direction::SouthEast:
         if (coordinateComponent->x > SCREEN_WIDTH / CELL_SIZE &&
             coordinateComponent->y < SCREEN_HEIGHT / CELL_SIZE) {
             coordinateComponent->x++;
             coordinateComponent->y++;
         }
         break;
-    case SouthWest:
+    case Direction::SouthWest:
         if (coordinateComponent->x > 0 &&
             coordinateComponent->y < SCREEN_HEIGHT / CELL_SIZE) {
             coordinateComponent->x--;
@@ -184,6 +196,14 @@ void BehaviorComponent::move(Direction direction)
         }
 
         break;
+    default:
+
+        // std::cout << std::endl << "INVALID DIRECTION VALUE!!!" << std::endl;
+
+        return;
     }
+
+    std::cout << " new: x: " << coordinateComponent->x
+              << " y: " << coordinateComponent->y << std::endl;
 }
 };  // namespace components
