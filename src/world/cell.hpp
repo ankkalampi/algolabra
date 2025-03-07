@@ -6,7 +6,7 @@ namespace world
 {
 struct Cell {
     terrain::Terrain terrain;
-    enum Tenant { Empty, Herbivore, Predator } tenant;
+    enum Tenant { Empty, Herbivore, Predator, Plant } tenant;
     int tenantID;
     int x, y;
 

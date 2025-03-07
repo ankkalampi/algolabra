@@ -15,6 +15,8 @@ void createPlant(engine::SystemsManager& sysManager, world::Cell* cell)
     SDL_Color color = {255, 0, 0, 255};
     uint32_t id = sysManager.giveID();
 
+    cell->tenant = world::Cell::Tenant::Plant;
+
     components::CoordinateComponent coordinateComponent =
         components::CoordinateComponent(cell);
     components::RenderComponent renderComponent =
@@ -32,6 +34,8 @@ void createHerbivore(engine::SystemsManager& sysManager, world::Cell* cell)
     SDL_Rect rect = {0, 0, 4, 4};
     SDL_Color color = {15, 24, 100, 255};
     uint32_t id = sysManager.giveID();
+
+    cell->tenant = world::Cell::Tenant::Herbivore;
 
     components::CoordinateComponent coordinateComponent =
         components::CoordinateComponent(cell);

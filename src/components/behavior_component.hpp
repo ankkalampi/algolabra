@@ -23,6 +23,8 @@ enum class Direction {
     Center
 };
 
+enum class Action { Move, Eat, Reproduce };
+
 struct BehaviorComponent : public Component<BehaviorComponent> {
     Pattern pattern;
     int counter;

@@ -1,5 +1,6 @@
 #include "behavior_component.hpp"
 
+#include "cell.hpp"
 #include "globals.hpp"
 #include "systems/coordinate_system.hpp"
 
@@ -144,6 +145,9 @@ void BehaviorComponent::process(BehaviorComponent& behavComp)
 // updates corresponding coordinatecomponent based on direction given
 void BehaviorComponent::move(Direction direction)
 {
+    // make current cell empty
+    coordinateComponent->cell->tenant = world::Cell::Tenant::Empty;
+
     switch (direction) {
         // y increases down, and decreases up in SDL
         // x increases right, and decreases left in SDL
@@ -203,8 +207,11 @@ void BehaviorComponent::move(Direction direction)
         std::cout << std::endl
                   << "INVALID DIRECTION VALUE!!! VALUE: "
                   << static_cast<int>(direction) << std::endl;
-
+        coordinateComponent->cell->tenant = world::Cell::Tenant::Herbivore;
         return;
     }
+
+    // occupy updated cell
+    coordinateComponent->cell->tenant = world::Cell::Tenant::Herbivore;
 }
 };  // namespace components

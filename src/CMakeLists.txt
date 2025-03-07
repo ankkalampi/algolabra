@@ -25,13 +25,14 @@ if(OpenMP_CXX_FOUND)
 
 endif()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp")
+
 
 
 
 
 include_directories(${SDL3_SOURCE_DIR}/include)
 
+add_definitions(-DEIGEN_DONT_PARALLELIZE)
 
 
 ## add headers
@@ -43,7 +44,7 @@ target_include_directories(neuralanimals_lib PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/render
     ${CMAKE_CURRENT_SOURCE_DIR}/entity
     ${CMAKE_BINARY_DIR}/_deps/libnoise-src/include
-    ${CMAKE_BINARY_DIR}/_deps/glm-src
+    ${CMAKE_BINARY_DIR}/_deps/eigen-src
     
     
     )
@@ -56,7 +57,7 @@ target_include_directories(neuralanimals PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/render
     ${CMAKE_CURRENT_SOURCE_DIR}/entity
     ${CMAKE_BINARY_DIR}/_deps/libnoise-src/include
-    ${CMAKE_BINARY_DIR}/_deps/glm-src
+    ${CMAKE_BINARY_DIR}/_deps/eigen-src
   
     )
 
