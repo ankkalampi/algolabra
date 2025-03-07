@@ -22,7 +22,12 @@ set(CMAKE_BUILD_TYPE Debug)
 if(OpenMP_CXX_FOUND)
     target_compile_options(neuralanimals_lib PRIVATE ${OpenMP_CXX_FLAGS})
     target_link_libraries(neuralanimals_lib PRIVATE OpenMP::OpenMP_CXX)
+
 endif()
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp")
+
+
 
 
 include_directories(${SDL3_SOURCE_DIR}/include)
@@ -38,6 +43,7 @@ target_include_directories(neuralanimals_lib PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/render
     ${CMAKE_CURRENT_SOURCE_DIR}/entity
     ${CMAKE_BINARY_DIR}/_deps/libnoise-src/include
+    ${CMAKE_BINARY_DIR}/_deps/glm-src
     
     
     )
@@ -50,6 +56,7 @@ target_include_directories(neuralanimals PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/render
     ${CMAKE_CURRENT_SOURCE_DIR}/entity
     ${CMAKE_BINARY_DIR}/_deps/libnoise-src/include
+    ${CMAKE_BINARY_DIR}/_deps/glm-src
   
     )
 
