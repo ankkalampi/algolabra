@@ -54,6 +54,8 @@ void Runtime::run()
             }
         }
 
+        systemsManager.mindSystem.updateComponents();
+
         systemsManager.behaviorSystem.updateComponents();
 
         systemsManager.renderSystem.updateComponents();

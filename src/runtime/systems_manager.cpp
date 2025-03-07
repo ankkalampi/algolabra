@@ -2,6 +2,7 @@
 
 #include "components/behavior_component.hpp"
 #include "components/render_component.hpp"
+#include "mind_system.hpp"
 #include "systems/render_system.hpp"
 
 #include <mutex>
@@ -12,7 +13,8 @@ SystemsManager::SystemsManager()
     : world(world::World(1, 1, 1, 1)),
       coordinateSystem(systems::CoordinateSystem()),
       renderSystem(systems::RenderSystem(&coordinateSystem)),
-      behaviorSystem(systems::BehaviorSystem(&coordinateSystem))
+      behaviorSystem(systems::BehaviorSystem(&coordinateSystem)),
+      mindSystem(systems::MindSystem(&coordinateSystem))
 
 {
     addDebugName("SYSTEMS_MANAGER");

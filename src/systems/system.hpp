@@ -62,7 +62,8 @@ struct System {
     // update system, this is run each tick
     void updateComponents()
     {
-        // iterates all entities of population
+// iterates all entities of population
+#pragma omp parallel for
         for (T &component : iterContainer) {
             T::processComponent(component);
         }

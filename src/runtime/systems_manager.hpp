@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../systems/system.hpp"
+#include "mind_system.hpp"
 #include "systems/behavior_system.hpp"
 #include "systems/coordinate_system.hpp"
 #include "systems/render_system.hpp"
@@ -18,6 +19,7 @@ struct SystemsManager : debug::Debuggable {
     systems::CoordinateSystem coordinateSystem;
     systems::RenderSystem renderSystem;
     systems::BehaviorSystem behaviorSystem;
+    systems::MindSystem mindSystem;
 
     uint32_t runningID = 0;
     mutable std::mutex mtx;
