@@ -8,14 +8,14 @@
 
 namespace entity
 {
-void createPlant(engine::SystemsManager& sysManager, int x, int y)
+void createPlant(engine::SystemsManager& sysManager, world::Cell* cell)
 {
     SDL_Rect rect = {0, 0, 2, 2};
     SDL_Color color = {255, 0, 0, 255};
     uint32_t id = sysManager.giveID();
 
     components::CoordinateComponent coordinateComponent =
-        components::CoordinateComponent(x, y);
+        components::CoordinateComponent(cell);
     components::RenderComponent renderComponent =
         components::RenderComponent(rect, color);
 
@@ -26,14 +26,14 @@ void createPlant(engine::SystemsManager& sysManager, int x, int y)
     sysManager.renderSystem.add(renderComponent);
 }
 
-void createHerbivore(engine::SystemsManager& sysManager, int x, int y)
+void createHerbivore(engine::SystemsManager& sysManager, world::Cell* cell)
 {
     SDL_Rect rect = {0, 0, 4, 4};
     SDL_Color color = {15, 24, 100, 255};
     uint32_t id = sysManager.giveID();
 
     components::CoordinateComponent coordinateComponent =
-        components::CoordinateComponent(x, y);
+        components::CoordinateComponent(cell);
     components::RenderComponent renderComponent =
         components::RenderComponent(rect, color);
 

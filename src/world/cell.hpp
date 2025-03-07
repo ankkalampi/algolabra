@@ -1,4 +1,5 @@
 #pragma once
+#include "globals.hpp"
 #include "terrain.hpp"
 
 namespace world
@@ -11,8 +12,10 @@ struct Cell {
 
     // translates a coordinate component from Cell coordinates to pixel
     // coordinates
-    // NOT IMPLEMENTED YET!!! NOT IMPLEMENTED YET!!! NOT IMPLEMENTED YET!!!
-    static int translateCoordinate(int coordinate);
+    inline static int translateCoordinate(int coordinate)
+    {
+        return coordinate * CELL_SIZE;
+    }
 
     Cell(int x, int y, terrain::Terrain type);
 };

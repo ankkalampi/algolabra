@@ -2,6 +2,7 @@
 
 #include "../render/render_manager.hpp"
 #include "SDL3/SDL_rect.h"
+#include "cell.hpp"
 #include "systems/coordinate_system.hpp"
 
 namespace components
@@ -25,10 +26,10 @@ void RenderComponent::process(RenderComponent& rendComp)
     // update rendercomponent x, y based on coordinacomponent
     // later this could be used to make camera translations etc
 
-    rendComp.frect.x =
-        float(coordinateSystem->getComponent(rendComp.entityId).x);
-    rendComp.frect.y =
-        float(coordinateSystem->getComponent(rendComp.entityId).y);
+    rendComp.frect.x = float(world::Cell::translateCoordinate(
+        coordinateSystem->getComponent(rendComp.entityId).x));
+    rendComp.frect.y = float(world::Cell::translateCoordinate(
+        coordinateSystem->getComponent(rendComp.entityId).y));
 }
 
 };  // namespace components

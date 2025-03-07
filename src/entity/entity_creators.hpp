@@ -6,8 +6,8 @@
 namespace entity
 {
 
-void createPlant(engine::SystemsManager& sysManager, int x, int y);
+void createPlant(engine::SystemsManager& sysManager, world::Cell* cell);
 
-void createHerbivore(engine::SystemsManager& sysManager, int x, int y);
+void createHerbivore(engine::SystemsManager& sysManager, world::Cell* cell);
 
 }  // namespace entity

@@ -40,9 +40,6 @@ void Habitat::spawnEntity(engine::SystemsManager& systemsManager,
                           int type,
                           int num)
 {
-    components::CoordinateComponent coordinateComponent =
-        components::CoordinateComponent(0, 0);
-
     world::Cell* targetCell = nullptr;
 
     for (int i = 0; i < num; ++i) {
@@ -72,11 +69,16 @@ void Habitat::spawnEntity(engine::SystemsManager& systemsManager,
                 // functions take component<T>
 
                 if (type == 0) {
-                    entity::createPlant(
-                        systemsManager, targetCell->x, targetCell->y);
+                    entity::createPlant(systemsManager, targetCell);
+                    std::cout << "PLANT CREATED! Cell: " << targetCell
+                              << " x: " << targetCell->x
+                              << " y: " << targetCell->y << std::endl;
+
                 } else if (type == 1) {
-                    entity::createHerbivore(
-                        systemsManager, targetCell->x, targetCell->y);
+                    entity::createHerbivore(systemsManager, targetCell);
+                    std::cout << "HERBIVORE CREATED! Cell: " << targetCell
+                              << " x: " << targetCell->x
+                              << " y: " << targetCell->y << std::endl;
                 }
 
                 // systemsManager.manifest(manifestProto);

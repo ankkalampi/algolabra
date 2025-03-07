@@ -3,5 +3,8 @@
 #include "component.hpp"
 namespace components
 {
-CoordinateComponent::CoordinateComponent(int x, int y) : x(x), y(y) {}
+CoordinateComponent::CoordinateComponent(world::Cell* cell)
+    : x(cell->x), y(cell->y), cell(cell)
+{
+}
 };  // namespace components
