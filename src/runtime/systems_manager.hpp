@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../systems/system.hpp"
-#include "components/component_storage.hpp"
 #include "systems/behavior_system.hpp"
 #include "systems/coordinate_system.hpp"
 #include "systems/render_system.hpp"
@@ -19,8 +18,6 @@ struct SystemsManager : debug::Debuggable {
     systems::CoordinateSystem coordinateSystem;
     systems::RenderSystem renderSystem;
     systems::BehaviorSystem behaviorSystem;
-
-    components::ComponentStorage componentStorage;
 
     uint32_t runningID = 0;
     mutable std::mutex mtx;

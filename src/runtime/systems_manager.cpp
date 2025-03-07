@@ -20,7 +20,6 @@ SystemsManager::SystemsManager()
     addDebugProperty("renderSystem", &renderSystem);
     addDebugProperty("behaviorSystem", &behaviorSystem);
 
-    addDebugProperty("componentStorage", &componentStorage);
     addDebugProperty("runningID", &runningID);
     addDebugProperty("mtx", &mtx);
 }
