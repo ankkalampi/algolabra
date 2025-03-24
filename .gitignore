@@ -37,3 +37,4 @@ build/
 # cache folders
 .cache/
 .vscode/.cache/
+.vscode/
