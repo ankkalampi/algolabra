@@ -33,6 +33,7 @@ struct NeuralNet {
 
     NeuralNet();
 
+    // calculate the network so that output layer updates to correct values
     void propagateForward();
 };
 }  // namespace neural
