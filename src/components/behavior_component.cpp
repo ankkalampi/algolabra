@@ -11,10 +11,11 @@ namespace components
 
 BehaviorComponent::BehaviorComponent(
     Pattern pattern, systems::CoordinateSystem* coordinateSystem)
-    : pattern(pattern), counter(0), coordinateSystem(coordinateSystem)
+    : pattern(pattern), counter(0), coordinateSystem(coordinateSystem), action(Action::Eat), direction(Direction::East)
 {
     // find the corresponding coordinate component
     coordinateComponent = &coordinateSystem->getComponent(entityId);
+    
 
     // set limit based on move pattern
     switch (pattern) {
@@ -126,6 +127,7 @@ BehaviorComponent::BehaviorComponent(
 // this will be replaced with neural net based movement
 void BehaviorComponent::process(BehaviorComponent& behavComp)
 {
+    /*
     if (behavComp.counter < behavComp.movementPlant.size() - 1) {
         behavComp.counter++;
     } else {
@@ -140,6 +142,9 @@ void BehaviorComponent::process(BehaviorComponent& behavComp)
     }
 
     behavComp.move(behavComp.movementPlant[behavComp.counter]);
+    */
+    //std::cout << "preparing to move!" << std::endl;
+    if (behavComp.action == Action::Move) behavComp.move(behavComp.direction);
 }
 
 // updates corresponding coordinatecomponent based on direction given
@@ -213,5 +218,15 @@ void BehaviorComponent::move(Direction direction)
 
     // occupy updated cell
     coordinateComponent->cell->tenant = world::Cell::Tenant::Herbivore;
+}
+
+
+void eat(Direction direction){
+
+}
+
+void mate(Direction direction){
+
+
 }
 };  // namespace components

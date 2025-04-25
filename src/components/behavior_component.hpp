@@ -33,11 +33,18 @@ struct BehaviorComponent : public Component<BehaviorComponent> {
 
     systems::CoordinateSystem* coordinateSystem;
 
+    Direction direction;
+    Action action;
+
     BehaviorComponent(Pattern pattern,
                       systems::CoordinateSystem* coordinatesystem);
 
     static void process(BehaviorComponent& behavComp);
 
     void move(Direction direction);
+
+    void eat(Direction direction);
+
+    void mate(Direction direction);
 };
 };  // namespace components

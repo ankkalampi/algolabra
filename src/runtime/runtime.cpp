@@ -54,9 +54,13 @@ void Runtime::run()
             }
         }
 
+        //std::cout << "updating mindsystem" << std::endl;
         systemsManager.mindSystem.updateComponents();
+        //std::cout << "mindsystem updated" << std::endl;
 
+        //std::cout << "updating behavior system" << std::endl;
         systemsManager.behaviorSystem.updateComponents();
+        //std::cout << "behavior system updated" << std::endl;
 
         systemsManager.renderSystem.updateComponents();
 

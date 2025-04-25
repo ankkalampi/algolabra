@@ -42,21 +42,29 @@ void createHerbivore(engine::SystemsManager& sysManager, world::Cell* cell)
     components::RenderComponent renderComponent =
         components::RenderComponent(rect, color);
 
-    components::MindComponent mindComponent = components::MindComponent(
-        &sysManager.coordinateSystem, &sysManager.world);
+        coordinateComponent.entityId = id;
+    renderComponent.entityId = id;
+    sysManager.coordinateSystem.add(coordinateComponent);
+    sysManager.renderSystem.add(renderComponent);
+
+    
 
     components::BehaviorComponent behaviorComponent =
         components::BehaviorComponent(components::Pattern::Circles,
                                       &sysManager.coordinateSystem);
 
-    coordinateComponent.entityId = id;
-    renderComponent.entityId = id;
-    behaviorComponent.entityId = id;
+                                      behaviorComponent.entityId = id;
+                                      sysManager.behaviorSystem.add(behaviorComponent);
+
+    components::MindComponent mindComponent = components::MindComponent(
+                                        &sysManager.coordinateSystem, &sysManager.behaviorSystem, &sysManager.world);
+
+    
+    
     mindComponent.entityId = id;
 
-    sysManager.coordinateSystem.add(coordinateComponent);
-    sysManager.renderSystem.add(renderComponent);
-    sysManager.behaviorSystem.add(behaviorComponent);
+    
+    
     sysManager.mindSystem.add(mindComponent);
 }
 

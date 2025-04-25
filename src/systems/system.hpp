@@ -2,6 +2,8 @@
 
 #include "../components/component.hpp"
 
+#include <chrono>
+#include <thread>
 #include <unordered_map>
 #include <vector>
 
@@ -66,7 +68,9 @@ struct System {
 #pragma omp parallel for
         for (T &component : iterContainer) {
             T::processComponent(component);
+            
         }
+        
     }
 };
 };  // namespace systems
